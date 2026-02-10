@@ -4,16 +4,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.dto.TestDto;
 import com.example.demo.services.interfaces.TestService;
-
 
 @RestController
 @RequestMapping("/test")
 public class TestController {
 
     private final TestService testService;
+
     /**
      * Test
+     * 
      * @param testService
      */
     public TestController(TestService testService) {
@@ -22,6 +24,7 @@ public class TestController {
 
     /**
      * Primer API
+     * 
      * @return Hola Mundo
      */
     @GetMapping("/hello")
@@ -31,11 +34,21 @@ public class TestController {
 
     /**
      * API con interfaz
+     * 
      * @return Saludo
      */
     @GetMapping("/greeting")
     public String getGreeting() {
         return this.testService.getGreeting();
     }
-    
+
+    @GetMapping("/dto")
+    public TestDto testDto() {
+        TestDto dto = new TestDto();
+        dto.setId(1L);
+        dto.setMessage("DTO Test Message");
+
+        return dto;
+    }
+
 }
