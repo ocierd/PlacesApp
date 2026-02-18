@@ -1,4 +1,5 @@
 -- Datos de ejemplo para la tabla "categoria"
+SET IDENTITY_INSERT categoria ON; -- Permite insertar valores específicos en la columna de identidad
 INSERT INTO categoria (categoria_id, nombre, descripcion) VALUES
 (1, 'Restaurante', 'Establecimientos que ofrecen comida y bebida para consumo en el lugar.'),
 (2, 'Cafetería', 'Lugares especializados en servir café y bebidas relacionadas, además de algunos alimentos ligeros.'),
@@ -23,9 +24,12 @@ INSERT INTO categoria (categoria_id, nombre, descripcion) VALUES
 (21, 'Museo', 'Instituciones que conservan y exhiben objetos de valor histórico, artístico o científico.'),
 (22, 'Parque', 'Áreas verdes destinadas al esparcimiento y actividades recreativas.'),
 (23, 'Gastronomía Local', 'Restaurantes que se especializan en platos típicos de la región o país.');
+SET IDENTITY_INSERT categoria OFF; -- Desactiva la inserción de valores específicos en la columna de identidad
+
 
 
 -- Datos de ejemplo para la tabla "dia"
+SET IDENTITY_INSERT dia ON;
 INSERT INTO dia (dia_id, nombre) VALUES
 (1, 'Lunes'),
 (2, 'Martes'),
@@ -34,9 +38,12 @@ INSERT INTO dia (dia_id, nombre) VALUES
 (5, 'Viernes'),
 (6, 'Sábado'),
 (7, 'Domingo');
+SET IDENTITY_INSERT dia OFF;
+
 
 
 -- Datos de ejemplo para la tabla "empresa"
+SET IDENTITY_INSERT empresa ON;
 INSERT INTO empresa (empresa_id, nombre, categoria_id) VALUES
 (1, 'La Casa del Sabor', 1),
 (2, 'Café Aroma', 2),
@@ -61,27 +68,36 @@ INSERT INTO empresa (empresa_id, nombre, categoria_id) VALUES
 (21, 'Museo de Arte Moderno', 21),
 (22, 'Parque Natural Verde', 22),
 (23, 'Gastronomía Local Tradicional', 23);
+SET IDENTITY_INSERT empresa OFF;
+
 
 
 -- Datos de ejemplo para la tabla "ubicacion"
+SET IDENTITY_INSERT ubicacion ON;
 INSERT INTO ubicacion (ubicacion_id, latitud, longitud, enlace_maps) VALUES
 (1, 19.432608, -99.133209, 'https://maps.google.com/?q=19.432608,-99.133209'),
 (2, 40.712776, -74.005974, 'https://maps.google.com/?q=40.712776,-74.005974'),
 (3, 34.052235, -118.243683, 'https://maps.google.com/?q=34.052235,-118.243683'),
 (4, 51.507351, -0.127758, 'https://maps.google.com/?q=51.507351,-0.127758'),
 (5, 48.856613, 2.352222, 'https://maps.google.com/?q=48.856613,2.352222');
+SET IDENTITY_INSERT ubicacion OFF;
+
 
 
 -- Datos de ejemplo para la tabla "sucursal"
+SET IDENTITY_INSERT sucursal ON;
 INSERT INTO sucursal (sucursal_id, nombre, empresa_id, ubicacion_id) VALUES
 (1, 'La Casa del Sabor - Sucursal Centro', 1, 1),
 (2, 'Café Aroma - Sucursal Norte', 2, 2),
 (3, 'Bar El Rincón - Sucursal Sur', 3, 3),
 (4, 'Fast Food Express - Sucursal Este', 4, 4),
 (5, 'Helados del Sol - Sucursal Oeste', 5, 5);
+SET IDENTITY_INSERT sucursal OFF;
+
 
 
 -- Datos de ejemplo para la tabla "horario"
+SET IDENTITY_INSERT horario ON;
 INSERT INTO horario (horario_id, hora_apertura, hora_cierre, dia_id, sucursal_id) VALUES
 (1, '08:00:00', '22:00:00', 1, 1),
 (2, '08:00:00', '22:00:00', 2, 1),
@@ -90,3 +106,4 @@ INSERT INTO horario (horario_id, hora_apertura, hora_cierre, dia_id, sucursal_id
 (5, '08:00:00', '22:00:00', 5, 1),
 (6, '10:00:00', '20:00:00', 6, 1),
 (7, '10:00:00', '20:00:00', 7, 1);
+SET IDENTITY_INSERT horario OFF;

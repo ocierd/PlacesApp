@@ -1,11 +1,11 @@
 CREATE TABLE categoria (
-    categoria_id tinyint PRIMARY KEY,
+    categoria_id tinyint IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(1000) NULL
 );
 
 CREATE TABLE usuario (
-    usuario_id bigint PRIMARY KEY,
+    usuario_id bigint IDENTITY PRIMARY KEY NOT NULL,
     username VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -23,27 +23,27 @@ ALTER TABLE usuario
 ADD CONSTRAINT UQ_email UNIQUE (email);
 
 CREATE TABLE dia (
-    dia_id tinyint PRIMARY KEY,
+    dia_id tinyint IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE empresa (
-    empresa_id int PRIMARY KEY,
+    empresa_id int IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(1000) NOT NULL,
     categoria_id tinyint NOT NULL,
     CONSTRAINT empresa_categoria_fk FOREIGN KEY (categoria_id) REFERENCES categoria(categoria_id)
 );
 
 CREATE TABLE ubicacion (
-    ubicacion_id bigint PRIMARY KEY,
+    ubicacion_id bigint IDENTITY PRIMARY KEY NOT NULL,
     latitud decimal(8,6) NOT NULL,
     longitud decimal(9,6) NOT NULL,
     enlace_maps varchar(4000) NULL
 );
 
---DUDA UBICACION
+
 CREATE TABLE sucursal (
-    sucursal_id bigint PRIMARY KEY,
+    sucursal_id bigint IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(1000) NOT NULL,
     creado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     empresa_id int NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE sucursal (
 );
 
 CREATE TABLE horario (
-    horario_id bigint PRIMARY KEY,
+    horario_id bigint IDENTITY PRIMARY KEY NOT NULL,
     hora_apertura time NOT NULL,
     hora_cierre time NOT NULL,
     dia_id tinyint NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE horario (
 );
 
 CREATE TABLE visita (
-    visita_id bigint PRIMARY KEY,
+    visita_id bigint IDENTITY PRIMARY KEY NOT NULL,
     visitado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     visitado bit DEFAULT 0,
     comentario TEXT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE visita (
 );
 
 CREATE TABLE recomendacion (
-    recomendacion_id bigint PRIMARY KEY,
+    recomendacion_id bigint IDENTITY PRIMARY KEY NOT NULL,
     aceptada bit DEFAULT 0,
     recomendado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     usuario_recomienda_id bigint NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE recomendacion (
 
 -------------------------
 CREATE TABLE calificacion (
-    calificacion_id bigint PRIMARY KEY,
+    calificacion_id bigint IDENTITY PRIMARY KEY NOT NULL,
     puntaje tinyint NOT NULL,
     calificado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     comentario TEXT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE calificacion (
 );
 
 CREATE TABLE favorito (
-    favorito_id bigint PRIMARY KEY,
+    favorito_id bigint IDENTITY PRIMARY KEY NOT NULL,
     usuario_id bigint NOT NULL,
     sucursal_id bigint NOT NULL,
     CONSTRAINT favorito_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
@@ -108,15 +108,14 @@ CREATE TABLE favorito (
 );
 
 CREATE TABLE tipo_pago (
-    tipo_pago_id tinyint PRIMARY KEY,
+    tipo_pago_id tinyint IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE sucursal_tipo_pago (
-    sucursal_tipo_pago_id bigint PRIMARY KEY,
+    sucursal_tipo_pago_id bigint IDENTITY PRIMARY KEY NOT NULL,
     sucursal_id bigint NOT NULL,
     tipo_pago_id tinyint NOT NULL,
     CONSTRAINT sucursal_tipo_pago_sucursal_fk FOREIGN KEY (sucursal_id) REFERENCES sucursal(sucursal_id),
     CONSTRAINT sucursal_tipo_pago_tipo_pago_fk FOREIGN KEY (tipo_pago_id) REFERENCES tipo_pago(tipo_pago_id)
-   
 );
