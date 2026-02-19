@@ -17,7 +17,7 @@ public class Categoria {
      */
     @Id
     @Column(name = "categoria_id")
-    private short categoria_id;
+    private short categoriaId;
 
     /**
      * Nombre de la categoría
@@ -34,11 +34,11 @@ public class Categoria {
 
     
     public short getCategoria_id() {
-        return categoria_id;
+        return categoriaId;
     }
 
     public void setCategoria_id(short categoria_id) {
-        this.categoria_id = categoria_id;
+        this.categoriaId = categoria_id;
     }
 
     public String getNombre() {
