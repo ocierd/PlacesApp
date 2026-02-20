@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,20 +23,26 @@ import com.example.demo.services.interfaces.SucursalService;
 public class SucursalController {
 
     /**
-     * SucursalService es un servicio que proporciona la lógica de negocio para manejar las operaciones relacionadas con las sucursales.
+     * SucursalService es un servicio que proporciona la lógica de negocio para
+     * manejar las operaciones relacionadas con las sucursales.
      */
     private final SucursalService sucursalService;
 
     /**
-     * Constructor de SucursalController que inyecta la dependencia de SucursalService.
-     * @param sucursalService El servicio de sucursal que se utilizará para manejar las operaciones relacionadas con las sucursales
+     * Constructor de SucursalController que inyecta la dependencia de
+     * SucursalService.
+     * 
+     * @param sucursalService El servicio de sucursal que se utilizará para manejar
+     *                        las operaciones relacionadas con las sucursales
      */
     public SucursalController(SucursalService sucursalService) {
         this.sucursalService = sucursalService;
     }
 
     /**
-     * Endpoint para crear una nueva sucursal. Recibe un objeto Sucursal en el cuerpo de la solicitud y devuelve la sucursal creada.
+     * Endpoint para crear una nueva sucursal. Recibe un objeto Sucursal en el
+     * cuerpo de la solicitud y devuelve la sucursal creada.
+     * 
      * @param sucursal El objeto Sucursal que se desea crear
      * @return La sucursal creada
      */
@@ -44,9 +51,13 @@ public class SucursalController {
         return sucursalService.crearSucursal(sucursal);
     }
 
-
     /**
-     * Endpoint para crear una nueva sucursal a partir de un objeto SucursalDto. Recibe un objeto SucursalDto en el cuerpo de la solicitud y devuelve la sucursal creada. Este endpoint es útil para recibir datos de la sucursal desde el cliente en formato DTO (Data Transfer Object) y luego convertirlo a una entidad Sucursal para guardarlo en la base de datos.
+     * Endpoint para crear una nueva sucursal a partir de un objeto SucursalDto.
+     * Recibe un objeto SucursalDto en el cuerpo de la solicitud y devuelve la
+     * sucursal creada. Este endpoint es útil para recibir datos de la sucursal
+     * desde el cliente en formato DTO (Data Transfer Object) y luego convertirlo a
+     * una entidad Sucursal para guardarlo en la base de datos.
+     * 
      * @param sucursal El objeto SucursalDto que se desea crear
      * @return La sucursal creada
      */
@@ -55,13 +66,25 @@ public class SucursalController {
         return sucursalService.crearSucursal(sucursal);
     }
 
-
     /**
-     * Endpoint para obtener la lista de todas las sucursales. Devuelve una lista de todas las sucursales disponibles en la aplicación.
+     * Endpoint para obtener la lista de todas las sucursales. Devuelve una lista de
+     * todas las sucursales disponibles en la aplicación.
+     * 
      * @return Lista de todas las sucursales
      */
     @GetMapping
     public List<Sucursal> getSucursales() {
         return sucursalService.getAllSucursales();
     }
+
+    /**
+     * Endpoint para obtener una sucursal por su ID. Recibe el ID de la sucursal como
+     * @param id El ID de la sucursal que se desea obtener
+     * @return La sucursal con el ID especificado o null si no existe
+     */
+    @GetMapping("/{id}")
+    public Sucursal getById(@PathVariable Long id){
+        return sucursalService.getById(id);
+    }
+
 }
