@@ -1,13 +1,16 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.repository.SucursalRepository;
 import com.example.demo.services.interfaces.SucursalService;
 
@@ -72,6 +75,51 @@ public class SucursalServiceImpl implements SucursalService {
         return null;
     }
 
+    @Override
+    public Sucursal agregarHorario(Long intSucursalId, Horario horario) {
+        List<Horario> horariosExistentes = new ArrayList<>();
+        boolean seTraspasa = false;
+
+        Sucursal sucursal = sucursalRepository.findBySucursalId(intSucursalId);
+        horariosExistentes = sucursal.getHorarios();
+
+        for (int index = 0; index < horariosExistentes.size(); index++) {
+            Horario existente = horariosExistentes.get(index);
+
+            if ((existente.getDiaId() != horario.getDiaId()) ||
+                    ((existente.getDiaId() != horario.getDiaId() &&
+                            existente.getHoraApertura().compareTo(horario.getHoraApertura()) <= 0 &&
+                            existente.getHoraCierre().compareTo(horario.getHoraApertura()) >= 0)
+                    ||
+                    (existente.getHoraApertura().compareTo(horario.getHoraCierre()) <= 0 &&
+                            existente.getHoraCierre().compareTo(horario.getHoraCierre()) >= 0))) {
+                seTraspasa = true;
+                break;
+            }
+        }
+
+        if (seTraspasa) {
+            return null;
+        }
+
+        Long horarioId = sucursalRepository.crearHorarioSucursal(
+                intSucursalId,
+                horario.getDiaId(),
+                horario.getHoraApertura(),
+                horario.getHoraCierre());
+
+        if (intSucursalId != null) {
+            return sucursalRepository.findById(intSucursalId)
+                    .orElse(null);
+        }
+        return null;
+    }
+
+    // @Override
+    // public Sucursal crearSucursalConHorarios(Sucursal sucursal, ) {
+
+    // }
+
     /**
      * Obtiene una lista de todas las sucursales disponibles.
      * 
@@ -80,6 +128,30 @@ public class SucursalServiceImpl implements SucursalService {
     @Override
     public List<Sucursal> getAllSucursales() {
         List<Sucursal> sucursales = sucursalRepository.findAll();
+        return sucursales;
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public List<Sucursal> getByCriteria(SucursalCriteriaDto sucursalCriteriaDto) {
+        String nombre = sucursalCriteriaDto.getCriterioBusqueda();
+        Double latitud = sucursalCriteriaDto.getUbicacion().getLatitud();
+        Double longitud = sucursalCriteriaDto.getUbicacion().getLongitud();
+        Double kms = sucursalCriteriaDto.getDistanciaKms();
+
+        List<Long> sucursalesIds = sucursalRepository.findByCriteria(
+                nombre,
+                latitud == 0.00 ? null : latitud,
+                longitud == 0.00 ? null : longitud,
+                kms == 0.00 ? null : kms);
+
+        List<Sucursal> sucursales = new ArrayList<>();
+
+        for (Long id : sucursalesIds) {
+            Optional<Sucursal> sucursal = sucursalRepository.findById(id);
+            sucursales.add(sucursal.get());
+        }
+
         return sucursales;
     }
 

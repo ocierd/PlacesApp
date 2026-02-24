@@ -2,8 +2,10 @@ package com.example.demo.services.interfaces;
 
 import java.util.List;
 
+import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.dto.SucursalCriteriaDto;
 
 /**
  * SucursalService es una interfaz que define los métodos de negocio
@@ -20,6 +22,8 @@ public interface SucursalService {
      * @return La sucursal creada
      */
     Sucursal crearSucursal(Sucursal sucursal);
+
+    Sucursal agregarHorario(Long intSucursalId, Horario horario);
 
     /**
      * Crea una nueva sucursal en la base de datos a partir de un objeto
@@ -39,6 +43,8 @@ public interface SucursalService {
      * @return Lista de todas las sucursales
      */
     List<Sucursal> getAllSucursales();
+
+    List<Sucursal> getByCriteria(SucursalCriteriaDto sucursalRequest);
 
     /**
      * Obtiene la entidad por medio del identificador. Regresa NULL en caso de no

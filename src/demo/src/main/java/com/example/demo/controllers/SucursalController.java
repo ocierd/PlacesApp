@@ -3,15 +3,20 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.services.interfaces.SucursalService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 /**
  * SucursalController es un controlador REST que maneja las solicitudes
@@ -51,6 +56,11 @@ public class SucursalController {
         return sucursalService.crearSucursal(sucursal);
     }
 
+    @PutMapping("/{id}")
+    public Sucursal crearHorario(@PathVariable Long id, @RequestBody Horario horario) {
+        return sucursalService.agregarHorario(id, horario);
+    }
+
     /**
      * Endpoint para crear una nueva sucursal a partir de un objeto SucursalDto.
      * Recibe un objeto SucursalDto en el cuerpo de la solicitud y devuelve la
@@ -75,6 +85,11 @@ public class SucursalController {
     @GetMapping
     public List<Sucursal> getSucursales() {
         return sucursalService.getAllSucursales();
+    }
+
+    @GetMapping("/search-by-criteria")
+    public List<Sucursal> getSucursalesByCriteria(@RequestBody SucursalCriteriaDto filtro) {
+        return sucursalService.getByCriteria(filtro);
     }
 
     /**

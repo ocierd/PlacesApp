@@ -1,6 +1,10 @@
 package com.example.demo.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -84,6 +89,15 @@ public class Sucursal {
     @JoinColumn(name = "ubicacion_id", nullable = true, insertable = true, updatable = false)
     private Ubicacion ubicacion;
 
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
+    private List<Horario> horarios = new ArrayList<>();
+
+    public void addHorario(Horario horario) {
+        horarios.add(horario);
+        horario.setSucursal(this);
+    }
+
     public Long getSucursalId() {
         return sucursalId;
     }
@@ -140,4 +154,11 @@ public class Sucursal {
         this.ubicacion = ubicacion;
     }
 
+    public List<Horario> getHorarios() {
+        return this.horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
 }
