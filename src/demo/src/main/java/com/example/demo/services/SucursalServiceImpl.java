@@ -10,9 +10,12 @@ import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.dto.UbicacionDto;
+import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.repository.SucursalRepository;
 import com.example.demo.services.interfaces.SucursalService;
+import com.example.demo.services.utils.TimeUtils;
 
 import jakarta.transaction.Transactional;
 
@@ -83,15 +86,19 @@ public class SucursalServiceImpl implements SucursalService {
         Sucursal sucursal = sucursalRepository.findBySucursalId(intSucursalId);
         horariosExistentes = sucursal.getHorarios();
 
-        for (int index = 0; index < horariosExistentes.size(); index++) {
-            Horario existente = horariosExistentes.get(index);
+        for (Horario existente : horariosExistentes) {
 
-            if (existente.getDiaId() == horario.getDiaId() &&
-                    ((existente.getHoraApertura().compareTo(horario.getHoraApertura()) <= 0 &&
-                            existente.getHoraCierre().compareTo(horario.getHoraApertura()) >= 0)
-                    ||
-                    (existente.getHoraApertura().compareTo(horario.getHoraCierre()) <= 0 &&
-                            existente.getHoraCierre().compareTo(horario.getHoraCierre()) >= 0))) {
+            boolean esMismoDia = existente.getDiaId() == horario.getDiaId();
+            if (!esMismoDia) {
+                continue;
+            }
+
+            boolean seTraslapaHoraApertura = TimeUtils.isBetween(horario.getHoraApertura(), existente.getHoraApertura(),
+                    existente.getHoraCierre());
+            boolean seTraslapaHoraCierre = TimeUtils.isBetween(horario.getHoraCierre(), existente.getHoraApertura(),
+                    existente.getHoraCierre());
+
+            if (seTraslapaHoraApertura || seTraslapaHoraCierre) {
                 seTraspasa = true;
                 break;
             }
@@ -101,7 +108,7 @@ public class SucursalServiceImpl implements SucursalService {
             return null;
         }
 
-        Long horarioId = sucursalRepository.crearHorarioSucursal(
+        sucursalRepository.crearHorarioSucursal(
                 intSucursalId,
                 horario.getDiaId(),
                 horario.getHoraApertura(),
@@ -134,15 +141,21 @@ public class SucursalServiceImpl implements SucursalService {
     @Transactional(rollbackOn = Exception.class)
     public List<Sucursal> getByCriteria(SucursalCriteriaDto sucursalCriteriaDto) {
         String nombre = sucursalCriteriaDto.getCriterioBusqueda();
-        Double latitud = sucursalCriteriaDto.getUbicacion().getLatitud();
-        Double longitud = sucursalCriteriaDto.getUbicacion().getLongitud();
-        Double kms = sucursalCriteriaDto.getDistanciaKms();
+        UbicacionDto ubi = sucursalCriteriaDto.getUbicacion();
+        Double latitud = ubi == null ? null : ubi.getLatitud();
+        Double longitud = ubi == null ? null : ubi.getLongitud();
+        Double kms = sucursalCriteriaDto.getDistanciaKms() == 0 ? null : sucursalCriteriaDto.getDistanciaKms();
 
-        List<Long> sucursalesIds = sucursalRepository.findByCriteria(
-                nombre,
-                latitud == 0.00 ? null : latitud,
-                longitud == 0.00 ? null : longitud,
-                kms == 0.00 ? null : kms);
+
+        // JPA projection para obtener solo el ID y el nombre de las sucursales que coinciden con el criterio de búsqueda
+        List<SucursalSummary> summaries = sucursalRepository.findSucursalesByCriteria(nombre);
+
+        for (SucursalSummary s : summaries) {
+            System.out.println("ID: " + s.getSucursalId() + " - Nombre: " + s.getNombre());
+        }
+
+        List<Long> sucursalesIds = sucursalRepository
+                .findByCriteria(nombre, latitud, longitud, kms);
 
         List<Sucursal> sucursales = new ArrayList<>();
 
@@ -161,7 +174,7 @@ public class SucursalServiceImpl implements SucursalService {
     @Override
     public Sucursal getById(Long sucursalId) {
 
-        List<Sucursal> sucursals = sucursalRepository.findByEmpresaId(100);
+        // List<Sucursal> sucursals = sucursalRepository.findByEmpresaId(100);
 
         Optional<Sucursal> sucursalOpt = sucursalRepository.findById(sucursalId);
         return sucursalOpt.isPresent() ? sucursalOpt.get() : null;

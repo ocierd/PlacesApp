@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +15,6 @@ import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.services.interfaces.SucursalService;
 import org.springframework.web.bind.annotation.PutMapping;
-
 
 /**
  * SucursalController es un controlador REST que maneja las solicitudes
@@ -56,7 +54,7 @@ public class SucursalController {
         return sucursalService.crearSucursal(sucursal);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/horario")
     public Sucursal crearHorario(@PathVariable Long id, @RequestBody Horario horario) {
         return sucursalService.agregarHorario(id, horario);
     }
@@ -87,18 +85,29 @@ public class SucursalController {
         return sucursalService.getAllSucursales();
     }
 
-    @GetMapping("/search-by-criteria")
+    /**
+     * Endpoint para obtener una lista de sucursales por el ID de la empresa. Recibe
+     * el ID de la empresa como parámetro en la URL y devuelve una lista de
+     * sucursales asociadas a esa empresa.
+     * 
+     * @param empresaId El ID de la empresa para la cual se desean obtener las
+     *                  sucursales
+     * @return Lista de sucursales asociadas a la empresa con el ID especificado
+     */
+    @PostMapping("/search-by-criteria")
     public List<Sucursal> getSucursalesByCriteria(@RequestBody SucursalCriteriaDto filtro) {
         return sucursalService.getByCriteria(filtro);
     }
 
     /**
-     * Endpoint para obtener una sucursal por su ID. Recibe el ID de la sucursal como
+     * Endpoint para obtener una sucursal por su ID. Recibe el ID de la sucursal
+     * como
+     * 
      * @param id El ID de la sucursal que se desea obtener
      * @return La sucursal con el ID especificado o null si no existe
      */
     @GetMapping("/{id}")
-    public Sucursal getById(@PathVariable Long id){
+    public Sucursal getById(@PathVariable Long id) {
         return sucursalService.getById(id);
     }
 

@@ -1,7 +1,7 @@
--- SP para insertar una nueva empresa con su sucursal y ubicación asociada
--- Este procedimiento almacenado permite insertar una nueva empresa junto con su sucursal y ubicación asociada. 
+-- SP para insertar una nueva sucursal con su ubicación asociada
+-- Este procedimiento almacenado permite insertar una nueva sucursal junto con su ubicación asociada. 
 -- Si no se proporciona una ubicación, se insertará una nueva ubicación con los datos proporcionados.
-CREATE PROCEDURE sp_empresa_insert(
+CREATE PROCEDURE sp_sucursal_insert(
     @empresa_id INT,
     @nombre_sucursal VARCHAR(255),
     @ubicacion_id BIGINT NULL,

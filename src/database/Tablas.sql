@@ -62,6 +62,7 @@ CREATE TABLE horario (
     CONSTRAINT horario_sucursal_fk FOREIGN KEY (sucursal_id) REFERENCES sucursal(sucursal_id)
 );
 
+-- Lugar que deseas visitar
 CREATE TABLE visita (
     visita_id bigint IDENTITY PRIMARY KEY NOT NULL,
     visitado_en smalldatetime NOT NULL DEFAULT GETDATE(),

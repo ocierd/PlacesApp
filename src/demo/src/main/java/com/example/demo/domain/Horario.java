@@ -1,7 +1,8 @@
 package com.example.demo.domain;
 
+
 import java.sql.Time;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -25,10 +26,10 @@ public class Horario {
   private Long horarioId;
 
   @Column(name = "hora_apertura")
-  private Time horaApertura;
+  private LocalTime horaApertura;
 
   @Column(name = "hora_cierre")
-  private Time horaCierre;
+  private LocalTime horaCierre;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "dia_id", insertable = false, updatable = false)
@@ -50,19 +51,19 @@ public class Horario {
     this.horarioId = horarioId;
   }
 
-  public Time getHoraApertura() {
+  public LocalTime getHoraApertura() {
     return this.horaApertura;
   }
 
-  public void setHoraApertura(Time horaApertura) {
+  public void setHoraApertura(LocalTime horaApertura) {
     this.horaApertura = horaApertura;
   }
 
-  public Time getHoraCierre() {
+  public LocalTime getHoraCierre() {
     return this.horaCierre;
   }
 
-  public void setHoraCierre(Time horaCierre) {
+  public void setHoraCierre(LocalTime horaCierre) {
     this.horaCierre = horaCierre;
   }
 
