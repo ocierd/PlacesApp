@@ -86,9 +86,8 @@ public class SucursalServiceImpl implements SucursalService {
         for (int index = 0; index < horariosExistentes.size(); index++) {
             Horario existente = horariosExistentes.get(index);
 
-            if ((existente.getDiaId() != horario.getDiaId()) ||
-                    ((existente.getDiaId() != horario.getDiaId() &&
-                            existente.getHoraApertura().compareTo(horario.getHoraApertura()) <= 0 &&
+            if (existente.getDiaId() == horario.getDiaId() &&
+                    ((existente.getHoraApertura().compareTo(horario.getHoraApertura()) <= 0 &&
                             existente.getHoraCierre().compareTo(horario.getHoraApertura()) >= 0)
                     ||
                     (existente.getHoraApertura().compareTo(horario.getHoraCierre()) <= 0 &&
