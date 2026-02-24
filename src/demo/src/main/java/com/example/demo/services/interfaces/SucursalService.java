@@ -40,4 +40,10 @@ public interface SucursalService {
      */
     List<Sucursal> getAllSucursales();
 
+    /**
+     * Obtiene la entidad por medio del identificador. Regresa NULL en caso de no
+     * existir
+     */
+    Sucursal getById(Long sucursalId);
+
 }
