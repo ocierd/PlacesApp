@@ -144,7 +144,11 @@ public class SucursalServiceImpl implements SucursalService {
         UbicacionDto ubi = sucursalCriteriaDto.getUbicacion();
         Double latitud = ubi == null ? null : ubi.getLatitud();
         Double longitud = ubi == null ? null : ubi.getLongitud();
-        Double kms = sucursalCriteriaDto.getDistanciaKms() == 0 ? null : sucursalCriteriaDto.getDistanciaKms();
+        Double kms = ubi == null ? null : sucursalCriteriaDto.getDistanciaKms();
+ 
+        latitud = latitud == 0.00 ? null : latitud;
+        longitud = longitud == 0.00 ? null : longitud;
+        kms = kms == 0.00 ? null : kms;
 
         List<SucursalSummary> summaries = sucursalRepository.findByCriteria(nombre, latitud, longitud, kms);
 
