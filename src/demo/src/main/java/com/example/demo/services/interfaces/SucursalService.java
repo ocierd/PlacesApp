@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 
 /**
@@ -44,7 +45,7 @@ public interface SucursalService {
      */
     List<Sucursal> getAllSucursales();
 
-    List<Sucursal> getByCriteria(SucursalCriteriaDto sucursalRequest);
+    List<SucursalSummary> getByCriteria(SucursalCriteriaDto sucursalRequest);
 
     /**
      * Obtiene la entidad por medio del identificador. Regresa NULL en caso de no

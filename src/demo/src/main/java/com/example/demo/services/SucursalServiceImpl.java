@@ -139,32 +139,23 @@ public class SucursalServiceImpl implements SucursalService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public List<Sucursal> getByCriteria(SucursalCriteriaDto sucursalCriteriaDto) {
+    public List<SucursalSummary> getByCriteria(SucursalCriteriaDto sucursalCriteriaDto) {
         String nombre = sucursalCriteriaDto.getCriterioBusqueda();
         UbicacionDto ubi = sucursalCriteriaDto.getUbicacion();
         Double latitud = ubi == null ? null : ubi.getLatitud();
         Double longitud = ubi == null ? null : ubi.getLongitud();
         Double kms = sucursalCriteriaDto.getDistanciaKms() == 0 ? null : sucursalCriteriaDto.getDistanciaKms();
 
+        List<SucursalSummary> summaries = sucursalRepository.findByCriteria(nombre, latitud, longitud, kms);
 
-        // JPA projection para obtener solo el ID y el nombre de las sucursales que coinciden con el criterio de búsqueda
-        List<SucursalSummary> summaries = sucursalRepository.findSucursalesByCriteria(nombre);
+        // // JPA projection para obtener solo el ID y el nombre de las sucursales que coinciden con el criterio de búsqueda
+        // List<SucursalSummary> summaries = sucursalRepository.findSucursalesByCriteria(nombre);
 
-        for (SucursalSummary s : summaries) {
-            System.out.println("ID: " + s.getSucursalId() + " - Nombre: " + s.getNombre());
+        for (SucursalSummary s: summaries) {
+            System.out.println("ID: " + s.getSucursalId().toString() + " - Nombre: " + s.getNombre());
         }
 
-        List<Long> sucursalesIds = sucursalRepository
-                .findByCriteria(nombre, latitud, longitud, kms);
-
-        List<Sucursal> sucursales = new ArrayList<>();
-
-        for (Long id : sucursalesIds) {
-            Optional<Sucursal> sucursal = sucursalRepository.findById(id);
-            sucursales.add(sucursal.get());
-        }
-
-        return sucursales;
+        return summaries;
     }
 
     /**

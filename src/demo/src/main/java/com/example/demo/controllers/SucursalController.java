@@ -13,6 +13,7 @@ import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.services.interfaces.SucursalService;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -95,7 +96,7 @@ public class SucursalController {
      * @return Lista de sucursales asociadas a la empresa con el ID especificado
      */
     @PostMapping("/search-by-criteria")
-    public List<Sucursal> getSucursalesByCriteria(@RequestBody SucursalCriteriaDto filtro) {
+    public List<SucursalSummary> getSucursalesByCriteria(@RequestBody SucursalCriteriaDto filtro) {
         return sucursalService.getByCriteria(filtro);
     }
 

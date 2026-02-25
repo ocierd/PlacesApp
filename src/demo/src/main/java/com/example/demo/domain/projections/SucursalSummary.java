@@ -7,5 +7,4 @@ public interface SucursalSummary {
 
     // nombre
     String getNombre();
-
 }
