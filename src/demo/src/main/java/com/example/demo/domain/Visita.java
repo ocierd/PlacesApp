@@ -20,7 +20,8 @@ public class Visita {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long visitaId;
 
-   @Column(name = "visitado_en")
+   @Column(name = "visitado_en", insertable=false)
+
    private Date visitadoEn;
 
    @Column(name = "visitado")
@@ -33,17 +34,17 @@ public class Visita {
    private Short calificacion;
 
    @Column(name = "usuario_id")
-   private Long usuarioid;
-   
+   private Long usuarioId;
+
+   @Column(name = "sucursal_id")
+   private Long sucursalId;
+
    @ManyToOne
    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
    private Usuario usuario;
 
-   @Column(name = "sucursal_id", insertable = false, updatable = false)
-   private Long sucursalId;
-
-   @ManyToOne
-   @JoinColumn(name = "sucursal_id")
+   @ManyToOne  
+   @JoinColumn(name = "sucursal_id" , insertable = false, updatable = false)
    private Sucursal sucursal;
 
    public Long getVisitaId() {
@@ -87,11 +88,11 @@ public class Visita {
    }
 
    public Long getUsuarioid() {
-    return usuarioid;
+    return usuarioId;
    }
 
    public void setUsuarioid(Long usuarioid) {
-    this.usuarioid = usuarioid;
+    this.usuarioId = usuarioid;
    }
 
    public Usuario getUsuario() {

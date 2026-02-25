@@ -22,7 +22,7 @@ public class Calificacion {
     @Column(name = "puntaje")
     private Integer puntaje;
 
-    @Column (name = "calificado_en")
+    @Column (name = "calificado_en", insertable = false)
     private Date calificadoEn;
 
     @Column (name = "comentario")
