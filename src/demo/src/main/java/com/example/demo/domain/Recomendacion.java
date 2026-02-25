@@ -21,7 +21,7 @@ public class Recomendacion {
     @Column(name = "aceptada")
     private Boolean aceptada;
 
-    @Column(name = "recomendado_en")
+    @Column(name = "recomendado_en", insertable=false)
     private Date recomendadoEn;
 
     @Column(name = "usuario_recomienda_id")
