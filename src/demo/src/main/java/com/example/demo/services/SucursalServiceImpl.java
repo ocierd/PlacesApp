@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
@@ -16,8 +17,6 @@ import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.repository.SucursalRepository;
 import com.example.demo.services.interfaces.SucursalService;
 import com.example.demo.services.utils.TimeUtils;
-
-import jakarta.transaction.Transactional;
 
 /**
  * SucursalServiceImpl es una clase que implementa la interfaz SucursalService y
@@ -42,6 +41,7 @@ public class SucursalServiceImpl implements SucursalService {
      * @return La sucursal creada
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Sucursal crearSucursal(Sucursal sucursal) {
         Sucursal creada = sucursalRepository.save(sucursal);
         Long sucursalId = creada.getSucursalId();
@@ -138,24 +138,23 @@ public class SucursalServiceImpl implements SucursalService {
     }
 
     @Override
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(readOnly = true)
     public List<SucursalSummary> getByCriteria(SucursalCriteriaDto sucursalCriteriaDto) {
         String nombre = sucursalCriteriaDto.getCriterioBusqueda();
         UbicacionDto ubi = sucursalCriteriaDto.getUbicacion();
-        Double latitud = ubi == null ? null : ubi.getLatitud();
-        Double longitud = ubi == null ? null : ubi.getLongitud();
-        Double kms = ubi == null ? null : sucursalCriteriaDto.getDistanciaKms();
- 
-        latitud = latitud == 0.00 ? null : latitud;
-        longitud = longitud == 0.00 ? null : longitud;
-        kms = kms == 0.00 ? null : kms;
+        Double latitud = ubi == null ? null : ubi.getLatitud() == 0.00 ? null : ubi.getLatitud();
+        Double longitud = ubi == null ? null : ubi.getLongitud() == 0.00 ? null : ubi.getLongitud();
+        Double kms = ubi == null ? null
+                : sucursalCriteriaDto.getDistanciaKms() == 0.00 ? null : sucursalCriteriaDto.getDistanciaKms();
 
         List<SucursalSummary> summaries = sucursalRepository.findByCriteria(nombre, latitud, longitud, kms);
 
-        // // JPA projection para obtener solo el ID y el nombre de las sucursales que coinciden con el criterio de búsqueda
-        // List<SucursalSummary> summaries = sucursalRepository.findSucursalesByCriteria(nombre);
+        // // JPA projection para obtener solo el ID y el nombre de las sucursales que
+        // coinciden con el criterio de búsqueda
+        // List<SucursalSummary> summaries =
+        // sucursalRepository.findSucursalesByCriteria(nombre);
 
-        for (SucursalSummary s: summaries) {
+        for (SucursalSummary s : summaries) {
             System.out.println("ID: " + s.getSucursalId().toString() + " - Nombre: " + s.getNombre());
         }
 
@@ -191,7 +190,7 @@ public class SucursalServiceImpl implements SucursalService {
      * @param sucursals   Lista de sucursales a actualizar
      * @param ubicacionId ID de la ubicación que se asignará a las sucursales
      */
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void actualizarUbicacionDeSucursales(List<Sucursal> sucursals, Long ubicacionId) {
         try {
             for (Sucursal sucursal : sucursals) {

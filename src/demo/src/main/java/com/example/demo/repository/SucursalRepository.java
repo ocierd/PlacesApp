@@ -75,8 +75,8 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
      */
     List<Sucursal> findByEmpresaId(Integer empresaId);
 
-    @Procedure(procedureName = "getSucursalByCriteria")
-    //@Query(value = "exec getSucursalByCriteria", nativeQuery = true)
+    @Procedure(procedureName = "get_sucursal_by_criteria")
+    //@Query(value = "exec get_sucursal_by_criteria", nativeQuery = true)
     List<SucursalSummary> findByCriteria(
             @Param("nombre") @Nullable String nombre,
             @Param("latitud") @Nullable Double latitud,
