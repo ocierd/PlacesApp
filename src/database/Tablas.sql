@@ -78,7 +78,7 @@ CREATE TABLE visita (
 
 CREATE TABLE recomendacion (
     recomendacion_id bigint IDENTITY PRIMARY KEY NOT NULL,
-    aceptada bit DEFAULT 0,
+    aceptada bit NULL,
     recomendado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     usuario_recomienda_id bigint NOT NULL,
     usuario_recomendado_id bigint NOT NULL,
