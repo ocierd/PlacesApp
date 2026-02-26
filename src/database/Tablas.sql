@@ -67,6 +67,7 @@ CREATE TABLE visita (
     visita_id bigint IDENTITY PRIMARY KEY NOT NULL,
     visitado_en smalldatetime NOT NULL DEFAULT GETDATE(),
     visitado bit DEFAULT 0,
+    confirmado bit DEFAULT 0,
     comentario TEXT NULL,
     calificacion tinyint NULL,
     usuario_id bigint NOT NULL,
