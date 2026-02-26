@@ -4,7 +4,6 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class Horario {
   @Column(name = "hora_cierre")
   private LocalTime horaCierre;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "dia_id", insertable = false, updatable = false)
   private Dia dia;
 

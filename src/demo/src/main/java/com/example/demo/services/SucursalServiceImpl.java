@@ -207,4 +207,22 @@ public class SucursalServiceImpl implements SucursalService {
 
     }
 
+    /**
+     * Elimina una sucursal de la base de datos por su ID. Recibe el ID de la
+     * sucursal a eliminar y elimina la sucursal correspondiente de la base de
+     * datos.
+     * 
+     * @param sucursalId El ID de la sucursal a eliminar
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void eliminarSucursal(Long sucursalId) {
+        try {
+            sucursalRepository.deleteById(sucursalId);
+        } catch (Exception e) {
+            System.out.println("Error al eliminar la sucursal con ID " + sucursalId + ": " + e.getMessage());
+            throw e;
+        }
+    }
+
 }

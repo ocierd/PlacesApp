@@ -53,4 +53,11 @@ public interface SucursalService {
      */
     Sucursal getById(Long sucursalId);
 
+
+    /**
+     * Elimina una sucursal de la base de datos por su ID. Recibe el ID de la sucursal a eliminar y elimina la sucursal correspondiente de la base de datos.
+     * @param sucursalId El ID de la sucursal a eliminar
+     */
+    void eliminarSucursal(Long sucursalId);
+
 }

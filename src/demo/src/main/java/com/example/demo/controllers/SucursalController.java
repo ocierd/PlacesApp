@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,6 +111,17 @@ public class SucursalController {
     @GetMapping("/{id}")
     public Sucursal getById(@PathVariable Long id) {
         return sucursalService.getById(id);
+    }
+
+
+
+    /**
+     * Endpoint para eliminar una sucursal por su ID. Recibe el ID de la sucursal como
+     * @param id El ID de la sucursal que se desea eliminar
+     */
+    @DeleteMapping("/{id}")
+    public void eliminarSucursal(@PathVariable Long id) {
+        sucursalService.eliminarSucursal(id);
     }
 
 }

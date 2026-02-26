@@ -82,14 +82,15 @@ public class Sucursal {
     /**
      * Relación OneToOne con la entidad Ubicacion. Indica que una sucursal tiene una
      * ubicación asociada. Se mapea a través de la columna "ubicacion_id" en la
-     * tabla "sucursal". Esta relación permite insertar una nueva ubicación al crear una
+     * tabla "sucursal". Esta relación permite insertar una nueva ubicación al crear
+     * una
      * sucursal, pero no permite actualizar la ubicación existente.
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ubicacion_id", nullable = true, insertable = true, updatable = false)
     private Ubicacion ubicacion;
 
-    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
     @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
     private List<Horario> horarios = new ArrayList<>();
 
