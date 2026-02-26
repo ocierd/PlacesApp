@@ -29,7 +29,7 @@ public class Usuario {
   @Column(name = "email")
   private String email; 
 
-  @Column(name = "email_verificado") 
+  @Column(name = "email_verificado",insertable = false) 
   private boolean emailVerificado;
 
   @Column(name = "nombre") 
@@ -47,7 +47,7 @@ public class Usuario {
   @Column(name = "telefono") 
   private String telefono;
 
-  @Column(name = "telefono_verificado") 
+  @Column(name = "telefono_verificado", insertable = false) 
   private boolean telefonoVerificado;
 
   @Column(name = "registrado_en", insertable = false) 

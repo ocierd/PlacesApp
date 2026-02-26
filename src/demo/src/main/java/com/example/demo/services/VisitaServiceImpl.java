@@ -2,9 +2,7 @@ package com.example.demo.services;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.Visita;
-import com.example.demo.repository.SucursalRepository;
 import com.example.demo.repository.VisitaRepository;
 import com.example.demo.services.interfaces.VisitaService;
 
@@ -12,11 +10,9 @@ import com.example.demo.services.interfaces.VisitaService;
 public class VisitaServiceImpl implements VisitaService {
 
     private final VisitaRepository visitaRepository;
-    private final SucursalRepository sucursalRepository;
 
-    public VisitaServiceImpl(VisitaRepository visitaRepository, SucursalRepository sucursalRepository){
+    public VisitaServiceImpl(VisitaRepository visitaRepository){
          this.visitaRepository=visitaRepository;
-         this.sucursalRepository=sucursalRepository;
     }
    
     
