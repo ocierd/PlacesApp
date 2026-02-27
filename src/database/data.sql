@@ -107,3 +107,16 @@ INSERT INTO horario (horario_id, hora_apertura, hora_cierre, dia_id, sucursal_id
 (6, '10:00:00', '20:00:00', 6, 1),
 (7, '10:00:00', '20:00:00', 7, 1);
 SET IDENTITY_INSERT horario OFF;
+
+
+
+-- Datos de ejemplo para la tabla "tipo_pago"
+SET IDENTITY_INSERT tipo_pago ON;
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (1, 'Efectivo');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (2, 'Tarjeta de crédito');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (3, 'Tarjeta de débito');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (4, 'Transferencia bancaria');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (5, 'Pago móvil');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (6, 'Cheque');
+INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (7, 'Vales de despensa');
+SET IDENTITY_INSERT tipo_pago OFF;
