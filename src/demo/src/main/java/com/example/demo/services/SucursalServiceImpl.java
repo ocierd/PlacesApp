@@ -14,6 +14,8 @@ import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.dto.UbicacionDto;
+import com.example.demo.domain.exceptions.NoEncontradoException;
+import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.repository.SucursalRepository;
@@ -82,12 +84,29 @@ public class SucursalServiceImpl implements SucursalService {
         return null;
     }
 
+    /**
+     * Agrega un horario a una sucursal existente. Recibe el ID de la sucursal a la
+     * que se desea agregar el horario y un objeto Horario con los datos del horario
+     * a agregar. Verifica que el horario no se traslape con horarios existentes en
+     * la sucursal y, si no hay traslapes, agrega el horario a la sucursal y
+     * devuelve la sucursal actualizada. Si se encuentran traslapes, lanza una
+     * excepción de validación con los detalles de los traslapes encontrados.
+     * @param intSucursalId El ID de la sucursal a la que se desea agregar el horario
+     * @param horario El objeto Horario con los datos del horario a agregar
+     * @return La sucursal actualizada con el nuevo horario agregado
+     * @throws ValidacionException Si se encuentran traslapes de horarios
+     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de datos
+     */
     @Override
-    public Sucursal agregarHorario(Long intSucursalId, Horario horario) {
+    public Sucursal agregarHorario(Long intSucursalId, Horario horario)
+            throws ValidacionException, NoEncontradoException {
         List<Horario> horariosExistentes = new ArrayList<>();
-        boolean seTraspasa = false;
+        List<String> traslapes = new ArrayList<>();
 
         Sucursal sucursal = sucursalRepository.findBySucursalId(intSucursalId);
+        if (sucursal == null) {
+            throw new NoEncontradoException();
+        }
         horariosExistentes = sucursal.getHorarios();
 
         for (Horario existente : horariosExistentes) {
@@ -103,13 +122,18 @@ public class SucursalServiceImpl implements SucursalService {
                     existente.getHoraCierre());
 
             if (seTraslapaHoraApertura || seTraslapaHoraCierre) {
-                seTraspasa = true;
-                break;
+                String horarioStr = String.format("%s - %s", horario.getHoraApertura(), horario.getHoraCierre());
+                String existenteHorario = String.format("%s - %s", existente.getHoraApertura(),
+                        existente.getHoraCierre());
+                String mensaje = String.format(
+                        "El horario que se desea agregar se traslapa con un horario existente. Horario a agregar: %s - Horario existente: %s",
+                        horarioStr, existenteHorario);
+                traslapes.add(mensaje);
             }
         }
 
-        if (seTraspasa) {
-            return null;
+        if (!traslapes.isEmpty()) {
+            throw new ValidacionException("Se encontraron traslapes de horarios", traslapes);
         }
 
         sucursalRepository.crearHorarioSucursal(
@@ -170,13 +194,18 @@ public class SucursalServiceImpl implements SucursalService {
      * existir
      */
     @Override
-    public Sucursal getById(Long sucursalId) {
+    public Sucursal getById(Long sucursalId) throws NoEncontradoException {
 
         // List<Sucursal> sucursals = sucursalRepository.findByEmpresaId(100);
 
         Optional<Sucursal> sucursalOpt = sucursalRepository.findById(sucursalId);
-        return sucursalOpt.isPresent() ? sucursalOpt.get() : null;
+        Sucursal sucursal = sucursalOpt.isPresent() ? sucursalOpt.get() : null;
 
+        if (sucursal == null) {
+            throw new NoEncontradoException();
+        }
+
+        return sucursal;
         // Sucursal sucursal = sucursalRepository.findBySucursalId(sucursalId);
         // return sucursal;
 

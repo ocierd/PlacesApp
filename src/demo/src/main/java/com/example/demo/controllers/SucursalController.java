@@ -14,6 +14,8 @@ import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.exceptions.NoEncontradoException;
+import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.services.interfaces.SucursalService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,7 +59,8 @@ public class SucursalController {
     }
 
     @PutMapping("/{id}/horario")
-    public Sucursal crearHorario(@PathVariable Long id, @RequestBody Horario horario) {
+    public Sucursal crearHorario(@PathVariable Long id, @RequestBody Horario horario)
+            throws ValidacionException, NoEncontradoException {
         return sucursalService.agregarHorario(id, horario);
     }
 
@@ -109,14 +112,15 @@ public class SucursalController {
      * @return La sucursal con el ID especificado o null si no existe
      */
     @GetMapping("/{id}")
-    public Sucursal getById(@PathVariable Long id) {
+    public Sucursal getById(@PathVariable Long id)
+            throws NoEncontradoException {
         return sucursalService.getById(id);
     }
 
-
-
     /**
-     * Endpoint para eliminar una sucursal por su ID. Recibe el ID de la sucursal como
+     * Endpoint para eliminar una sucursal por su ID. Recibe el ID de la sucursal
+     * como
+     * 
      * @param id El ID de la sucursal que se desea eliminar
      */
     @DeleteMapping("/{id}")

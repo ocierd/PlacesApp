@@ -5,6 +5,8 @@ import java.util.List;
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
 import com.example.demo.domain.dto.SucursalDto;
+import com.example.demo.domain.exceptions.NoEncontradoException;
+import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.domain.projections.SucursalSummary;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 
@@ -24,7 +26,8 @@ public interface SucursalService {
      */
     Sucursal crearSucursal(Sucursal sucursal);
 
-    Sucursal agregarHorario(Long intSucursalId, Horario horario);
+    Sucursal agregarHorario(Long intSucursalId, Horario horario)
+            throws ValidacionException, NoEncontradoException;
 
     /**
      * Crea una nueva sucursal en la base de datos a partir de un objeto
@@ -51,11 +54,13 @@ public interface SucursalService {
      * Obtiene la entidad por medio del identificador. Regresa NULL en caso de no
      * existir
      */
-    Sucursal getById(Long sucursalId);
-
+    Sucursal getById(Long sucursalId) throws NoEncontradoException;
 
     /**
-     * Elimina una sucursal de la base de datos por su ID. Recibe el ID de la sucursal a eliminar y elimina la sucursal correspondiente de la base de datos.
+     * Elimina una sucursal de la base de datos por su ID. Recibe el ID de la
+     * sucursal a eliminar y elimina la sucursal correspondiente de la base de
+     * datos.
+     * 
      * @param sucursalId El ID de la sucursal a eliminar
      */
     void eliminarSucursal(Long sucursalId);
