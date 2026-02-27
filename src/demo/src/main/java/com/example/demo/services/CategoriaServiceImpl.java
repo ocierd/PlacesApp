@@ -3,6 +3,8 @@ package com.example.demo.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Categoria;
@@ -17,6 +19,8 @@ import com.example.demo.services.interfaces.CategoriaService;
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoriaServiceImpl.class);
+
     private final CategoriaRepository categoriaRepository;
 
     public CategoriaServiceImpl(CategoriaRepository categoriaRepository) {
@@ -30,7 +34,15 @@ public class CategoriaServiceImpl implements CategoriaService {
      */
     @Override
     public List<Categoria> getAllCategorias() {
-        return categoriaRepository.findAll();
+        try {
+
+            var categorias = categoriaRepository.findAll();
+            logger.info("Se han obtenido {} categorías", categorias.size());
+            return categorias;
+        } catch (Exception e) {
+            logger.error("Error al obtener categorías: {}", e);
+            throw e;
+        }
     }
 
     /**

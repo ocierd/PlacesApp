@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,8 @@ import com.example.demo.services.utils.TimeUtils;
  */
 @Service
 public class SucursalServiceImpl implements SucursalService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SucursalServiceImpl.class);
 
     private final SucursalRepository sucursalRepository;
 
@@ -155,7 +159,7 @@ public class SucursalServiceImpl implements SucursalService {
         // sucursalRepository.findSucursalesByCriteria(nombre);
 
         for (SucursalSummary s : summaries) {
-            System.out.println("ID: " + s.getSucursalId().toString() + " - Nombre: " + s.getNombre());
+            logger.info("ID: {} - Nombre: {}", s.getSucursalId(), s.getNombre());
         }
 
         return summaries;
@@ -200,8 +204,7 @@ public class SucursalServiceImpl implements SucursalService {
                 sucursalRepository.save(sucursal);
             }
         } catch (Exception e) {
-            System.out.println("Error al actualizar la ubicación de las sucursales: "
-                    + e.getMessage());
+            logger.error("Error al actualizar la ubicación de las sucursales: ", e);
             throw e;
         }
 
@@ -220,7 +223,7 @@ public class SucursalServiceImpl implements SucursalService {
         try {
             sucursalRepository.deleteById(sucursalId);
         } catch (Exception e) {
-            System.out.println("Error al eliminar la sucursal con ID " + sucursalId + ": " + e.getMessage());
+            logger.error("Error al eliminar la sucursal con ID {}: {}", sucursalId, e.getMessage(), e);
             throw e;
         }
     }

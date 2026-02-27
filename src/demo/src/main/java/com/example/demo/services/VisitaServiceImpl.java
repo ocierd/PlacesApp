@@ -2,6 +2,8 @@ package com.example.demo.services;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,8 +11,19 @@ import com.example.demo.domain.Visita;
 import com.example.demo.repository.VisitaRepository;
 import com.example.demo.services.interfaces.VisitaService;
 
+/**
+ * VisitaServiceImpl es una clase que implementa la interfaz VisitaService y
+ * proporciona la lógica de negocio para manejar las visitas en la aplicación.
+ */
 @Service
 public class VisitaServiceImpl implements VisitaService {
+
+    /**
+     * Logger para registrar eventos y errores en la clase VisitaServiceImpl.
+     * Utiliza SLF4J con Logback como implementación de logging.
+     */
+
+    private static final Logger logger = LoggerFactory.getLogger(VisitaServiceImpl.class);
 
     private final VisitaRepository visitaRepository;
 
@@ -51,7 +64,7 @@ public class VisitaServiceImpl implements VisitaService {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error al actualizar visitado" + e.getMessage());
+            logger.error("Error al actualizar visitado: {}", e.getMessage(), e);
             throw e;
         }
 
