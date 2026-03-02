@@ -94,10 +94,14 @@ public class Sucursal {
     @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
     private List<Horario> horarios = new ArrayList<>();
 
-    public void addHorario(Horario horario) {
-        horarios.add(horario);
-        horario.setSucursal(this);
-    }
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
+    @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
+    private List<SucursalTipoPago> sucursalTiposPago = new ArrayList<>();
+
+    // public void addHorario(Horario horario) {
+    //     horarios.add(horario);
+    //     horario.setSucursal(this);
+    // }
 
     public Long getSucursalId() {
         return sucursalId;
@@ -161,5 +165,13 @@ public class Sucursal {
 
     public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public List<SucursalTipoPago> getSucursalTiposPago() {
+        return this.sucursalTiposPago;
+    }
+
+    public void setSucursalTiposPago(List<SucursalTipoPago> sucursalTiposPago) {
+        this.sucursalTiposPago = sucursalTiposPago;
     }
 }

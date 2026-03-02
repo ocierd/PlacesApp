@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.TipoPago;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.exceptions.NoEncontradoException;
@@ -62,6 +63,11 @@ public class SucursalController {
     public Sucursal crearHorario(@PathVariable Long id, @RequestBody Horario horario)
             throws ValidacionException, NoEncontradoException {
         return sucursalService.agregarHorario(id, horario);
+    }
+
+    @PutMapping("/{id}/tipoPago")
+    public Sucursal crearTipoPago(@PathVariable Long id, @RequestBody TipoPago tipoPago) throws NoEncontradoException {
+        return sucursalService.agregarTipoPago(id, tipoPago);
     }
 
     /**
@@ -127,5 +133,4 @@ public class SucursalController {
     public void eliminarSucursal(@PathVariable Long id) {
         sucursalService.eliminarSucursal(id);
     }
-
 }

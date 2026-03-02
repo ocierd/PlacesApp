@@ -49,8 +49,6 @@ public class Ubicacion {
     @Column(name = "enlace_maps", nullable = true)
     private String enlaceMaps;
 
-
-
     public Long getUbicacionId() {
         return ubicacionId;
     }

@@ -58,6 +58,11 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
             @Param("hora_apertura") LocalTime horaApertura,
             @Param("hora_cierre") LocalTime horaCierre);
 
+    @Procedure(procedureName = "sp_sucursalTipoPago_insert")
+    Long crearTipoPagoSucursal(
+            @Param("sucursal_id") Long sucursalId,
+            @Param("tipo_pago_id") Short tipoPagoId);
+
     /**
      * Obtiene la entidad por medio del identificador.
      * Regresa NULL en caso de no existir
@@ -81,7 +86,8 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
             @Param("nombre") @Nullable String nombre,
             @Param("latitud") @Nullable Double latitud,
             @Param("longitud") @Nullable Double longitud,
-            @Param("kilometros") @Nullable Double kilometros);
+            @Param("kilometros") @Nullable Double kilometros,
+            @Param("tipoPagoId") @Nullable Short tipoPagoId);
 
 
     /**

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.TipoPago;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.dto.UbicacionDto;
@@ -91,19 +92,22 @@ public class SucursalServiceImpl implements SucursalService {
      * la sucursal y, si no hay traslapes, agrega el horario a la sucursal y
      * devuelve la sucursal actualizada. Si se encuentran traslapes, lanza una
      * excepción de validación con los detalles de los traslapes encontrados.
-     * @param intSucursalId El ID de la sucursal a la que se desea agregar el horario
-     * @param horario El objeto Horario con los datos del horario a agregar
+     * 
+     * @param intSucursalId El ID de la sucursal a la que se desea agregar el
+     *                      horario
+     * @param horario       El objeto Horario con los datos del horario a agregar
      * @return La sucursal actualizada con el nuevo horario agregado
-     * @throws ValidacionException Si se encuentran traslapes de horarios
-     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de datos
+     * @throws ValidacionException   Si se encuentran traslapes de horarios
+     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de
+     *                               datos
      */
     @Override
-    public Sucursal agregarHorario(Long intSucursalId, Horario horario)
+    public Sucursal agregarHorario(Long sucursalId, Horario horario)
             throws ValidacionException, NoEncontradoException {
         List<Horario> horariosExistentes = new ArrayList<>();
         List<String> traslapes = new ArrayList<>();
 
-        Sucursal sucursal = sucursalRepository.findBySucursalId(intSucursalId);
+        Sucursal sucursal = sucursalRepository.findBySucursalId(sucursalId);
         if (sucursal == null) {
             throw new NoEncontradoException();
         }
@@ -137,13 +141,29 @@ public class SucursalServiceImpl implements SucursalService {
         }
 
         sucursalRepository.crearHorarioSucursal(
-                intSucursalId,
+                sucursalId,
                 horario.getDiaId(),
                 horario.getHoraApertura(),
                 horario.getHoraCierre());
 
-        if (intSucursalId != null) {
-            return sucursalRepository.findById(intSucursalId)
+        if (sucursalId != null) {
+            return sucursalRepository.findById(sucursalId)
+                    .orElse(null);
+        }
+        return null;
+    }
+
+    @Override
+    public Sucursal agregarTipoPago(Long sucursalId, TipoPago tipoPago) throws NoEncontradoException {
+        Sucursal sucursal = sucursalRepository.findBySucursalId(sucursalId);
+        if (sucursal == null) {
+            throw new NoEncontradoException();
+        }
+
+        sucursalRepository.crearTipoPagoSucursal(sucursalId, tipoPago.getTipoPagoId());
+
+        if (sucursalId != null) {
+            return sucursalRepository.findById(sucursalId)
                     .orElse(null);
         }
         return null;
@@ -174,8 +194,9 @@ public class SucursalServiceImpl implements SucursalService {
         Double longitud = ubi == null ? null : ubi.getLongitud() == 0.00 ? null : ubi.getLongitud();
         Double kms = ubi == null ? null
                 : sucursalCriteriaDto.getDistanciaKms() == 0.00 ? null : sucursalCriteriaDto.getDistanciaKms();
+        Short tipoPagoId = sucursalCriteriaDto.getTipoPagoId();
 
-        List<SucursalSummary> summaries = sucursalRepository.findByCriteria(nombre, latitud, longitud, kms);
+        List<SucursalSummary> summaries = sucursalRepository.findByCriteria(nombre, latitud, longitud, kms, tipoPagoId);
 
         // // JPA projection para obtener solo el ID y el nombre de las sucursales que
         // coinciden con el criterio de búsqueda

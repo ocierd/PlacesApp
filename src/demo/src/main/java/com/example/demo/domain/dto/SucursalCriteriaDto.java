@@ -4,6 +4,7 @@ public class SucursalCriteriaDto {
   private String criterioBusqueda;
   private UbicacionDto ubicacion;
   private double distanciaKms;
+  private Short tipoPagoId;
 
   public String getCriterioBusqueda() {
     return this.criterioBusqueda;
@@ -27,5 +28,13 @@ public class SucursalCriteriaDto {
 
   public void setDistanciaKms(double distanciaKms) {
     this.distanciaKms = distanciaKms;
+  }
+
+  public Short getTipoPagoId() {
+    return this.tipoPagoId;
+  }
+
+  public void setTipoPagoId(Short tipoPagoId) {
+    this.tipoPagoId = tipoPagoId;
   }
 }

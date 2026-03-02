@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.TipoPago;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.exceptions.NoEncontradoException;
 import com.example.demo.domain.exceptions.ValidacionException;
@@ -26,8 +27,10 @@ public interface SucursalService {
      */
     Sucursal crearSucursal(Sucursal sucursal);
 
-    Sucursal agregarHorario(Long intSucursalId, Horario horario)
+    Sucursal agregarHorario(Long sucursalId, Horario horario)
             throws ValidacionException, NoEncontradoException;
+
+    Sucursal agregarTipoPago(Long sucursalId, TipoPago tipoPago) throws NoEncontradoException;
 
     /**
      * Crea una nueva sucursal en la base de datos a partir de un objeto
