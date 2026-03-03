@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
-import com.example.demo.domain.TipoPago;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.dto.UbicacionDto;
@@ -153,20 +152,43 @@ public class SucursalServiceImpl implements SucursalService {
         return null;
     }
 
+    /**
+     * Agrega un tipo de pago a una sucursal existente. Recibe el ID de la sucursal
+     * a la que se desea agregar el tipo de pago y el objeto TipoPago que se desea
+     * agregar. Devuelve la sucursal actualizada con el nuevo tipo de pago agregado.
+     * 
+     * @param sucursalId El ID de la sucursal a la que se desea agregar el tipo de
+     *                   pago
+     * @param tipoPagoId El ID del tipo de pago que se desea agregar a la sucursal
+     * @return La sucursal actualizada con el nuevo tipo de pago agregado
+     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de
+     *                               datos
+     */
     @Override
-    public Sucursal agregarTipoPago(Long sucursalId, TipoPago tipoPago) throws NoEncontradoException {
-        Sucursal sucursal = sucursalRepository.findBySucursalId(sucursalId);
-        if (sucursal == null) {
-            throw new NoEncontradoException();
-        }
+    public Sucursal agregarTipoPago(Long sucursalId, Short tipoPagoId)
+            throws NoEncontradoException {
+        try {
+            Sucursal sucursal = sucursalRepository.findBySucursalId(sucursalId);
+            if (sucursal == null) {
+                throw new NoEncontradoException();
+            }
 
-        sucursalRepository.crearTipoPagoSucursal(sucursalId, tipoPago.getTipoPagoId());
+            Long sucursalTipoPagoId = sucursalRepository.crearTipoPagoSucursal(sucursalId, tipoPagoId);
+            logger.info("Se ha agregado el tipo de pago con ID {} a la sucursal con ID {}. ID de relación creada: {}",
+                    tipoPagoId, sucursalId, sucursalTipoPagoId);
 
-        if (sucursalId != null) {
-            return sucursalRepository.findById(sucursalId)
-                    .orElse(null);
+            if (sucursalId != null) {
+                return sucursalRepository.findById(sucursalId)
+                        .orElse(null);
+            }
+            return null;
+        } catch (NoEncontradoException e) {
+            logger.warn("No se encontró la sucursal con ID {}: {}", sucursalId, e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            logger.error("Error al agregar el tipo de pago a la sucursal con ID {}: {}", sucursalId, e.getMessage(), e);
+            throw e;
         }
-        return null;
     }
 
     // @Override

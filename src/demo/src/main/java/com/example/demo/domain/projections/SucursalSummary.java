@@ -14,8 +14,11 @@ public interface SucursalSummary {
     String getEmpresaNombre();
 
     // categoria_id
-    short getCategoria_id();
+    short getCategoriaId();
 
     // categoriaNombre
     String getCategoriaNombre();
+
+    // Distancia en kilómetros
+    Double getDistanciaKms();
 }

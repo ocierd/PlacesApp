@@ -58,7 +58,7 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
             @Param("hora_apertura") LocalTime horaApertura,
             @Param("hora_cierre") LocalTime horaCierre);
 
-    @Procedure(procedureName = "sp_sucursalTipoPago_insert")
+    @Procedure(procedureName = "sp_sucursal_tipo_pago_insert")
     Long crearTipoPagoSucursal(
             @Param("sucursal_id") Long sucursalId,
             @Param("tipo_pago_id") Short tipoPagoId);

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
-import com.example.demo.domain.TipoPago;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.exceptions.NoEncontradoException;
 import com.example.demo.domain.exceptions.ValidacionException;
@@ -30,7 +29,19 @@ public interface SucursalService {
     Sucursal agregarHorario(Long sucursalId, Horario horario)
             throws ValidacionException, NoEncontradoException;
 
-    Sucursal agregarTipoPago(Long sucursalId, TipoPago tipoPago) throws NoEncontradoException;
+    /**
+     * Agrega un tipo de pago a una sucursal existente. Recibe el ID de la sucursal
+     * a la que se desea agregar el tipo de pago y el objeto TipoPago que se desea
+     * agregar. Devuelve la sucursal actualizada con el nuevo tipo de pago agregado.
+     * 
+     * @param sucursalId El ID de la sucursal a la que se desea agregar el tipo de
+     *                   pago
+     * @param tipoPagoId El ID del tipo de pago que se desea agregar a la sucursal
+     * @return La sucursal actualizada con el nuevo tipo de pago agregado
+     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de
+     *                               datos
+     */
+    Sucursal agregarTipoPago(Long sucursalId, Short tipoPagoId) throws NoEncontradoException;
 
     /**
      * Crea una nueva sucursal en la base de datos a partir de un objeto
