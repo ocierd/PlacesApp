@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.demo.domain.dto.ValidacionErrorResponse;
+import com.example.demo.domain.exceptions.AuthException;
 import com.example.demo.domain.exceptions.NoEncontradoException;
 import com.example.demo.domain.exceptions.ValidacionException;
+
 
 /**
  * GlobalExceptionHandler es un controlador de asesoramiento global que maneja
@@ -49,6 +51,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoEncontradoException.class)
     public ResponseEntity<String> handleNoEncontradoException(NoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<String> handleAuthException(AuthException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
 }
