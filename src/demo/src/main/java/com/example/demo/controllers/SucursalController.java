@@ -133,4 +133,9 @@ public class SucursalController {
     public void eliminarSucursal(@PathVariable Long id) {
         sucursalService.eliminarSucursal(id);
     }
+
+    @DeleteMapping("/{sucursal_id}/tipo-pago/{sucursal_tipo_pago_id}")
+    public void eliminarTipoPago(@PathVariable Long sucursal_id, @PathVariable Long sucursal_tipo_pago_id) {
+        sucursalService.eliminarTipoPago(sucursal_id, sucursal_tipo_pago_id);
+    }
 }

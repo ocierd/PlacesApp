@@ -94,7 +94,7 @@ public class Sucursal {
     @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
     private List<Horario> horarios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
     private List<SucursalTipoPago> sucursalTiposPago = new ArrayList<>();
 
@@ -102,6 +102,11 @@ public class Sucursal {
     //     horarios.add(horario);
     //     horario.setSucursal(this);
     // }
+
+    public void deleteTipoPago(SucursalTipoPago sucursalTipoPago) {
+        sucursalTiposPago.remove(sucursalTipoPago);
+        sucursalTipoPago.setSucursal(null);
+    }
 
     public Long getSucursalId() {
         return sucursalId;

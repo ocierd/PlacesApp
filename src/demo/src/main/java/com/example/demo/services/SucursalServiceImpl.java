@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.SucursalTipoPago;
 import com.example.demo.domain.Ubicacion;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.dto.UbicacionDto;
@@ -21,6 +22,8 @@ import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.repository.SucursalRepository;
 import com.example.demo.services.interfaces.SucursalService;
 import com.example.demo.services.utils.TimeUtils;
+
+import jakarta.persistence.EntityManager;
 
 /**
  * SucursalServiceImpl es una clase que implementa la interfaz SucursalService y
@@ -33,10 +36,13 @@ public class SucursalServiceImpl implements SucursalService {
 
     private static final Logger logger = LoggerFactory.getLogger(SucursalServiceImpl.class);
 
+    private final EntityManager entityManager;
+
     private final SucursalRepository sucursalRepository;
 
-    public SucursalServiceImpl(SucursalRepository sucursalRepository) {
+    public SucursalServiceImpl(SucursalRepository sucursalRepository, EntityManager entityManager) {
         this.sucursalRepository = sucursalRepository;
+        this.entityManager = entityManager;
     }
 
     /**
@@ -300,4 +306,27 @@ public class SucursalServiceImpl implements SucursalService {
         }
     }
 
+    @Override
+    @Transactional // Esto asegura que haya una transacción activa
+    public void eliminarTipoPago(Long sucursalId, Long sucursalTipoPagoId) {
+        try {
+            // 1. Retrieve the entities
+            Sucursal parent = entityManager.find(Sucursal.class, sucursalId);
+            SucursalTipoPago child = entityManager.find(SucursalTipoPago.class, sucursalTipoPagoId);
+
+            if (parent != null && child != null) {
+                // 2. Remove the child from the parent's collection (optional but good practice
+                // to keep context in sync)
+                parent.getSucursalTiposPago().remove(child);
+                // 3. Unlink the child from the parent (optional, depending on foreign key
+                // constraints)
+                child.setSucursal(null);
+                // 4. Explicitly remove the child entity
+                entityManager.remove(child);
+            }
+        } catch (Exception e) {
+            logger.error("Error al eliminar la sucursal con ID {}: {}", sucursalId, e.getMessage(), e);
+            throw e;
+        }
+    }
 }

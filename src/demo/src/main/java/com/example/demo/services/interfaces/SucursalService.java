@@ -79,4 +79,5 @@ public interface SucursalService {
      */
     void eliminarSucursal(Long sucursalId);
 
+    void eliminarTipoPago(Long sucursalId, Long sucursalTipoPagoId);
 }
