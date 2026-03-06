@@ -8,5 +8,6 @@ import com.example.demo.domain.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
+    Usuario findByUsername(String username);
     
 }

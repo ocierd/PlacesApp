@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.demo.domain.dto.ValidacionErrorResponse;
-import com.example.demo.domain.exceptions.AuthException;
+import com.example.demo.domain.exceptions.UnauthorizedException;
 import com.example.demo.domain.exceptions.NoEncontradoException;
 import com.example.demo.domain.exceptions.ValidacionException;
 
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
      * 
      * @param ex La excepción de tipo NoEncontradoException que se ha lanzado
      * @return Una respuesta HTTP con el mensaje de error indicando que el recurso
-     *         no fue encontradoa
+     *         no fue encontrado
      */
     @ExceptionHandler(NoEncontradoException.class)
     public ResponseEntity<String> handleNoEncontradoException(NoEncontradoException ex) {
@@ -54,8 +54,16 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(AuthException.class)
-    public ResponseEntity<String> handleAuthException(AuthException ex) {
+    /**
+     * Maneja las excepciones de tipo UnauthorizedException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error indicando que la
+     * autenticación ha fallado o que el usuario no tiene los permisos necesarios para acceder al recurso.
+     * @param ex La excepción de tipo UnauthorizedException que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error indicando que la
+     *         autenticación ha fallado o que el usuario no tiene los permisos necesarios para acceder al recurso
+     */
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> handleAuthException(UnauthorizedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 

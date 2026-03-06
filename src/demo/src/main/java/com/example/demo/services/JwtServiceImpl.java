@@ -1,24 +1,29 @@
 package com.example.demo.services;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.crypto.SecretKey;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.dto.LoginDataDto;
-import com.example.demo.domain.dto.TokenDto;
-import com.example.demo.domain.exceptions.AuthException;
+import com.example.demo.domain.Usuario;
 import com.example.demo.services.interfaces.JwtService;
-import com.example.demo.services.utils.StringUtils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.SecretKey;
+
+/**
+ * Servicio encargado de generar y validar tokens JWT para la autenticación de
+ * usuarios. Utiliza una clave secreta para firmar los tokens y contiene métodos
+ * para extraer información del token, como el nombre de usuario y verificar si
+ * el token ha expirado.
+ */
 @Service
 public class JwtServiceImpl implements JwtService {
 
@@ -26,71 +31,70 @@ public class JwtServiceImpl implements JwtService {
     private String SECRET_KEY;
 
     /**
-     * El tiempo de expiración para el token, en segundos
+     * Genera un token JWT con los claims adicionales, el nombre de usuario y el
+     * tiempo de expiración especificados.
+     * 
+     * @param user          El usuario para el cual se generará el token.
+     * @param expireSeconds El tiempo en segundos después del cual el token
+     *                      expirará.
+     * @return El token JWT generado como una cadena.
      */
-    @Value("${places_app.jwt.expiration}")
-    private Integer EXPIRATION_TIME;
-
-    /**
-     * El tiempo de expiración para el token de refresco, en segundos
-     */
-    @Value("${places_app.jwt.refresh_expiration}")
-    private Integer REFRESH_EXPIRATION_TIME;
-
     @Override
-    public TokenDto auth(LoginDataDto loginData) throws AuthException {
-
-        if (!StringUtils.areEqual(loginData.getUsername(), "fer")) {
-            throw new AuthException("Credenciales inválidas");
-        }
-
-        String token = generateToken(Map.of("role", "ROLE_USER"), loginData.getUsername(), EXPIRATION_TIME);
-        String refreshToken = generateToken(Map.of("role", "ROLE_USER"), loginData.getUsername(), REFRESH_EXPIRATION_TIME);
-
-        TokenDto tokenDto = new TokenDto();
-        tokenDto.setToken(token);
-        tokenDto.setRefreshToken(refreshToken); 
-        tokenDto.setExpiresIn(EXPIRATION_TIME);
-        tokenDto.setRefreshTokenExpiresIn(REFRESH_EXPIRATION_TIME);
-
-        return tokenDto;
+    public String generarToken(Usuario user, long expireSeconds) {
+        Map<String, Object> claims = new HashMap<>();
+        List<String> rols = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        claims.put("roles", rols);
+        claims.put(Claims.ID, user.getUsuarioid().toString());
+        return generarToken(user, expireSeconds, claims);
     }
 
     /**
      * Genera un token JWT con los claims adicionales, el nombre de usuario y el
      * tiempo de expiración especificados.
      * 
-     * @param extraClaims    Un mapa de claims adicionales que se incluirán en el
-     *                       token.
-     * @param userName       El nombre de usuario que se establecerá como sujeto del
-     *                       token.
+     * @param user          El usuario para el cual se generará el token.
      * @param expireSeconds El tiempo en segundos después del cual el token
-     *                       expirará.
+     *                      expirará.
+     * @param extraClaims   Un mapa de claims adicionales que se incluirán en el
+     *                      token.
      * @return El token JWT generado como una cadena.
      */
-    @Override
-    public String generateToken(Map<String, String> extraClaims, String userName, long expireSeconds) {
+    public String generarToken(Usuario user, long expireSeconds, Map<String, Object> extraClaims) {
         return Jwts
                 .builder()
-                .claims().add(extraClaims)
+                .claims()
+                .add(extraClaims)
                 .and()
-                .subject(userName)
+                .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + (expireSeconds * 1000)))
                 .signWith(getSignInKey())
                 .compact();
     }
 
+    /**
+     * Obtiene el nombre de usuario del token JWT proporcionado.
+     * 
+     * @param token El token JWT del cual se extraerá el nombre de usuario.
+     * @return El nombre de usuario contenido en el token.
+     */
     @Override
     public String getUserName(String token) {
         Claims claims = extractAllClaims(token);
         return claims.getSubject();
     }
 
+    /**
+     * Valida si el token JWT proporcionado es válido y no ha expirado.
+     * 
+     * @param token El token JWT a validar.
+     * @return true si el token ha expirado, false de lo contrario.
+     */
     @Override
     public boolean isTokenExpired(String token) {
         Claims claims = extractAllClaims(token);
-        return claims.getExpiration().before(new Date());
+        Date expiration = claims.getExpiration();
+        return expiration.before(new Date());
     }
 
     private Claims extractAllClaims(String token) {
