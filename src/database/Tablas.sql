@@ -22,6 +22,10 @@ CREATE TABLE usuario (
 ALTER TABLE usuario
 ADD CONSTRAINT UQ_email UNIQUE (email);
 
+-- Asegura que el nombre de usuario sea único en la tabla de usuarios
+ALTER TABLE usuario
+ADD CONSTRAINT usuario_username_uq UNIQUE (username);
+
 CREATE TABLE dia (
     dia_id tinyint IDENTITY PRIMARY KEY NOT NULL,
     nombre VARCHAR(15) NOT NULL
@@ -106,7 +110,7 @@ CREATE TABLE favorito (
     sucursal_id bigint NOT NULL,
     CONSTRAINT favorito_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
     CONSTRAINT favorito_sucursal_fk FOREIGN KEY (sucursal_id) REFERENCES sucursal(sucursal_id),
-    CONSTRAINT favorito_usuario_sucural_uq UNIQUE (usuario_id, sucursal_id)
+    CONSTRAINT favorito_usuario_sucursal_uq UNIQUE (usuario_id, sucursal_id)
 );
 
 CREATE TABLE tipo_pago (
