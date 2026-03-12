@@ -3,13 +3,10 @@ package com.example.demo.services.interfaces;
 import org.springframework.http.ResponseEntity;
 
 import com.example.demo.domain.Usuario;
-
-import jakarta.mail.MessagingException;
+import com.example.demo.domain.exceptions.ValidacionException;
 
 public interface VerificacionEmailService {
-  void createAndSendToken(Usuario usuario) throws MessagingException;
-
-  void sendEmail(String to, String url) throws MessagingException;
+  void createAndSendToken(Usuario usuario) throws ValidacionException;
 
   ResponseEntity<String> confirmarCorreo(String token);
 }

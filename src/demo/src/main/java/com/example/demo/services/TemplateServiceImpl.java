@@ -35,4 +35,20 @@ public class TemplateServiceImpl implements TemplateService {
         return resultadoPlantilla;
     }
 
+    /**
+     * Renderiza una plantilla con un solo dato clave-valor. Este método es una
+     * conveniencia para casos donde solo se necesita pasar un dato a la plantilla,
+     * evitando la necesidad de crear un mapa completo.
+     * 
+     * @param templateName Nombre de la plantilla a renderizar.
+     * @param key          Clave del dato a pasar a la plantilla.
+     * @param value        Valor del dato a pasar a la plantilla.
+     * @return Contenido renderizado de la plantilla.
+     */
+    @Override
+    public String renderTemplate(String templateName, String key, Object value) {
+        Map<String, Object> data = Map.of(key, value);
+        return renderTemplate(templateName, data);
+    }
+
 }
