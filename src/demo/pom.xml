@@ -90,6 +90,17 @@
 		</dependency>
 		<!-- ./ -->
 
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Thymeleaf para plantillas -->
+		<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -120,5 +131,4 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>
