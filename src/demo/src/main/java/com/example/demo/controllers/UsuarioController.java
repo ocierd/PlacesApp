@@ -82,5 +82,4 @@ public class UsuarioController extends BaseController {
     public String testEncode(@RequestParam("cadena") String cadena) {
         return usuarioService.encodeString(cadena);
     }
-
 }

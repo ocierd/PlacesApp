@@ -32,5 +32,4 @@ public interface UsuarioService {
      *         misma cadena debido a la naturaleza del proceso de codificación.
      */
     String encodeString(String str);
-
 }
