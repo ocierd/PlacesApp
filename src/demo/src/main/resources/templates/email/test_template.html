@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${title}">Product List</title>
+</head>
+
+<body>
+    <h1 th:text="${subtitle}"></h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the 'products' list from the model -->
+            <tr th:each="datoTest : ${datos}">
+                <!-- Access properties of each 'product' object using th:text and the ${...} expression -->
+                <td th:text="${datoTest.id}">Placeholder ID</td>
+                <td th:text="${datoTest.message}">Placeholder Message</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
