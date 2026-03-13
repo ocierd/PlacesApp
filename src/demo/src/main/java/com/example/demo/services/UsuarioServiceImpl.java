@@ -7,6 +7,7 @@ import com.example.demo.domain.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 import com.example.demo.services.interfaces.UsuarioService;
 
+
 /**
  * Implementación de la interfaz UsuarioService que proporciona servicios
  * relacionados con la gestión de usuarios, como la creación de usuarios y la
@@ -47,8 +48,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario creada = usuarioRepository.save(usuario);
         Long usuarioId = creada.getUsuarioid();
         if (usuarioId != null) {
-            return usuarioRepository.findById(usuarioId)
-                    .orElse(null);
         }
         return creada;
     }

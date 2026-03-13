@@ -1,16 +1,16 @@
-package com.example.demo.services.interfaces;
+package com.example.demo.services;
 
 import org.springframework.stereotype.Service;
 import com.example.demo.domain.Favorito;
 import com.example.demo.repository.FavoritoRepository;
+import com.example.demo.services.interfaces.FavoritoService;
 
 @Service
 public class FavoritoServiceImpl implements FavoritoService {
     private final FavoritoRepository favoritoRepository;
 
-    public FavoritoServiceImpl(FavoritoRepository favoritoRepository)
-    {
-        this.favoritoRepository=favoritoRepository;
+    public FavoritoServiceImpl(FavoritoRepository favoritoRepository) {
+        this.favoritoRepository = favoritoRepository;
     }
 
     @Override
@@ -26,11 +26,11 @@ public class FavoritoServiceImpl implements FavoritoService {
         return creada;
 
     }
-@Override
-public void eliminarFavorito (Long favoritoId){
-    favoritoRepository.deleteById(favoritoId);
 
-}
-       
+    @Override
+    public void eliminarFavorito(Long favoritoId) {
+        favoritoRepository.deleteById(favoritoId);
+
+    }
 
 }
