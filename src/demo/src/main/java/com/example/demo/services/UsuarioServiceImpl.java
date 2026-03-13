@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         String encoded = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(encoded);
         Usuario creada = usuarioRepository.save(usuario);
-        Long usuarioId = creada.getUsuarioid();
+        Long usuarioId = creada.getUsuarioId();
         if (usuarioId != null) {
         }
         return creada;
