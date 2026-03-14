@@ -44,7 +44,7 @@ public class JwtServiceImpl implements JwtService {
         Map<String, Object> claims = new HashMap<>();
         List<String> rols = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         claims.put("roles", rols);
-        claims.put(Claims.ID, user.getUsuarioid().toString());
+        claims.put(Claims.ID, user.getUsuarioId().toString());
         return generarToken(user, expireSeconds, claims);
     }
 

@@ -18,7 +18,7 @@ public class Recomendacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recomendacioId;
 
-    @Column(name = "aceptada")
+    @Column(name = "aceptada", insertable=false)
     private Boolean aceptada;
 
     @Column(name = "recomendado_en", insertable=false)

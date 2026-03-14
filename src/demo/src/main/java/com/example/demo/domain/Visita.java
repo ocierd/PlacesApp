@@ -24,13 +24,13 @@ public class Visita {
 
    private Date visitadoEn;
 
-   @Column(name = "visitado")
+   @Column(name = "visitado" , insertable=false)
    private boolean visitado;
 
    @Column(name = "comentario")
    private String comentario;
 
-   @Column(name = "calificacion")
+   @Column(name = "calificacion" , insertable=false)
    private Short calificacion;
 
    @Column(name = "usuario_id")

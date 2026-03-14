@@ -11,7 +11,7 @@ import com.example.demo.services.interfaces.TestService;
 
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class TestController extends BaseController {
 
     private final TestService testService;
 
