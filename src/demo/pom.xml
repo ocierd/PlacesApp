@@ -102,13 +102,17 @@
 			  <version>8.10.0</version>
 		</dependency>		
 
-	
-   <dependency>
-     <groupId>org.apache.commons</groupId>
-     <artifactId>commons-lang3</artifactId>
-     <version>3.9</version>
-   </dependency>
- </dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Thymeleaf para plantillas -->
+		<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -138,5 +142,4 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>

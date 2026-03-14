@@ -15,6 +15,23 @@ public class TestDto {
      */
     private String message;
 
+    
+    /**
+     * Constructor por defecto para TestDto
+     */
+    public TestDto(){
+    }
+
+
+    /**
+     * Constructor para TestDto
+     */
+    public TestDto(Long id, String message) {
+        this.id = id;
+        this.message = message;
+    }
+
+
     public Long getId() {
         return id;
     }

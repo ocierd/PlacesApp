@@ -126,4 +126,10 @@ CREATE TABLE sucursal_tipo_pago (
     CONSTRAINT sucursal_tipo_pago_tipo_pago_fk FOREIGN KEY (tipo_pago_id) REFERENCES tipo_pago(tipo_pago_id)
 );
 
-
+CREATE TABLE verificacion_token (
+    id bigint IDENTITY PRIMARY KEY NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    usuario_id bigint NOT NULL,
+    expiry_date smalldatetime NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT verificacion_token_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id)
+);

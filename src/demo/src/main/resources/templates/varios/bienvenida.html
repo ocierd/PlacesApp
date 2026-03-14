@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+    <style>
+        /* Estilos básicos para asegurar que se vea bien en móviles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>¡Bienvenido/a!</h1>
+        </div>
+        <div class="content">
+            <p>Hola <span th:text="${nombre}"></span> ,</p>
+            <p>Gracias por unirte a nosotros. Estamos muy emocionados de tenerte aquí.</p>
+            <p>Descubre todo lo que tenemos preparado para ti.</p>
+            <p style="text-align: center;">
+                <a href="#" class="button">Empezar ahora</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

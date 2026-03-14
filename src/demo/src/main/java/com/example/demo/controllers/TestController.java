@@ -2,9 +2,11 @@ package com.example.demo.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.dto.TestDto;
+import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.TestService;
 
 @RestController
@@ -17,6 +19,7 @@ public class TestController extends BaseController {
      * Test
      * 
      * @param testService
+     * @param emailService
      */
     public TestController(TestService testService) {
         this.testService = testService;
@@ -49,6 +52,15 @@ public class TestController extends BaseController {
         dto.setMessage("DTO Test Message");
 
         return dto;
+    }
+
+    /**
+     * API para enviar email de prueba
+     */
+    @GetMapping("/email")
+    public void sendEmailTest(@RequestParam("to") String destinatario)
+            throws ValidacionException {
+        testService.sendEmailTest(destinatario);
     }
 
 }
