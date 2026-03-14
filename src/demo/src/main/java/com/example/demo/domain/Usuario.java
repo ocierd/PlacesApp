@@ -11,11 +11,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name = "usuario")
+@Getter
+@Setter
 public class Usuario implements UserDetails {
 
   @Id
@@ -29,12 +33,6 @@ public class Usuario implements UserDetails {
   @Column(name = "password")
   private String password;
 
-  @Column(name = "email")
-  private String email;
-
-  @Column(name = "email_verificado", insertable = false)
-  private boolean emailVerificado;
-
   @Column(name = "nombre")
   private String nombre;
 
@@ -47,113 +45,23 @@ public class Usuario implements UserDetails {
   @Column(name = "fecha_nacimiento")
   private LocalDate fechaNacimiento;
 
-  @Column(name = "telefono")
-  private String telefono;
-
-  @Column(name = "telefono_verificado", insertable = false)
-  private boolean telefonoVerificado;
-
   @Column(name = "registrado_en", insertable = false)
   private LocalDateTime registradoEn;
 
-  public Long getUsuarioId() {
-    return usuarioId;
-  }
-
-  public void setUsuarioId(Long usuarioId) {
-    this.usuarioId = usuarioId;
-  }
-
+  // Se deja presente porque se está impementando UserDetails
+  // En caso de que la "Entidad" tuviera "email" y  no "username", se debería retornar "email" en este *getter*
   @Override
   public String getUsername() {
     return username;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
+  // Se deja presente porque se está impementando UserDetails
   @Override
   public String getPassword() {
     return password;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public boolean isEmailVerificado() {
-    return emailVerificado;
-  }
-
-  public void setEmailVerificado(boolean emailVerificado) {
-    this.emailVerificado = emailVerificado;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public String getApellidoPaterno() {
-    return apellidoPaterno;
-  }
-
-  public void setApellidoPaterno(String apellidoPaterno) {
-    this.apellidoPaterno = apellidoPaterno;
-  }
-
-  public String getApellidoMaterno() {
-    return apellidoMaterno;
-  }
-
-  public void setApellidoMaterno(String apellidoMaterno) {
-    this.apellidoMaterno = apellidoMaterno;
-  }
-
-  public LocalDate getFechaNacimiento() {
-    return fechaNacimiento;
-  }
-
-  public void setFechaNacimiento(LocalDate fechaNacimiento) {
-    this.fechaNacimiento = fechaNacimiento;
-  }
-
-  public String getTelefono() {
-    return telefono;
-  }
-
-  public void setTelefono(String telefono) {
-    this.telefono = telefono;
-  }
-
-  public boolean isTelefonoVerificado() {
-    return telefonoVerificado;
-  }
-
-  public void setTelefonoVerificado(boolean telefonoVerificado) {
-    this.telefonoVerificado = telefonoVerificado;
-  }
-
-  public LocalDateTime getRegistradoEn() {
-    return registradoEn;
-  }
-
-  public void setRegistradoEn(LocalDateTime regristradoEn) {
-    this.registradoEn = regristradoEn;
-  }
-
+  // Se deja presente porque se está impementando UserDetails
   /**
    * Implementación de UserDetails para Spring Security.
    * En este caso, no se asignan roles ni permisos específicos,

@@ -67,7 +67,9 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
             String mensaje = obtenerMensaje(verificacion.getCodigo());
 
             // 4) Obtener el número de teléfono del usuario
-            String telefono = usuario.getTelefono();
+            // String telefono = usuario.getTelefono();
+            String telefono = "+521234567890"; // Reemplazar con el número de teléfono del usuario
+            logger.info("Número de teléfono al que se enviará el código de verificación: {}", telefono);
 
             // 5) Enviar el mensaje de texto al número de teléfono del usuario
             enviarCodigoSms(telefono, mensaje);
@@ -130,7 +132,7 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
             Long usuarioID = verificacion.getUsuarioId();
 
             Usuario user = usuarioRepository.findById(usuarioID).orElse(null);
-            user.setTelefonoVerificado(true);
+            // user.setTelefonoVerificado(true); //Agregar nuevo método para activar el teléfono verificado
             usuarioRepository.save(user);
         } else {
             throw new NoEncontradoException();

@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    url: ${SERVER_URL}
+    username: ${SERVER_USERNAME}
+    password: ${SERVER_PASSWORD}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    smtp:
+      auth: true
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
+server:
+  servlet:
+    context-path: /api
+
+twilio:
+  config:
+    account_sid: ${TWILIO_ACCOUNT_SID}
+    auth_token: ${TWILIO_AUTH_TOKEN}
+    from_number: ${TWILIO_FROM_NUMBER}
+
+places_app:
+  jwt:
+    secret: mi_clave_secreta_para_jwt%$_sdfsdlfksjdflksdjflksdfsdsldfk
+    expiration: 3600
+    refresh_expiration: 4000
+  email:
+    verificacion:
+      url: http://localhost:8080/api/verificacion_email/confirmar?token=
+  sms:
+    expiration: 180
+    max_attempts: 3

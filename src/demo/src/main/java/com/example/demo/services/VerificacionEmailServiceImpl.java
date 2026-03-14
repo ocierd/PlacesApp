@@ -51,7 +51,9 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
     VerificationToken vToken = new VerificationToken(token, usuario);
     tokenRepository.save(vToken);
 
-    sendEmail(usuario.getEmail(), token);
+    // String email=usuario.getEmail();
+    String email = "<correo_electronico_del_usuario>"; // Reemplazar con el correo electrónico del usuario
+    sendEmail(email, token);
 
   }
 
@@ -72,7 +74,7 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
     }
 
     Usuario usuario = vToken.getUsuario();
-    usuario.setEmailVerificado(true); // Activar usuario
+    // usuario.setEmailVerificado(true); // Adaptar al nuevo método para activar el email verificado
     usuarioRepository.save(usuario);
     // tokenRepository.delete(vToken); // Borrar token usado
 
