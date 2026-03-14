@@ -84,14 +84,14 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
     }
 
     private void validarVerificacionesPrevias(Usuario usuario) throws ValidacionException {
-        Integer cantidadCodigosEnviados = verificacionTelefonoRepository
-                .countByUsuarioId(usuario.getUsuarioId());
+        // Integer cantidadCodigosEnviados = verificacionTelefonoRepository
+        //         .countByUsuarioId(usuario.getUsuarioId());
 
         // Revisa si ha rebasado la mayoría de intentos
-        if (cantidadCodigosEnviados >= MAX_ATTEMPTS) {
-            throw new ValidacionException(
-                    "Se ha alcanzado el límite de códigos de verificación enviados. Por favor, inténtalo más tarde.");
-        }
+        // if (cantidadCodigosEnviados >= MAX_ATTEMPTS) {
+        //     throw new ValidacionException(
+        //             "Se ha alcanzado el límite de códigos de verificación enviados. Por favor, inténtalo más tarde.");
+        // }
     }
 
     private String obtenerMensaje(String codigo) {
@@ -100,7 +100,7 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
 
     private VerificacionTelefono obtenerVerificacionTelefono(Usuario usuario) {
         VerificacionTelefono verTelefono = new VerificacionTelefono();
-        verTelefono.setUsuarioId(usuario.getUsuarioId());
+        // verTelefono.setUsuarioId(usuario.getUsuarioId());
         String codigo = generarCodigo();
         verTelefono.setCodigo(codigo);
         LocalDateTime now = LocalDateTime.now();
@@ -129,11 +129,11 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
 
             verificacion.setFechaConfirmacion(LocalDateTime.now());
             verificacionTelefonoRepository.save(verificacion);
-            Long usuarioID = verificacion.getUsuarioId();
+            // Long usuarioID = verificacion.getUsuarioId();
 
-            Usuario user = usuarioRepository.findById(usuarioID).orElse(null);
+            // Usuario user = usuarioRepository.findById(usuarioID).orElse(null);
             // user.setTelefonoVerificado(true); //Agregar nuevo método para activar el teléfono verificado
-            usuarioRepository.save(user);
+            // usuarioRepository.save(user);
         } else {
             throw new NoEncontradoException();
         }

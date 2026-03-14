@@ -35,12 +35,12 @@ public class VerificacionTelefono {
     @Column(name = "fecha_confirmacion", insertable = false, nullable = true)
     private LocalDateTime fechaConfirmacion;
 
-    @Column(name = "usuario_id")
-    private Long usuarioId;
+    @Column(name = "telefono_id")
+    private Long telefonoId;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "telefono_id", insertable = false, updatable = false)
+    private Telefono telefono;
 
 
 }

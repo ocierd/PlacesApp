@@ -1,0 +1,392 @@
+-- 1	"Afganistán"	"Afgano/a"	"93"	"AF"	"AFG"
+-- 2	"Albania"		"355"	"AL"	"ALB"
+-- 3	"Alemania"	"Alemán/a"	"49"	"DE"	"DEU"
+-- 4	"Andorra"		"376"	"AD"	"AND"
+-- 5	"Angola"		"244"	"AO"	"AGO"
+-- 6	"Antigua y Barbuda"		"1"	"AG"	"ATG"
+-- 7	"Arabia Saudita"		"966"	"SA"	"SAU"
+-- 8	"Argelia"	"Argelino/a"	"213"	"DZ"	"DZA"
+-- 9	"Argentina"	"Argentino/a"	"54"	"AR"	"ARG"
+-- 10	"Armenia"		"374"	"AM"	"ARM"
+-- 11	"Australia"	"Australiano/a"	"61"	"AU"	"AUS"
+-- 12	"Austria"	"Austriaco/a"	"43"	"AT"	"AUT"
+-- 13	"Azerbaiyán"		"994"	"AZ"	"AZE"
+-- 14	"Bahamas"		"1"	"BS"	"BHS"
+-- 15	"Bangladés"		"880"	"BD"	"BGD"
+-- 16	"Barbados"		"1"	"BB"	"BRB"
+-- 17	"Baréin"		"973"	"BH"	"BHR"
+-- 18	"Bélgica"	"Belga"	"32"	"BE"	"BEL"
+-- 19	"Belice"		"501"	"BZ"	"BLZ"
+-- 20	"Benín"		"229"	"BJ"	"BEN"
+-- 21	"Bielorrusia"		"375"	"BY"	"BLR"
+-- 22	"Birmania"		"95"	"MM"	"MMR"
+-- 23	"Bolivia"	"Boliviano/a"	"591"	"BO"	"BOL"
+-- 24	"Bosnia y Herzegovina"		"387"	"BA"	"BIH"
+-- 25	"Botsuana"		"267"	"BW"	"BWA"
+-- 26	"Brasil"	"Brasileño/a"	"55"	"BR"	"BRA"
+-- 27	"Brunéi"		"673"	"BN"	"BRN"
+-- 28	"Bulgaria"		"359"	"BG"	"BGR"
+-- 29	"Burkina Faso"		"226"	"BF"	"BFA"
+-- 30	"Burundi"		"257"	"BI"	"BDI"
+-- 31	"Bután"		"975"	"BT"	"BTN"
+-- 32	"Cabo Verde"		"238"	"CV"	"CPV"
+-- 33	"Camboya"		"855"	"KH"	"KHM"
+-- 34	"Camerún"	"Camerunés/a"	"237"	"CM"	"CMR"
+-- 35	"Canadá"	"Canadiense"	"1"	"CA"	"CAN"
+-- 36	"Catar"		"974"	"QA"	"QAT"
+-- 37	"Chad"		"235"	"TD"	"TCD"
+-- 38	"Chile"		"56"	"CL"	"CHL"
+-- 39	"China"	"Chino/a"	"86"	"CN"	"CHN"
+-- 40	"Chipre"		"357"	"CY"	"CYP"
+-- 41	"Ciudad del Vaticano"		"39"	"VA"	"VAT"
+-- 42	"Colombia"	"Colombiano/a"	"57"	"CO"	"COL"
+-- 43	"Comoras"		"269"	"KM"	"COM"
+-- 44	"Corea del Norte"		"850"	"KP"	"PRK"
+-- 45	"Corea del Sur"	"Surcoreano/a"	"82"	"KR"	"KOR"
+-- 46	"Costa de Marfil"		"225"	"CI"	"CIV"
+-- 47	"Costa Rica"	"Costarricense"	"506"	"CR"	"CRI"
+-- 48	"Croacia"	"Croata"	"385"	"HR"	"HRV"
+-- 49	"Cuba"	"Cubano/a"	"53"	"CU"	"CUB"
+-- 50	"Dinamarca"	"Danés/a"	"45"	"DK"	"DNK"
+-- 51	"Dominica"		"1"	"DM"	"DMA"
+-- 52	"Ecuador"	"Ecuatoriano/a"	"593"	"EC"	"ECU"
+-- 53	"Egipto"	"Egipcio/a"	"20"	"EG"	"EGY"
+-- 54	"El Salvador"	"Salvadoreño/a"	"503"	"SV"	"SLV"
+-- 55	"Emiratos Árabes Unidos"		"971"	"AE"	"ARE"
+-- 56	"Eritrea"		"291"	"ER"	"ERI"
+-- 57	"Eslovaquia"	"Eslovaco/a"	"421"	"SK"	"SVK"
+-- 58	"Eslovenia"	"Esloveno/a"	"386"	"SI"	"SVN"
+-- 59	"España"	"Español/a"	"34"	"ES"	"ESP"
+-- 60	"Estados Unidos"	"Estadounidense"	"1"	"US"	"USA"
+-- 61	"Estonia"		"372"	"EE"	"EST"
+-- 62	"Etiopía"	"Etíope"	"251"	"ET"	"ETH"
+-- 63	"Filipinas"	"Filipino/a"	"63"	"PH"	"PHL"
+-- 64	"Finlandia"		"358"	"FI"	"FIN"
+-- 65	"Fiyi"		"679"	"FJ"	"FJI"
+-- 66	"Francia"	"Francés/a"	"33"	"FR"	"FRA"
+-- 67	"Gabón"		"241"	"GA"	"GAB"
+-- 68	"Gambia"		"220"	"GM"	"GMB"
+-- 69	"Georgia"		"995"	"GE"	"GEO"
+-- 70	"Ghana"		"233"	"GH"	"GHA"
+-- 71	"Granada"		"1"	"GD"	"GRD"
+-- 72	"Grecia"	"Griego/a"	"30"	"GR"	"GRC"
+-- 73	"Guatemala"		"502"	"GT"	"GTM"
+-- 75	"Guinea"		"224"	"GN"	"GIN"
+-- 77	"Guinea-Bisáu"		"245"	"GW"	"GNB"
+-- 76	"Guinea ecuatorial"		"240"	"GQ"	"GNQ"
+-- 74	"Guyana"	"Guyanés/a"	"592"	"GY"	"GUY"
+-- 78	"Haití"	"Haitiano/a"	"509"	"HT"	"HTI"
+-- 79	"Honduras"	"Hondureño/a"	"504"	"HN"	"HND"
+-- 80	"Hungría"	"Húngaro/a"	"36"	"HU"	"HUN"
+-- 81	"India"	"Indio/a"	"91"	"IN"	"IND"
+-- 82	"Indonesia"		"62"	"ID"	"IDN"
+-- 83	"Irak"	"Irakí"	"964"	"IQ"	"IRQ"
+-- 84	"Irán"	"Iraní"	"98"	"IR"	"IRN"
+-- 85	"Irlanda"	"Irlandés/a"	"353"	"IE"	"IRL"
+-- 86	"Islandia"	"Islandés/a"	"354"	"IS"	"ISL"
+-- 87	"Islas Marshall"		"692"	"MH"	"MHL"
+-- 88	"Islas Salomón"		"677"	"SB"	"SLB"
+-- 89	"Israel"	"Israelita"	"972"	"IL"	"ISR"
+-- 90	"Italia"	"Italiano/a"	"39"	"IT"	"ITA"
+-- 91	"Jamaica"	"Jamaicano/a"	"1"	"JM"	"JAM"
+-- 92	"Japón"	"Japonés/a"	"81"	"JP"	"JPN"
+-- 93	"Jordania"		"962"	"JO"	"JOR"
+-- 94	"Kazajistán"		"7"	"KZ"	"KAZ"
+-- 95	"Kenia"	"Keniata"	"254"	"KE"	"KEN"
+-- 96	"Kirguistán"		"996"	"KG"	"KGZ"
+-- 97	"Kiribati"		"686"	"KI"	"KIR"
+-- 98	"Kuwait"		"965"	"KW"	"KWT"
+-- 99	"Laos"		"856"	"LA"	"LAO"
+-- 100	"Lesoto"		"266"	"LS"	"LSO"
+-- 101	"Letonia"	"Letonio/a"	"371"	"LV"	"LVA"
+-- 102	"Líbano"	"Libanés/a"	"961"	"LB"	"LBN"
+-- 103	"Liberia"		"231"	"LR"	"LBR"
+-- 104	"Libia"		"218"	"LY"	"LBY"
+-- 105	"Liechtenstein"		"423"	"LI"	"LIE"
+-- 106	"Lituania"	"Lituano/a"	"370"	"LT"	"LTU"
+-- 107	"Luxemburgo"		"352"	"LU"	"LUX"
+-- 108	"Macedonia del Norte"		"389"	"MK"	"MKD"
+-- 109	"Madagascar"		"261"	"MG"	"MDG"
+-- 110	"Malasia"		"60"	"MY"	"MYS"
+-- 111	"Malaui"		"265"	"MW"	"MWI"
+-- 112	"Maldivas"		"960"	"MV"	"MDV"
+-- 113	"Malta"	"Maltés/a"	"356"	"MT"	"MLT"
+-- 114	"Marruecos"	"Marroquí"	"212"	"MA"	"MAR"
+-- 115	"Mauricio"		"230"	"MU"	"MUS"
+-- 116	"Mauritania"		"222"	"MR"	"MRT"
+-- 117	"México"	"Mexicano/a"	"52"	"MX"	"MEX"
+-- 118	"Micronesia"		"691"	"FM"	"FSM"
+-- 119	"Moldavia"	"Moldavo/a"	"373"	"MD"	"MDA"
+-- 120	"Mónaco"	"Mónaco/a, monaqués"	"377"	"MC"	"MCO"
+-- 121	"Mongolia"	"Mongol/a"	"976"	"MN"	"MNG"
+-- 122	"Montenegro"		"382"	"ME"	"MNE"
+-- 123	"Mozambique"		"258"	"MZ"	"MOZ"
+-- 124	"Namibia"		"264"	"NA"	"NAM"
+-- 125	"Nauru"		"674"	"NR"	"NRU"
+-- 126	"Nepal"	"Nepalí"	"977"	"NP"	"NPL"
+-- 127	"Nicaragua"	"Nicaraguense"	"505"	"NI"	"NIC"
+-- 128	"Níger"		"227"	"NE"	"NER"
+-- 129	"Nigeria"	"Nigeriano/a"	"234"	"NG"	"NGA"
+-- 130	"Noruega"	"Noruego/a"	"47"	"NO"	"NOR"
+-- 131	"Nueva Zelanda"		"64"	"NZ"	"NZL"
+-- 132	"Omán"		"968"	"OM"	"OMN"
+-- 133	"Países Bajos"	"Neerlandés/a"	"31"	"NL"	"NLD"
+-- 134	"Pakistán"		"92"	"PK"	"PAK"
+-- 135	"Palaos"		"680"	"PW"	"PLW"
+-- 136	"Panamá"	"Panameño/a"	"507"	"PA"	"PAN"
+-- 137	"Papúa Nueva Guinea"		"675"	"PG"	"PNG"
+-- 138	"Paraguay"	"Paraguayo/a"	"595"	"PY"	"PRY"
+-- 139	"Perú"	"Peruano/a"	"51"	"PE"	"PER"
+-- 140	"Polonia"		"48"	"PL"	"POL"
+-- 141	"Portugal"	"Portugués/a"	"351"	"PT"	"PRT"
+-- 142	"Reino Unido"	"Británico/a"	"44"	"GB"	"GBR"
+-- 143	"República Centroafricana"		"236"	"CF"	"CAF"
+-- 144	"República Checa"	"Checo/a"	"420"	"CZ"	"CZE"
+-- 145	"República del Congo"		"242"	"CG"	"COG"
+-- 146	"República Democrática del Congo"		"243"	"CD"	"COD"
+-- 147	"República Dominicana"		"1"	"DO"	"DOM"
+-- 148	"República Sudafricana"		"27"	"ZA"	"ZAF"
+-- 149	"Ruanda"		"250"	"RW"	"RWA"
+-- 150	"Rumanía"		"40"	"RO"	"ROU"
+-- 151	"Rusia"	"Ruso/a"	"7"	"RU"	"RUS"
+-- 152	"Samoa"		"685"	"WS"	"WSM"
+-- 153	"San Cristóbal y Nieves"		"1"	"KN"	"KNA"
+-- 154	"San Marino"		"378"	"SM"	"SMR"
+-- 155	"San Vicente y las Granadinas"		"1"	"VC"	"VCT"
+-- 156	"Santa Lucía"		"1"	"LC"	"LCA"
+-- 157	"Santo Tomé y Príncipe"		"239"	"ST"	"STP"
+-- 158	"Senegal"		"221"	"SN"	"SEN"
+-- 159	"Serbia"	"Serbio/a"	"381"	"RS"	"SRB"
+-- 160	"Seychelles"		"248"	"SC"	"SYC"
+-- 161	"Sierra Leona"		"232"	"SL"	"SLE"
+-- 162	"Singapur"	"Singapurense"	"65"	"SG"	"SGP"
+-- 163	"Siria"	"Sirio/a"	"963"	"SY"	"SYR"
+-- 164	"Somalia"		"252"	"SO"	"SOM"
+-- 165	"Sri Lanka"		"94"	"LK"	"LKA"
+-- 166	"Suazilandia"		"268"	"SZ"	"SWZ"
+-- 167	"Sudán"		"249"	"SD"	"SDN"
+-- 168	"Sudán del Sur"		"211"	"SS"	"SSD"
+-- 169	"Suecia"	"Sueco/a"	"46"	"SE"	"SWE"
+-- 170	"Suiza"	"Sueco/a"	"41"	"CH"	"CHE"
+-- 171	"Surinam"	"Surinamés/a"	"597"	"SR"	"SUR"
+-- 172	"Tailandia"	"Tailandés/a"	"66"	"TH"	"THA"
+-- 173	"Tanzania"		"255"	"TZ"	"TZA"
+-- 174	"Tayikistán"		"992"	"TJ"	"TJK"
+-- 175	"Timor Oriental"		"670"	"TL"	"TLS"
+-- 176	"Togo"		"228"	"TG"	"TGO"
+-- 177	"Tonga"		"676"	"TO"	"TON"
+-- 178	"Trinidad y Tobago"		"1"	"TT"	"TTO"
+-- 179	"Túnez"		"216"	"TN"	"TUN"
+-- 180	"Turkmenistán"		"993"	"TM"	"TKM"
+-- 181	"Turquía"	"Turco/a"	"90"	"TR"	"TUR"
+-- 182	"Tuvalu"		"688"	"TV"	"TUV"
+-- 183	"Ucrania"	"Ucraniano/a"	"380"	"UA"	"UKR"
+-- 184	"Uganda"		"256"	"UG"	"UGA"
+-- 185	"Uruguay"	"Uruguayo/a"	"598"	"UY"	"URY"
+-- 186	"Uzbekistán"		"998"	"UZ"	"UZB"
+-- 187	"Vanuatu"		"678"	"VU"	"VUT"
+-- 188	"Venezuela"	"Venezolano/a"	"58"	"VE"	"VEN"
+-- 189	"Vietnam"	"Vietnamita"	"84"	"VN"	"VNM"
+-- 190	"Yemen"	"Yemení"	"967"	"YE"	"YEM"
+-- 191	"Yibuti"		"253"	"DJ"	"DJI"
+-- 192	"Zambia"		"260"	"ZM"	"ZMB"
+-- 193	"Zimbabue"	"Zimbabuense/a"	"263"	"ZW"	"ZWE"
+
+
+SET IDENTITY_INSERT pais ON;
+INSERT INTO pais (pais_id, nombre, nacionalidad, codigo, iso2, iso3)
+VALUES
+(1, 'Afganistán', 'Afgano/a', '93', 'AF', 'AFG'),
+(2, 'Albania', NULL, '355', 'AL', 'ALB'),
+(3, 'Alemania', 'Alemán/a', '49', 'DE', 'DEU'),
+(4, 'Andorra', NULL, '376', 'AD', 'AND'),
+(5, 'Angola', NULL, '244', 'AO', 'AGO'),
+(6, 'Antigua y Barbuda', NULL, '1', 'AG', 'ATG'),
+(7, 'Arabia Saudita', NULL, '966', 'SA', 'SAU'),
+(8, 'Argelia', 'Argelino/a', '213', 'DZ', 'DZA'),
+(9, 'Argentina', 'Argentino/a', '54', 'AR', 'ARG'),
+(10, 'Armenia', NULL, '374', 'AM', 'ARM'),
+(11, 'Australia', 'Australiano/a', '61', 'AU', 'AUS'),
+(12, 'Austria', 'Austriaco/a', '43', 'AT', 'AUT'),
+(13, 'Azerbaiyán', NULL, '994', 'AZ', 'AZE'),
+(14, 'Bahamas', NULL, '1', 'BS', 'BHS'),
+(15, 'Bangladés', NULL, '880', 'BD', 'BGD'),
+(16, 'Barbados', NULL, '1', 'BB', 'BRB'),
+(17, 'Baréin', NULL, '973', 'BH', 'BHR'),
+(18, 'Bélgica', 'Belga', '32', 'BE', 'BEL'),
+(19, 'Belice', NULL, '501', 'BZ', 'BLZ'),
+(20, 'Benín', NULL, '229', 'BJ', 'BEN'),
+(21, 'Bielorrusia', NULL, '375', 'BY', 'BLR'),
+(22, 'Birmania', NULL, '95', 'MM', 'MMR'),
+(23, 'Bolivia', 'Boliviano/a', '591', 'BO', 'BOL'),
+(24, 'Bosnia y Herzegovina', NULL, '387', 'BA', 'BIH'),
+(25, 'Botsuana', NULL, '267', 'BW', 'BWA'),
+(26, 'Brasil', 'Brasileño/a', '55', 'BR', 'BRA'),
+(27, 'Brunéi', NULL, '673', 'BN', 'BRN'),
+(28, 'Bulgaria', NULL, '359', 'BG', 'BGR'),
+(29, 'Burkina Faso', NULL, '226', 'BF', 'BFA'),
+(30, 'Burundi', NULL, '257', 'BI', 'BDI'),
+(31, 'Bután', NULL, '975', 'BT', 'BTN'),
+(32, 'Cabo Verde', NULL, '238', 'CV', 'CPV'),
+(33, 'Camboya', NULL, '855', 'KH', 'KHM'),
+(34, 'Camerún', 'Camerunés/a', '237', 'CM', 'CMR'),
+(35, 'Canadá', 'Canadiense', '1', 'CA', 'CAN'),
+(36, 'Catar', NULL, '974', 'QA', 'QAT'),
+(37, 'Chad', NULL, '235', 'TD', 'TCD'),
+(38, 'Chile', NULL, '56', 'CL', 'CHL'),
+(39, 'China', 'Chino/a', '86', 'CN', 'CHN'),
+(40, 'Chipre', NULL, '357', 'CY', 'CYP'),
+(41, 'Ciudad del Vaticano', NULL, '39', 'VA', 'VAT'),
+(42, 'Colombia', 'Colombiano/a', '57', 'CO', 'COL'),
+(43, 'Comoras', NULL, '269', 'KM', 'COM'),
+(44, 'Corea del Norte', NULL, '850', 'KP', 'PRK'),
+(45, 'Corea del Sur', 'Surcoreano/a', '82', 'KR', 'KOR'),
+(46, 'Costa de Marfil', NULL, '225', 'CI', 'CIV'),
+(47, 'Costa Rica', 'Costarricense', '506', 'CR', 'CRI'),
+(48, 'Croacia', 'Croata', '385', 'HR', 'HRV'),
+(49, 'Cuba', 'Cubano/a', '53', 'CU', 'CUB'),
+(50, 'Dinamarca', 'Danés/a', '45', 'DK', 'DNK'),
+(51, 'Dominica', NULL, '1', 'DM', 'DMA'),
+(52, 'Ecuador', 'Ecuatoriano/a', '593', 'EC', 'ECU'),
+(53, 'Egipto', 'Egipcio/a', '20', 'EG', 'EGY'),
+(54, 'El Salvador', 'Salvadoreño/a', '503', 'SV', 'SLV'),
+(55, 'Emiratos Árabes Unidos', NULL, '971', 'AE', 'ARE'),
+(56, 'Eritrea', NULL, '291', 'ER', 'ERI'),
+(57, 'Eslovaquia', 'Eslovaco/a', '421', 'SK', 'SVK'),
+(58, 'Eslovenia', 'Esloveno/a', '386', 'SI', 'SVN'),
+(59, 'España', 'Español/a', '34', 'ES', 'ESP'),
+(60, 'Estados Unidos', 'Estadounidense', '1', 'US', 'USA'),
+(61, 'Estonia', NULL, '372', 'EE', 'EST'),
+(62, 'Etiopía', 'Etíope', '251', 'ET', 'ETH'),
+(63, 'Filipinas', 'Filipino/a', '63', 'PH', 'PHL'),
+(64, 'Finlandia', NULL, '358', 'FI', 'FIN'),
+(65, 'Fiyi', NULL, '679', 'FJ', 'FJI'),
+(66, 'Francia', 'Francés/a', '33', 'FR', 'FRA'),
+(67, 'Gabón', NULL, '241', 'GA', 'GAB'),
+(68, 'Gambia', NULL, '220', 'GM', 'GMB'),
+(69, 'Georgia', NULL, '995', 'GE', 'GEO'),
+(70, 'Ghana', NULL, '233', 'GH', 'GHA'),
+(71, 'Granada', NULL, '1', 'GD', 'GRD'),
+(72, 'Grecia', 'Griego/a', '30', 'GR', 'GRC'),
+(73, 'Guatemala', NULL, '502', 'GT', 'GTM'),
+(74, 'Guyana', 'Guyanés/a', '592', 'GY', 'GUY'),
+(75, 'Guinea', NULL, '224', 'GN', 'GIN'),
+(76, 'Guinea ecuatorial', NULL, '240', 'GQ', 'GNQ'),
+(77, 'Guinea-Bisáu', NULL, '245', 'GW', 'GNB'),
+(78, 'Haití', 'Haitiano/a', '509', 'HT', 'HTI'),
+(79, 'Honduras', 'Hondureño/a', '504', 'HN', 'HND'),
+(80, 'Hungría', 'Húngaro/a', '36', 'HU', 'HUN'),
+(81, 'India', 'Indio/a', '91', 'IN', 'IND'),
+(82, 'Indonesia', NULL, '62', 'ID', 'IDN'),
+(83, 'Irak', 'Irakí', '964', 'IQ', 'IRQ'),
+(84, 'Irán', 'Iraní', '98', 'IR', 'IRN'),
+(85, 'Irlanda', 'Irlandés/a', '353', 'IE', 'IRL'),
+(86, 'Islandia', 'Islandés/a', '354', 'IS', 'ISL'),
+(87, 'Islas Marshall', NULL, '692', 'MH', 'MHL'),
+(88, 'Islas Salomón', NULL, '677', 'SB', 'SLB'),
+(89, 'Israel', 'Israelita', '972', 'IL', 'ISR'),
+(90, 'Italia', 'Italiano/a', '39', 'IT', 'ITA'),
+(91, 'Jamaica', 'Jamaicano/a', '1', 'JM', 'JAM'),
+(92, 'Japón', 'Japonés/a', '81', 'JP', 'JPN'),
+(93, 'Jordania', NULL, '962', 'JO', 'JOR'),
+(94, 'Kazajistán', NULL, '7', 'KZ', 'KAZ'),
+(95, 'Kenia', 'Keniata', '254', 'KE', 'KEN'),
+(96, 'Kirguistán', NULL, '996', 'KG', 'KGZ'),
+(97, 'Kiribati', NULL, '686', 'KI', 'KIR'),
+(98, 'Kuwait', NULL, '965', 'KW', 'KWT'),
+(99, 'Laos', NULL, '856', 'LA', 'LAO'),
+(100, 'Lesoto', NULL, '266', 'LS', 'LSO'),
+(101, 'Letonia', 'Letonio/a', '371', 'LV', 'LVA'),
+(102, 'Líbano', 'Libanés/a', '961', 'LB', 'LBN'),
+(103, 'Liberia', NULL, '231', 'LR', 'LBR'),
+(104, 'Libia', NULL, '218', 'LY', 'LBY'),
+(105, 'Liechtenstein', NULL, '423', 'LI', 'LIE'),
+(106, 'Lituania', 'Lituano/a', '370', 'LT', 'LTU'),
+(107, 'Luxemburgo', NULL, '352', 'LU', 'LUX'),
+(108, 'Macedonia del Norte', NULL, '389', 'MK', 'MKD'),
+(109, 'Madagascar', NULL, '261', 'MG', 'MDG'),
+(110, 'Malasia', NULL, '60', 'MY', 'MYS'),
+(111, 'Malaui', NULL, '265', 'MW', 'MWI'),
+(112, 'Maldivas', NULL, '960', 'MV', 'MDV'),
+(113, 'Malta', 'Maltés/a', '356', 'MT', 'MLT'),
+(114, 'Marruecos', 'Marroquí', '212', 'MA', 'MAR'),
+(115, 'Mauricio', NULL, '230', 'MU', 'MUS'),
+(116, 'Mauritania', NULL, '222', 'MR', 'MRT'),
+(117, 'México', 'Mexicano/a', '52', 'MX', 'MEX'),
+(118, 'Micronesia', NULL, '691', 'FM', 'FSM'),
+(119, 'Moldavia', 'Moldavo/a', '373', 'MD', 'MDA'),
+(120, 'Mónaco', 'Mónaco/a, monaqués', '377', 'MC', 'MCO'),
+(121, 'Mongolia', 'Mongol/a', '976', 'MN', 'MNG'),
+(122, 'Montenegro', NULL, '382', 'ME', 'MNE'),
+(123, 'Mozambique', NULL, '258', 'MZ', 'MOZ'),
+(124, 'Namibia', NULL, '264', 'NA', 'NAM'),
+(125, 'Nauru', NULL, '674', 'NR', 'NRU'),
+(126, 'Nepal', 'Nepalí', '977', 'NP', 'NPL'),
+(127, 'Nicaragua', 'Nicaraguense', '505', 'NI', 'NIC'),
+(128, 'Níger', NULL, '227', 'NE', 'NER'),
+(129, 'Nigeria', 'Nigeriano/a', '234', 'NG', 'NGA'),
+(130, 'Noruega', 'Noruego/a', '47', 'NO', 'NOR'),
+(131, 'Nueva Zelanda', NULL, '64', 'NZ', 'NZL'),
+(132, 'Omán', NULL, '968', 'OM', 'OMN'),
+(133, 'Países Bajos', 'Neerlandés/a', '31', 'NL', 'NLD'),
+(134, 'Pakistán', NULL, '92', 'PK', 'PAK'),
+(135, 'Palaos', NULL, '680', 'PW', 'PLW'),
+(136, 'Panamá', 'Panameño/a', '507', 'PA', 'PAN'),
+(137, 'Papúa Nueva Guinea', NULL, '675', 'PG', 'PNG'),
+(138, 'Paraguay', 'Paraguayo/a', '595', 'PY', 'PRY'),
+(139, 'Perú', 'Peruano/a', '51', 'PE', 'PER'),
+(140, 'Polonia', NULL, '48', 'PL', 'POL'),
+(141, 'Portugal', 'Portugués/a', '351', 'PT', 'PRT'),
+(142, 'Reino Unido', 'Británico/a', '44', 'GB', 'GBR'),
+(143, 'República Centroafricana', NULL, '236', 'CF', 'CAF'),
+(144, 'República Checa', 'Checo/a', '420', 'CZ', 'CZE'),
+(145, 'República del Congo', NULL, '242', 'CG', 'COG'),
+(146, 'República Democrática del Congo', NULL, '243', 'CD', 'COD'),
+(147, 'República Dominicana', NULL, '1', 'DO', 'DOM'),
+(148, 'República Sudafricana', NULL, '27', 'ZA', 'ZAF'),
+(149, 'Ruanda', NULL, '250', 'RW', 'RWA'),
+(150, 'Rumanía', NULL, '40', 'RO', 'ROU'),
+(151, 'Rusia', 'Ruso/a', '7', 'RU', 'RUS'),
+(152, 'Samoa', NULL, '685', 'WS', 'WSM'),
+(153, 'San Cristóbal y Nieves', NULL, '1', 'KN', 'KNA'),
+(154, 'San Marino', NULL, '378', 'SM', 'SMR'),
+(155, 'San Vicente y las Granadinas', NULL, '1', 'VC', 'VCT'),
+(156, 'Santa Lucía', NULL, '1', 'LC', 'LCA'),
+(157, 'Santo Tomé y Príncipe', NULL, '239', 'ST', 'STP'),
+(158, 'Senegal', NULL, '221', 'SN', 'SEN'),
+(159, 'Serbia', 'Serbio/a', '381', 'RS', 'SRB'),
+(160, 'Seychelles', NULL, '248', 'SC', 'SYC'),
+(161, 'Sierra Leona', NULL, '232', 'SL', 'SLE'),
+(162, 'Singapur', 'Singapurense', '65', 'SG', 'SGP'),
+(163, 'Siria', 'Sirio/a', '963', 'SY', 'SYR'),
+(164, 'Somalia', NULL, '252', 'SO', 'SOM'),
+(165, 'Sri Lanka', NULL, '94', 'LK', 'LKA'),
+(166, 'Suazilandia', NULL, '268', 'SZ', 'SWZ'),
+(167, 'Sudán', NULL, '249', 'SD', 'SDN'),
+(168, 'Sudán del Sur', NULL, '211', 'SS', 'SSD'),
+(169, 'Suecia', 'Sueco/a', '46', 'SE', 'SWE'),
+(170, 'Suiza', 'Sueco/a', '41', 'CH', 'CHE'),
+(171, 'Surinam', 'Surinamés/a', '597', 'SR', 'SUR'),
+(172, 'Tailandia', 'Tailandés/a', '66', 'TH', 'THA'),
+(173, 'Tanzania', NULL, '255', 'TZ', 'TZA'),
+(174, 'Tayikistán', NULL, '992', 'TJ', 'TJK'),
+(175, 'Timor Oriental', NULL, '670', 'TL', 'TLS'),
+(176, 'Togo', NULL, '228', 'TG', 'TGO'),
+(177, 'Tonga', NULL, '676', 'TO', 'TON'),
+(178, 'Trinidad y Tobago', NULL, '1', 'TT', 'TTO'),
+(179, 'Túnez', NULL, '216', 'TN', 'TUN'),
+(180, 'Turkmenistán', NULL, '993', 'TM', 'TKM'),
+(181, 'Turquía', 'Turco/a', '90', 'TR', 'TUR'),
+(182, 'Tuvalu', NULL, '688', 'TV', 'TUV'),
+(183, 'Ucrania', 'Ucraniano/a', '380', 'UA', 'UKR'),
+(184, 'Uganda', NULL, '256', 'UG', 'UGA'),
+(185, 'Uruguay', 'Uruguayo/a', '598', 'UY', 'URY'),
+(186, 'Uzbekistán', NULL, '998', 'UZ', 'UZB'),
+(187, 'Vanuatu', NULL, '678', 'VU', 'VUT'),
+(188, 'Venezuela', 'Venezolano/a', '58', 'VE', 'VEN'),
+(189, 'Vietnam', 'Vietnamita', '84', 'VN', 'VNM'),
+(190, 'Yemen', 'Yemení', '967', 'YE', 'YEM'),
+(191, 'Yibuti', NULL, '253', 'DJ', 'DJI'),
+(192, 'Zambia', NULL, '260', 'ZM', 'ZMB'),
+(193, 'Zimbabue', 'Zimbabuense/a', '263', 'ZW', 'ZWE');
+SET IDENTITY_INSERT pais OFF;

@@ -3,24 +3,25 @@ package com.example.demo.services;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Correo;
 import com.example.demo.domain.Usuario;
-import com.example.demo.domain.VerificationToken;
+import com.example.demo.domain.VerificacionCorreo;
 import com.example.demo.domain.exceptions.ValidacionException;
-import com.example.demo.repository.TokenRepository;
+
 import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.repository.VerificacionCorreoRepository;
 import com.example.demo.services.interfaces.EmailService;
 import com.example.demo.services.interfaces.VerificacionEmailService;
 import com.example.demo.services.interfaces.TemplateService;
 
 @Service
 public class VerificacionEmailServiceImpl implements VerificacionEmailService {
-  private final TokenRepository tokenRepository;
+  private final VerificacionCorreoRepository verificacionCorreoRepository;
 
   private final UsuarioRepository usuarioRepository;
 
@@ -37,9 +38,9 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
 
   private static final String BIENVENIDA_TEMPLATE = "varios/bienvenida";
 
-  private VerificacionEmailServiceImpl(TokenRepository tokenRepository, UsuarioRepository usuarioRepository,
+  private VerificacionEmailServiceImpl(VerificacionCorreoRepository verificacionCorreoRepository, UsuarioRepository usuarioRepository,
       EmailService emailService, TemplateService templateService) {
-    this.tokenRepository = tokenRepository;
+    this.verificacionCorreoRepository = verificacionCorreoRepository;
     this.usuarioRepository = usuarioRepository;
     this.emailService = emailService;
     this.templateService = templateService;
@@ -47,9 +48,15 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
 
   @Override
   public void createAndSendToken(Usuario usuario) throws ValidacionException {
-    String token = UUID.randomUUID().toString();
-    VerificationToken vToken = new VerificationToken(token, usuario);
-    tokenRepository.save(vToken);
+    VerificacionCorreo vToken = new VerificacionCorreo();
+    
+    // Falta obtener el correo
+
+    vToken.setFechaEnvio(LocalDateTime.now());
+    vToken.setFechaExpiracion(LocalDateTime.now().plusMinutes(30)); // Token válido
+    verificacionCorreoRepository.save(vToken);
+
+    String token= vToken.getToken(); // Obtener el token generado para incluirlo en el correo
 
     // String email=usuario.getEmail();
     String email = "<correo_electronico_del_usuario>"; // Reemplazar con el correo electrónico del usuario
@@ -67,19 +74,21 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
 
   @Override
   public ResponseEntity<String> confirmarCorreo(String token) {
-    VerificationToken vToken = tokenRepository.findByToken(token);
+    VerificacionCorreo vToken = verificacionCorreoRepository.findByToken(token);
 
-    if (vToken == null || vToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+    if (vToken == null || vToken.getFechaExpiracion().isBefore(LocalDateTime.now())) {
       return ResponseEntity.badRequest().body("Token inválido o expirado");
     }
 
-    Usuario usuario = vToken.getUsuario();
-    // usuario.setEmailVerificado(true); // Adaptar al nuevo método para activar el email verificado
-    usuarioRepository.save(usuario);
+    Correo correo = vToken.getCorreo();
+    correo.setActivo(true);
+    
+    // usuarioRepository.save(correo);
+
     // tokenRepository.delete(vToken); // Borrar token usado
 
     Map<String, Object> datos = new HashMap<>();
-    datos.put("nombre", usuario.getNombre());
+    // datos.put("nombre", correo.getNombre());
     String bienvenidatemplate = templateService.renderTemplate(BIENVENIDA_TEMPLATE, datos);
 
     return ResponseEntity.ok(bienvenidatemplate);
