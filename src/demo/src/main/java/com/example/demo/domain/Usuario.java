@@ -21,7 +21,7 @@ public class Usuario implements UserDetails {
   @Id
   @Column(name = "usuario_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long usuarioid;
+  private Long usuarioId;
 
   @Column(name = "username")
   private String username;
@@ -54,14 +54,14 @@ public class Usuario implements UserDetails {
   private boolean telefonoVerificado;
 
   @Column(name = "registrado_en", insertable = false)
-  private LocalDateTime regristradoEn;
+  private LocalDateTime registradoEn;
 
-  public Long getUsuarioid() {
-    return usuarioid;
+  public Long getUsuarioId() {
+    return usuarioId;
   }
 
-  public void setUsuarioid(Long usuarioid) {
-    this.usuarioid = usuarioid;
+  public void setUsuarioId(Long usuarioId) {
+    this.usuarioId = usuarioId;
   }
 
   @Override
@@ -146,12 +146,12 @@ public class Usuario implements UserDetails {
     this.telefonoVerificado = telefonoVerificado;
   }
 
-  public LocalDateTime getRegristradoEn() {
-    return regristradoEn;
+  public LocalDateTime getRegistradoEn() {
+    return registradoEn;
   }
 
-  public void setRegristradoEn(LocalDateTime regristradoEn) {
-    this.regristradoEn = regristradoEn;
+  public void setRegistradoEn(LocalDateTime regristradoEn) {
+    this.registradoEn = regristradoEn;
   }
 
   /**

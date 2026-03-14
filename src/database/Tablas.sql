@@ -8,19 +8,19 @@ CREATE TABLE usuario (
     usuario_id bigint IDENTITY PRIMARY KEY NOT NULL,
     username VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    email_verificado bit DEFAULT 0,
+--    email VARCHAR(255) UNIQUE NOT NULL,
+--    email_verificado bit DEFAULT 0,
     nombre VARCHAR(255) NOT NULL,
     apellido_paterno VARCHAR(255) NOT NULL,
     apellido_materno VARCHAR(255) NULL,
     fecha_nacimiento date NOT NULL DEFAULT GETDATE(),
-    telefono VARCHAR(15) NULL,
-    telefono_verificado bit DEFAULT 0,
+--    telefono VARCHAR(15) NULL,
+--    telefono_verificado bit DEFAULT 0,
     registrado_en smalldatetime NOT NULL DEFAULT GETDATE()
 );
 
-ALTER TABLE usuario
-ADD CONSTRAINT UQ_email UNIQUE (email);
+-- ALTER TABLE usuario
+-- ADD CONSTRAINT UQ_email UNIQUE (email);
 
 -- Asegura que el nombre de usuario sea único en la tabla de usuarios
 ALTER TABLE usuario
