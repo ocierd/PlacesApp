@@ -26,10 +26,10 @@ public class Pais {
     @Column(name = "codigo")
     private String codigo;
 
-    @Column(name = "iso2")
+    @Column(name = "iso_2")
     private String iso2;
 
-    @Column(name = "iso3")
+    @Column(name = "iso_3")
     private String iso3;
 
 }
