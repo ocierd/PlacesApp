@@ -1,7 +1,9 @@
 package com.example.demo.domain;
 
-import java.time.LocalDateTime;
+import org.hibernate.annotations.Generated;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,10 +25,11 @@ public class VerificacionCorreo {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "verificacion_correo_id")
-  private Long id;
+  private Long verificacionCorreoId;
 
-  @Column(name = "token", insertable = false, updatable = false)
-  private String token;
+  @Generated
+  @Column(name = "token", columnDefinition = "uniqueidentifier", insertable = false, updatable = false)
+  private UUID token;
 
   @Column(name = "fecha_envio", insertable = true, updatable = false)
   private LocalDateTime fechaEnvio;
@@ -43,5 +46,4 @@ public class VerificacionCorreo {
   @ManyToOne
   @JoinColumn(name = "correo_id", insertable = false, updatable = false)
   private Correo correo;
-
 }

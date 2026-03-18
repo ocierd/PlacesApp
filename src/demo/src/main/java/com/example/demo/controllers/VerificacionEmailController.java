@@ -1,12 +1,12 @@
 package com.example.demo.controllers;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.exceptions.NoEncontradoException;
 import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.VerificacionEmailService;
 
@@ -49,8 +49,7 @@ public class VerificacionEmailController extends BaseController {
    *         devuelve un mensaje de error correspondiente.
    */
   @GetMapping("/confirmar")
-  public ResponseEntity<String> confirmRegistration(@RequestParam String token) {
+  public String confirmRegistration(@RequestParam String token) throws NoEncontradoException, ValidacionException {
     return verificacionEmailService.confirmarCorreo(token);
   }
-
 }
