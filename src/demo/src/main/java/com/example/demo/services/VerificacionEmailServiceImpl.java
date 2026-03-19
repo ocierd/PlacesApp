@@ -25,6 +25,17 @@ import com.example.demo.services.interfaces.EmailService;
 import com.example.demo.services.interfaces.VerificacionEmailService;
 import com.example.demo.services.interfaces.TemplateService;
 
+/**
+ * Implementación de la interfaz VerificacionEmailService para manejar la lógica
+ * de negocio relacionada con la verificación de correos electrónicos de los
+ * usuarios. Esta clase se encarga de crear tokens de verificación, guardarlos
+ * en la base de datos, enviar correos electrónicos de verificación a los
+ * usuarios y verificar los tokens cuando los usuarios intentan confirmar sus
+ * correos electrónicos. Además, esta clase maneja las validaciones necesarias
+ * para asegurar que el proceso de verificación se realice correctamente y que
+ * se respeten los límites establecidos para el envío de correos y la
+ * verificación de tokens.
+ */
 @Service
 public class VerificacionEmailServiceImpl implements VerificacionEmailService {
   private static final Logger logger = LoggerFactory.getLogger(VerificacionEmailServiceImpl.class);

@@ -1,15 +1,8 @@
 package com.example.demo.domain.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class LoginDataDto {
-
-    private String username;
-
-
-    private String password;
-
-}
+/**
+ * DTO para representar los datos de inicio de sesión.
+ * Contiene el nombre de usuario y la contraseña proporcionados por el usuario
+ * al intentar iniciar sesión.
+ */
+public record LoginDataDto(String username, String password) { }

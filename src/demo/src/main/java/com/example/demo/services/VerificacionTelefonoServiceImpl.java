@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
@@ -53,6 +54,14 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
 
     }
 
+    /**
+     * Envía un código de verificación al usuario para un teléfono específico.
+     *
+     * @param usuario    El usuario al que se le enviará el código de verificación
+     * @param telefonoId El ID del teléfono al que se enviará el código
+     * @throws ValidacionException Si ocurre un error de validación durante el envío
+     *                             del código
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void enviarCodigoVerificacion(Usuario usuario, Long telefonoId) throws ValidacionException {
@@ -119,14 +128,26 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
         return String.valueOf(ThreadLocalRandom.current().nextLong(100000, 999999));
     }
 
-    private String obtenerNumeroTelefono(Long telefonoId) {
-
-        Telefono tel = telefonoRepository.findByTelefonoId(telefonoId);
-        String telefono = "+" + tel.getPais().getCodigo() + tel.getNumero();
-        return telefono;
+    private String obtenerNumeroTelefono(Long telefonoId) throws ValidacionException {
+        Optional<Telefono> telOpt = telefonoRepository.findById(telefonoId);
+        if (telOpt.isPresent()) {
+            Telefono tel = telOpt.get();
+            String telefono = "+" + tel.getPais().getCodigo() + tel.getNumero();
+            return telefono;
+        } else {
+            throw new ValidacionException("El teléfono no existe");
+        }
 
     }
 
+    /**
+     * Verifica el código de verificación de un teléfono.
+     *
+     * @param codigo     El código de verificación enviado al teléfono del usuario
+     * @param telefonoId El ID del teléfono a verificar
+     * @throws ValidacionException   Si el código ya fue validado o ha expirado
+     * @throws NoEncontradoException Si el código no se encuentra
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void verificarTelefono(String codigo, Long telefonoId)
@@ -148,7 +169,7 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
             verificacion.setFechaConfirmacion(LocalDateTime.now());
             verificacionTelefonoRepository.save(verificacion);
 
-            Telefono telefono = telefonoRepository.findByTelefonoId(telefonoId);
+            Telefono telefono = telefonoRepository.findById(telefonoId).orElse(null);
 
             if (telefono == null) {
                 throw new ValidacionException("El telèfono no existe");
@@ -160,9 +181,9 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
                 for (Telefono tel : telefonos) {
                     tel.setActivo(false);
                 }
-           
-            telefonoRepository.saveAll(telefonos);
-             }
+
+                telefonoRepository.saveAll(telefonos);
+            }
             telefono.setActivo(true);
             telefonoRepository.save(telefono);
         } else {
