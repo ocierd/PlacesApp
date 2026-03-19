@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Ubicacion es una entidad que representa la ubicación geográfica de una
@@ -15,6 +17,8 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "ubicacion")
+@Setter
+@Getter
 public class Ubicacion {
 
     /**
@@ -49,36 +53,5 @@ public class Ubicacion {
     @Column(name = "enlace_maps", nullable = true)
     private String enlaceMaps;
 
-    public Long getUbicacionId() {
-        return ubicacionId;
-    }
-
-    public void setUbicacionId(Long ubicacionId) {
-        this.ubicacionId = ubicacionId;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public String getEnlaceMaps() {
-        return enlaceMaps;
-    }
-
-    public void setEnlaceMaps(String enlaceMaps) {
-        this.enlaceMaps = enlaceMaps;
-    }
 
 }

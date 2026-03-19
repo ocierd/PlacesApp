@@ -13,9 +13,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "horario")
+@Getter
+@Setter
 public class Horario {
   @Id
   @Column(name = "horario_id")
@@ -40,43 +44,5 @@ public class Horario {
   @JsonBackReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado inverso)
   private Sucursal sucursal;
 
-  public Long getHorarioId() {
-    return this.horarioId;
-  }
 
-  public void setHorarioId(Long horarioId) {
-    this.horarioId = horarioId;
-  }
-
-  public LocalTime getHoraApertura() {
-    return this.horaApertura;
-  }
-
-  public void setHoraApertura(LocalTime horaApertura) {
-    this.horaApertura = horaApertura;
-  }
-
-  public LocalTime getHoraCierre() {
-    return this.horaCierre;
-  }
-
-  public void setHoraCierre(LocalTime horaCierre) {
-    this.horaCierre = horaCierre;
-  }
-
-  public Short getDiaId() {
-    return this.diaId;
-  }
-
-  public void setDiaId(Short diaId) {
-    this.diaId = diaId;
-  }
-
-  public Sucursal getSucursal() {
-    return this.sucursal;
-  }
-
-  public void setSucursal(Sucursal sucursal) {
-    this.sucursal = sucursal;
-  }
 }

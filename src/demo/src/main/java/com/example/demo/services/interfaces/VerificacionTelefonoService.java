@@ -14,7 +14,7 @@ public interface VerificacionTelefonoService {
      * @param usuario El usuario al que se le enviará el código de verificación
      * @throws ValidacionException Si el usuario ha rebasado la cantidad de tokens que se le pueden enviar o si ocurre algún error al enviar el código de verificación
      */
-    void enviarCodigoVerificacion(Usuario usuario) throws ValidacionException;
+    void enviarCodigoVerificacion(Usuario usuario, Long telefonoId) throws ValidacionException;
 
     /**
      * Verifica el código de verificación ingresado por el usuario. Este método se encarga de validar si el código ingresado es correcto, si no ha expirado y si el usuario no ha rebasado la cantidad de intentos permitidos.
@@ -23,6 +23,6 @@ public interface VerificacionTelefonoService {
      * @throws ValidacionException Si el código ingresado es incorrecto, si ha expirado o si el usuario ha rebasado la cantidad de intentos permitidos
      * @throws NoEncontradoException Si no se encuentra una verificación de teléfono para el usuario o si el usuario no existe
      */
-    void verificarTelefono(Usuario usuario, String codigo) throws ValidacionException, NoEncontradoException;
+    void verificarTelefono( String codigo, Long telefonoId) throws ValidacionException, NoEncontradoException;
 
 }

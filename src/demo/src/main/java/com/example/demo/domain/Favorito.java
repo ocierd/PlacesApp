@@ -7,10 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.Column;;
 
 @Entity
 @Table(name = "favorito")
+@Getter
+@Setter
 public class Favorito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,45 +44,5 @@ public class Favorito {
     @OneToOne
     @JoinColumn(name = "sucursal_Id", nullable = true, insertable = false, updatable = false)
     private Sucursal sucursal;
-
-    public Long getFavoritoId() {
-        return favoritoId;
-    }
-
-    public void setFavoritoId(Long favoritoId) {
-        this.favoritoId = favoritoId;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public Long getSucursalId() {
-        return sucursalId;
-    }
-
-    public void setSucursalId(Long sucursalId) {
-        this.sucursalId = sucursalId;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    // public void setUsuario(Usuario usuario) {
-    //     this.usuario = usuario;
-    // }
-
-    public Sucursal getSucursal() {
-        return sucursal;
-    }
-
-    // public void setSucursal(Sucursal sucursal) {
-    //     this.sucursal = sucursal;
-    // }
 
 }

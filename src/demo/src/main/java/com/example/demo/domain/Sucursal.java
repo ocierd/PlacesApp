@@ -17,6 +17,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Sucursal es una entidad que representa una sucursal de una empresa en la
@@ -27,6 +29,8 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "sucursal")
+@Getter
+@Setter
 public class Sucursal {
 
     /**
@@ -98,85 +102,4 @@ public class Sucursal {
     @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
     private List<SucursalTipoPago> sucursalTiposPago = new ArrayList<>();
 
-    // public void addHorario(Horario horario) {
-    //     horarios.add(horario);
-    //     horario.setSucursal(this);
-    // }
-
-    public void deleteTipoPago(SucursalTipoPago sucursalTipoPago) {
-        sucursalTiposPago.remove(sucursalTipoPago);
-        sucursalTipoPago.setSucursal(null);
-    }
-
-    public Long getSucursalId() {
-        return sucursalId;
-    }
-
-    public void setSucursalId(Long sucursalId) {
-        this.sucursalId = sucursalId;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Date getCreadoEn() {
-        return creadoEn;
-    }
-
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
-    }
-
-    public Integer getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(Integer empresaId) {
-        this.empresaId = empresaId;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    // public Long getUbicacionId() {
-    // return ubicacionId;
-    // }
-
-    // public void setUbicacionId(Long ubicacionId) {
-    // this.ubicacionId = ubicacionId;
-    // }
-
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public List<Horario> getHorarios() {
-        return this.horarios;
-    }
-
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
-    }
-
-    public List<SucursalTipoPago> getSucursalTiposPago() {
-        return this.sucursalTiposPago;
-    }
-
-    public void setSucursalTiposPago(List<SucursalTipoPago> sucursalTiposPago) {
-        this.sucursalTiposPago = sucursalTiposPago;
-    }
 }

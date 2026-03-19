@@ -1,8 +1,13 @@
 package com.example.demo.domain.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * DTO para representar el token JWT y su información relacionada.
  */
+@Getter
+@Setter
 public class TokenDto {
 
 
@@ -14,38 +19,4 @@ public class TokenDto {
 
     private Integer refreshTokenExpiresIn;
 
-
-    // Getters and Setters
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Integer getExpiresIn() {
-        return expiresIn;
-    }
-
-    public void setExpiresIn(Integer expiresIn) {
-        this.expiresIn = expiresIn;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public Integer getRefreshTokenExpiresIn() {
-        return refreshTokenExpiresIn;
-    }
-
-    public void setRefreshTokenExpiresIn(Integer refreshTokenExpiresIn) {
-        this.refreshTokenExpiresIn = refreshTokenExpiresIn;
-    }
 }

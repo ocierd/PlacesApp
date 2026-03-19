@@ -1,6 +1,8 @@
 package com.example.demo.services.interfaces;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.dto.UsuarioRegistroDto;
+import com.example.demo.domain.exceptions.ValidacionException;
 
 /**
  * Interfaz que define los métodos relacionados con la gestión de usuarios en la
@@ -18,7 +20,7 @@ public interface UsuarioService {
      * @return El Usuario creado, con su contraseña codificada y su ID asignado por
      *         la base de datos. Si el proceso de creación falla, devuelve null.
      */
-    Usuario crearUsuario(Usuario usuario);
+    Usuario crearUsuario(UsuarioRegistroDto usuario) throws ValidacionException;
 
     /**
      * Codifica una cadena utilizando el codificador de contraseñas configurado en

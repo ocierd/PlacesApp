@@ -11,9 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "visita")
+@Setter
+@Getter
 public class Visita {
    @Id
    @Column(name = "visita_id")
@@ -46,78 +50,6 @@ public class Visita {
    @ManyToOne  
    @JoinColumn(name = "sucursal_id" , insertable = false, updatable = false)
    private Sucursal sucursal;
-
-   public Long getVisitaId() {
-    return visitaId;
-   }
-
-   public void setVisitaId(Long visitaId) {
-    this.visitaId = visitaId;
-   }
-
-   public Date getVisitadoEn() {
-    return visitadoEn;
-   }
-
-   public void setVisitadoEn(Date visitadoEn) {
-    this.visitadoEn = visitadoEn;
-   }
-
-   public boolean isVisitado() {
-    return visitado;
-   }
-
-   public void setVisitado(boolean visitado) {
-    this.visitado = visitado;
-   }
-
-   public String getComentario() {
-    return comentario;
-   }
-
-   public void setComentario(String comentario) {
-    this.comentario = comentario;
-   }
-
-   public Short getCalificacion() {
-    return calificacion;
-   }
-
-   public void setCalificacion(Short calificacion) {
-    this.calificacion = calificacion;
-   }
-
-   public Long getUsuarioid() {
-    return usuarioId;
-   }
-
-   public void setUsuarioid(Long usuarioid) {
-    this.usuarioId = usuarioid;
-   }
-
-   public Usuario getUsuario() {
-    return usuario;
-   }
-
-   public void setUsuario(Usuario usuario) {
-    this.usuario = usuario;
-   }
-
-   public Long getSucursalId() {
-    return sucursalId;
-   }
-
-   public void setSucursalId(Long sucursalId) {
-    this.sucursalId = sucursalId;
-   }
-
-   public Sucursal getSucursal() {
-    return sucursal;
-   }
-
-   public void setSucursal(Sucursal sucursal) {
-    this.sucursal = sucursal;
-   }
 
 }
 

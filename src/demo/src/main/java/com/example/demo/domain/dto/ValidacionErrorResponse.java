@@ -2,12 +2,17 @@ package com.example.demo.domain.dto;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * ValidacionErrorResponse es una clase que representa la estructura de la
  * respuesta que se devuelve al cliente cuando ocurre una excepción de validación en la
  * aplicación. Contiene un mensaje de error general y una lista de errores
  * específicos que detallan las validaciones que fallaron.
  */
+@Getter
+@Setter
 public class ValidacionErrorResponse {
 
     private String error;

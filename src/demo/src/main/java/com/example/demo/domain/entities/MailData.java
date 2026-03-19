@@ -3,10 +3,15 @@ package com.example.demo.domain.entities;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Clase que representa los datos de un correo electrónico.
  * Contiene información sobre los destinatarios, asunto, cuerpo, plantilla y datos adicionales para la plantilla.
  */
+@Getter
+@Setter
 public class MailData {
 
     /**
