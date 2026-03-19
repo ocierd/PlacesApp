@@ -173,7 +173,7 @@ CREATE TABLE correo(
 
 CREATE TABLE verificacion_correo(
     verificacion_correo_id BIGINT IDENTITY NOT NULL,
-    token CHAR(36) NOT NULL DEFAULT NEWID(),
+    token uniqueidentifier NOT NULL DEFAULT NEWID(),
     fecha_envio SMALLDATETIME NOT NULL DEFAULT GETDATE(), -- Fecha en que se crea registro
     fecha_expiracion SMALLDATETIME NOT NULL,
     fecha_confirmacion SMALLDATETIME NULL,
