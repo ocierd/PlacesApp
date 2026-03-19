@@ -43,7 +43,7 @@ public class UsuarioController extends BaseController {
      *         la base de datos. Si el proceso de creación falla, devuelve null.
      */
     @PostMapping
-    public Usuario crearUsuario(@RequestBody UsuarioRegistroDto usuario)  throws ValidacionException {
+    public Usuario crearUsuario(@RequestBody UsuarioRegistroDto usuario) throws ValidacionException {
         return usuarioService.crearUsuario(usuario);
     }
 

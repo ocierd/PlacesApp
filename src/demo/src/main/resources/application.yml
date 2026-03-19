@@ -41,6 +41,8 @@ places_app:
   email:
     verificacion:
       url: http://localhost:8080/api/verificacion_email/confirmar?token=
+      max_attempts: 3
+      expiration: 300
   sms:
     expiration: 180
     max_attempts: 3
