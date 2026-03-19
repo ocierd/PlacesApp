@@ -31,7 +31,7 @@ public class VerificacionEmailController extends BaseController {
   @GetMapping("/confirmation-email")
   public void sendEmail() throws ValidacionException {
     Usuario usuario = this.getCurrentUser();
-    verificacionEmailService.createAndSendToken(usuario);
+    verificacionEmailService.enviarCorreoVerificacionToken(usuario);
   }
 
   /**
@@ -50,6 +50,6 @@ public class VerificacionEmailController extends BaseController {
    */
   @GetMapping("/confirmar")
   public String confirmRegistration(@RequestParam String token) throws NoEncontradoException, ValidacionException {
-    return verificacionEmailService.confirmarCorreo(token);
+    return verificacionEmailService.verificarCorreo(token);
   }
 }

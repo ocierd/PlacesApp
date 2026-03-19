@@ -31,6 +31,7 @@ public class VerificacionCorreo {
   @Column(name = "token", columnDefinition = "uniqueidentifier", insertable = false, updatable = false)
   private UUID token;
 
+  @Generated
   @Column(name = "fecha_envio", insertable = true, updatable = false)
   private LocalDateTime fechaEnvio;
 

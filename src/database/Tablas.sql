@@ -8,14 +8,10 @@ CREATE TABLE usuario (
     usuario_id bigint IDENTITY PRIMARY KEY NOT NULL,
     username VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
---    email VARCHAR(255) UNIQUE NOT NULL,
---    email_verificado bit DEFAULT 0,
     nombre VARCHAR(255) NOT NULL,
     apellido_paterno VARCHAR(255) NOT NULL,
     apellido_materno VARCHAR(255) NULL,
     fecha_nacimiento date NOT NULL DEFAULT GETDATE(),
---    telefono VARCHAR(15) NULL,
---    telefono_verificado bit DEFAULT 0,
     registrado_en smalldatetime NOT NULL DEFAULT GETDATE()
 );
 
@@ -134,26 +130,28 @@ CREATE TABLE pais(
   nacionalidad VARCHAR(100) NULL,
   codigo VARCHAR(3) NOT NULL,
   iso_2 CHAR(2) NOT NULL,
-  iso_3 CHAR(2) NOT NULL,
+  iso_3 CHAR(3) NOT NULL,
   CONSTRAINT  pais_pk PRIMARY KEY(pais_id)
 );
+
 
 CREATE TABLE telefono(
   telefono_id BIGINT IDENTITY NOT NULL,
   numero VARCHAR(15) NOT NULL,
   activo BIT NULL,
   pais_id TINYINT NOT NULL,
+  usuario_id BIGINT NOT NULL,
   CONSTRAINT telefono_pk PRIMARY KEY(telefono_id),
-  CONSTRAINT telefono_pais_fk FOREIGN KEY(pais_id) REFERENCES pais(pais_id)
+  CONSTRAINT telefono_pais_fk FOREIGN KEY(pais_id) REFERENCES pais(pais_id),
+  CONSTRAINT telefono_usuario_fk FOREIGN KEY(usuario_id) REFERENCES usuario(usuario_id)
 );
 
-INSERT INTO telfono (numero, activo, pais_id) VALUES ('5512345678', 1, 1);
 
 
 CREATE TABLE verificacion_telefono(
     verificacion_telefono_id bigint IDENTITY NOT NULL,
     codigo CHAR(6) NOT NULL,
-    fecha_envio SMALLDATETIME NOT NULL DEFAULT GETDATE(), -- Fecha en que se crea registro
+    fecha_envio SMALLDATETIME NOT NULL, -- Fecha en que se crea registro
     fecha_expiracion SMALLDATETIME NOT NULL,
     fecha_confirmacion SMALLDATETIME NULL,
     telefono_id BIGINT NOT NULL,
@@ -174,7 +172,7 @@ CREATE TABLE correo(
 CREATE TABLE verificacion_correo(
     verificacion_correo_id BIGINT IDENTITY NOT NULL,
     token uniqueidentifier NOT NULL DEFAULT NEWID(),
-    fecha_envio SMALLDATETIME NOT NULL DEFAULT GETDATE(), -- Fecha en que se crea registro
+    fecha_envio SMALLDATETIME NOT NULL, -- Fecha en que se crea registro
     fecha_expiracion SMALLDATETIME NOT NULL,
     fecha_confirmacion SMALLDATETIME NULL,
     correo_id bigint NOT NULL,

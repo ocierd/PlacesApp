@@ -45,6 +45,9 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
   @Value("${places_app.email.verificacion.max_attempts}")
   private Integer LIMITE_INTENTOS;
 
+  @Value("${places_app.email.verificacion.expiration}")
+  private Integer EXPIRATION_TIME;
+
   private static final String EMAIL_TEMPLATE = "email/email-template";
 
   private static final String ASUNTO_VERIFICACION = "Verificación de correo electrónico";
@@ -61,8 +64,18 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
     this.templateService = templateService;
   }
 
+  /**
+   * Envía un correo de verificación al usuario con un token único. Este método se
+   * encarga de crear el token de verificación, guardarlo en la base de datos y
+   * enviar el correo al usuario.
+   * 
+   * @param usuario El usuario al que se le enviará el correo de verificación
+   * @throws ValidacionException Si ocurre un error de validación durante la
+   *                             creación del token o el envío del correo
+   *                             electrónico
+   */
   @Override
-  public void createAndSendToken(Usuario usuario) throws ValidacionException {
+  public void enviarCorreoVerificacionToken(Usuario usuario) throws ValidacionException {
     try {
       Optional<Correo> correoOpt = correoRepository.findByUsuarioIdAndActivoIsNull(usuario.getUsuarioId());
       Correo correo = correoOpt.isPresent() ? correoOpt.get() : null;
@@ -117,12 +130,13 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
   private void saveVerificacionCorreo(Correo correo) throws ValidacionException {
     try {
       VerificacionCorreo vToken = new VerificacionCorreo();
-
-      vToken.setFechaEnvio(LocalDateTime.now());
-      vToken.setFechaExpiracion(LocalDateTime.now().plusMinutes(30)); // Token válido
+      LocalDateTime now = LocalDateTime.now();
+      vToken.setFechaEnvio(now);
+      LocalDateTime expiracion = now.plusSeconds(EXPIRATION_TIME);
+      vToken.setFechaExpiracion(expiracion); // Token válido
       vToken.setCorreoId(correo.getCorreoId());
 
-      verificacionCorreoRepository.saveAndFlush(vToken);
+      verificacionCorreoRepository.save(vToken);
 
       UUID token = vToken.getToken(); // Obtener el token generado para incluirlo en el correo
 
@@ -148,9 +162,18 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
     emailService.sendEmailFromTemplate(to, ASUNTO_VERIFICACION, EMAIL_TEMPLATE, datos);
   }
 
+  /**
+   * Verifica el correo electrónico del usuario utilizando un token único.
+   * 
+   * @param token El token de verificación enviado al correo del usuario
+   * @return Un mensaje de confirmación o bienvenida
+   * @throws NoEncontradoException Si el token no se encuentra en la base de datos
+   * @throws ValidacionException   Si ocurre un error de validación durante la
+   *                               verificación del token
+   */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public String confirmarCorreo(String token) throws NoEncontradoException, ValidacionException {
+  public String verificarCorreo(String token) throws NoEncontradoException, ValidacionException {
     try {
       UUID uuid = UUID.fromString(token);
       VerificacionCorreo vToken = verificacionCorreoRepository.findByToken(uuid);
@@ -159,8 +182,7 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
         validacionVerificacionCorreo(vToken);
 
         Correo correo = vToken.getCorreo();
-        Optional<Usuario> usuarioOpc = usuarioRepository.findById(correo.getUsuarioId());
-        Usuario usuario = usuarioOpc.isPresent() ? usuarioOpc.get() : null;
+        Usuario usuario = usuarioRepository.findById(correo.getUsuarioId()).orElse(null);
 
         if (usuario == null) {
           logger.error("Usuario inválido.");
@@ -185,7 +207,7 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
 
         return sendTemplate(usuario.getNombre());
       } else {
-        throw new NoEncontradoException();
+        throw new ValidacionException("Token inválido.");
       }
     } catch (Exception e) {
       logger.error("Error al guardar confirmación el correo de verificación del token.", e);
