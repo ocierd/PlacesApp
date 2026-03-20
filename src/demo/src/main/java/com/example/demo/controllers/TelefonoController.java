@@ -17,6 +17,9 @@ import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.TelefonoService;
 import com.example.demo.services.interfaces.VerificacionTelefonoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Controlador para manejar las operaciones relacionadas con los teléfonos de
  * los usuarios. Este controlador se encarga de recibir las solicitudes HTTP
@@ -27,6 +30,8 @@ import com.example.demo.services.interfaces.VerificacionTelefonoService;
  */
 @RestController
 @RequestMapping("/telefonos")
+@Tag(name = "Telefonos", description = "Endpoints para manejar los teléfonos de los usuarios, incluyendo la creación, actualización y eliminación de teléfonos, así como la verificación de teléfonos mediante códigos enviados por SMS.")
+@SecurityRequirement(name = "bearerAuth") // Must match the name in your config
 public class TelefonoController extends BaseController {
 
     /**
