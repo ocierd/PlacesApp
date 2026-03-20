@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.domain.Pais;
 import com.example.demo.services.interfaces.PaisService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Controlador para manejar las operaciones relacionadas con los países.
  */
 @RestController
 @RequestMapping("/paises")
+@Tag(name = "Paises", description = "Endpoints para manejar las operaciones relacionadas con los países, como obtener la lista de países disponibles.")
 public class PaisController extends BaseController {
 
     /**
@@ -35,9 +39,11 @@ public class PaisController extends BaseController {
 
     /**
      * Obtiene la lista de países
+     * 
      * @return La lista de países disponibles en el sistema.
-    */
+     */
     @GetMapping
+    @Operation(summary = "Obtener países", description = "Obtiene la lista de países disponibles en el sistema.")
     public List<Pais> obtenerPaises() {
         return paisService.obtenerPaises();
     }
