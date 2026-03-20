@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.dto.UsuarioRegistroDto;
+import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.UsuarioService;
 
 /**
@@ -29,19 +31,19 @@ public class UsuarioController extends BaseController {
 
     /**
      * Maneja las solicitudes POST al endpoint /usuarios para crear un nuevo
-     * usuario. Recibe un objeto Usuario en el cuerpo de la solicitud, y devuelve el
+     * usuario. Recibe un objeto UsuarioRegistroDto en el cuerpo de la solicitud, y devuelve el
      * usuario creado con su información actualizada. Utiliza el servicio de usuario
      * (UsuarioService) para realizar la lógica de creación del usuario, incluyendo
      * la validación de datos y el manejo de contraseñas.
      * 
-     * @param usuario El objeto Usuario que contiene la información del usuario a
+     * @param usuario El objeto UsuarioRegistroDto que contiene la información del usuario a
      *                crear, incluyendo su nombre de usuario y contraseña sin
      *                codificar.
      * @return El Usuario creado, con su contraseña codificada y su ID asignado por
      *         la base de datos. Si el proceso de creación falla, devuelve null.
      */
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
+    public Usuario crearUsuario(@RequestBody UsuarioRegistroDto usuario) throws ValidacionException {
         return usuarioService.crearUsuario(usuario);
     }
 

@@ -10,9 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "verificacion_telefono")
+@Getter
+@Setter
 public class VerificacionTelefono {
     @Id
     @Column(name = "verificacion_telefono_id")
@@ -31,66 +35,12 @@ public class VerificacionTelefono {
     @Column(name = "fecha_confirmacion", insertable = false, nullable = true)
     private LocalDateTime fechaConfirmacion;
 
-    @Column(name = "usuario_id")
-    private Long usuarioId;
+    @Column(name = "telefono_id")
+    private Long telefonoId;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "telefono_id", insertable = false, updatable = false)
+    private Telefono telefono;
 
-    public Long getVerificacionTelefonoId() {
-        return verificacionTelefonoId;
-    }
 
-    public void setVerificacionTelefonoId(Long verificacionTelefonoId) {
-        this.verificacionTelefonoId = verificacionTelefonoId;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public LocalDateTime getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    public LocalDateTime getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(LocalDateTime fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
-
-    public LocalDateTime getFechaConfirmacion() {
-        return fechaConfirmacion;
-    }
-
-    public void setFechaConfirmacion(LocalDateTime fechaConfirmacion) {
-        this.fechaConfirmacion = fechaConfirmacion;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }

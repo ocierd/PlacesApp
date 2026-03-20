@@ -10,9 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "sucursal_tipo_pago")
+@Setter
+@Getter
 public class SucursalTipoPago {
   @Id
   @Column(name = "sucursal_tipo_pago_id")
@@ -28,27 +32,4 @@ public class SucursalTipoPago {
   @JoinColumn(name = "tipo_pago_id", insertable = false, updatable = false)
   private TipoPago tipoPago;
 
-  public Long getSucursalTipoPagoId() {
-    return this.sucursalTipoPagoId;
-  }
-
-  public void setSucursalTipoPagoId(Long sucursalTipoPagoId) {
-    this.sucursalTipoPagoId = sucursalTipoPagoId;
-  }
-
-  public Sucursal getSucursal() {
-    return this.sucursal;
-  }
-
-  public void setSucursal(Sucursal sucursal) {
-    this.sucursal = sucursal;
-  }
-
-  public TipoPago getTipoPago() {
-    return this.tipoPago;
-  }
-
-  public void setTipoPago(TipoPago tipoPago) {
-    this.tipoPago = tipoPago;
-  }
 }

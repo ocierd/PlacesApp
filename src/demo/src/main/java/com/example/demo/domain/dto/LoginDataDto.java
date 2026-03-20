@@ -1,30 +1,8 @@
 package com.example.demo.domain.dto;
 
-public class LoginDataDto {
-
-    private String username;
-
-
-    private String password;
-
-
-    public String getUsername() {
-        return username;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-}
+/**
+ * DTO para representar los datos de inicio de sesión.
+ * Contiene el nombre de usuario y la contraseña proporcionados por el usuario
+ * al intentar iniciar sesión.
+ */
+public record LoginDataDto(String username, String password) { }

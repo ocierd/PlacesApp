@@ -1,8 +1,13 @@
 package com.example.demo.domain.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Clase TestDto que representa un objeto de transferencia de datos para pruebas
  */
+@Getter
+@Setter
 public class TestDto {
 
     /**
@@ -28,23 +33,6 @@ public class TestDto {
      */
     public TestDto(Long id, String message) {
         this.id = id;
-        this.message = message;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
     }
 

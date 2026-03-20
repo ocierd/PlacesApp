@@ -81,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public TokenDto auth(LoginDataDto loginData) throws UnauthorizedException {
         var usernamePass = new UsernamePasswordAuthenticationToken(
-                loginData.getUsername(), loginData.getPassword());
+                loginData.username(), loginData.password());
 
         // Autenticar las credenciales del usuario utilizando el AuthenticationManager
         // Internamente, Spring Security verificará las credenciales contra los detalles
