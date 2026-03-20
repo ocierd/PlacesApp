@@ -14,6 +14,8 @@ import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.CorreoService;
 import com.example.demo.services.interfaces.VerificacionEmailService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Controlador para manejar las operaciones relacionadas con los correos
  * electrónicos de los usuarios. Este controlador se encarga de recibir las
@@ -26,6 +28,7 @@ import com.example.demo.services.interfaces.VerificacionEmailService;
  */
 @RestController
 @RequestMapping("/correos")
+@Tag(name = "Correos", description = "Endpoints para manejar los correos electrónicos de los usuarios, incluyendo la creación de nuevos correos y la verificación de correos electrónicos.")
 public class CorreoController extends BaseController {
 
   /**
