@@ -8,6 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.VerificacionCorreo;
 
+/**
+ * Repositorio para la entidad VerificacionCorreo. Este repositorio proporciona
+ * métodos para realizar operaciones CRUD y consultas específicas relacionadas
+ * con las verificaciones de correo electrónico de los usuarios. Incluye métodos
+ * para buscar verificaciones por token, por ID de correo y por estado de
+ * confirmación.
+ */
 @Repository
 public interface VerificacionCorreoRepository extends JpaRepository<VerificacionCorreo, Long> {
 
