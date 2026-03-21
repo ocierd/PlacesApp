@@ -1,11 +1,14 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.dto.TestDto;
+import com.example.demo.domain.entities.Casa;
 import com.example.demo.domain.exceptions.ValidacionException;
 import com.example.demo.services.interfaces.TestService;
 
@@ -61,6 +64,13 @@ public class TestController extends BaseController {
     public void sendEmailTest(@RequestParam("to") String destinatario)
             throws ValidacionException {
         testService.sendEmailTest(destinatario);
+    }
+
+
+
+    @GetMapping("/casas")
+    public List<Casa> getCasasTest() {
+        return testService.buildCasasTest();
     }
 
 }
