@@ -134,6 +134,14 @@
 			<version>2.8.5</version>
 		</dependency>
 
+
+		<!-- Spring Boot Starter WebMVC Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

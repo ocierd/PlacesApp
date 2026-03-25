@@ -2,28 +2,34 @@ spring:
   application:
     name: demo
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MSSQLServer;NON_KEYWORDS=VALUE
+    url: jdbc:h2:file:C:/temp/places_test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MSSQLServer;NON_KEYWORDS=VALUE
     username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+      show-sql: true
+  h2:
+    console:
+      enabled: true
     show-sql: false
     properties:
       hibernate:
         format_sql: false
   mail:
-    host: localhost
-    port: 25
-    username: test
-    password: test
+    host: smtp.gmail.com
+    port: 465
+    username: ocierd@gmail.com
+    password: "xwhh owot tfrm nzuh"
+    smtp:
+      auth: true
     properties:
       mail:
         smtp:
           ssl:
-            enable: false
+            enable: true
 
 server:
   servlet:
@@ -48,3 +54,6 @@ places_app:
   sms:
     expiration: 180
     max_attempts: 3
+  test_credentials:
+    username: fer
+    password: password123
