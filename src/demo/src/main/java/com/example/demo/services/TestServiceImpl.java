@@ -64,6 +64,7 @@ public class TestServiceImpl implements TestService {
      */
     @Override
     public void sendEmailTest(String correo) throws ValidacionException {
+        validateEmail(correo);
         Map<String, Object> datosPlantilla = new HashMap<String, Object>();
         datosPlantilla.put("title", "Test Email");
         datosPlantilla.put("subtitle", "Este es un correo de prueba");
@@ -76,6 +77,25 @@ public class TestServiceImpl implements TestService {
 
         emailService.sendEmailFromTemplate(correo,
                 ASUNTO_TEST, PLANTILLA_EMAIL_TEST, datosPlantilla);
+    }
+
+    /**
+     * Valida el formato del correo electrónico. Este método se encarga de verificar
+     * que
+     * el correo electrónico no esté vacío y contenga el carácter '@'.
+     * 
+     * @param correo El correo electrónico a validar
+     * @throws ValidacionException Si el correo electrónico no es válido, se lanza
+     *                             una excepción de validación con un mensaje
+     *                             descriptivo del error.
+     */
+    private void validateEmail(String correo) throws ValidacionException {
+        if (correo == null || correo.isEmpty()) {
+            throw new ValidacionException("El correo electrónico no puede estar vacío");
+        }
+        if (!correo.contains("@")) {
+            throw new ValidacionException("El correo electrónico debe contener '@'");
+        }
     }
 
     /**

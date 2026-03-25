@@ -23,6 +23,9 @@ public class Pais {
     @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "nacionalidad")
+    private String nacionalidad;
+
     @Column(name = "codigo")
     private String codigo;
 
