@@ -94,8 +94,8 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
       validarDatosCorreo(correo);
 
       saveVerificacionCorreo(correo);
-    } catch (Exception e) {
-      logger.error("Se produjo un error al intentar crear el token.", e);
+    } catch (ValidacionException e) {
+      logger.error("Se produjo un error al intentar crear el token para el usuario {}", usuario.getUsuarioId(), e);
       throw e;
     }
   }
@@ -123,8 +123,9 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
           "Se ha alcanzado el límite de códigos de verificación enviados. Por favor, inténtalo más tarde.");
     }
 
-    Integer noVencidos = verificacionCorreoRepository.countByCorreoIdAndFechaExpiracionAfter(correo.getCorreoId(),
-        LocalDateTime.now());
+    Integer noVencidos = verificacionCorreoRepository
+        .countByCorreoIdAndFechaExpiracionAfter(correo.getCorreoId(),
+            LocalDateTime.now());
 
     // Valida que el número de intentos no sobrepase el límite
     if (noVencidos > 0) {
@@ -146,14 +147,17 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
       LocalDateTime expiracion = now.plusSeconds(EXPIRATION_TIME);
       vToken.setFechaExpiracion(expiracion); // Token válido
       vToken.setCorreoId(correo.getCorreoId());
+      vToken.setToken(UUID.randomUUID());
 
       verificacionCorreoRepository.save(vToken);
 
-      UUID token = vToken.getToken(); // Obtener el token generado para incluirlo en el correo
+      // Obtener el token generado para incluirlo en el correo de verificación
+      UUID token = vToken.getToken();
 
       sendEmail(correo.getCorreoElectronico(), token.toString());
-    } catch (Exception e) {
-      logger.error("Error al enviar el correo de verificación de token.", e);
+    } catch (ValidacionException e) {
+      logger.error("Error al enviar el correo de verificación de token para el correo {}",
+          correo.getCorreoId(), e);
       throw e;
     }
   }

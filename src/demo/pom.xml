@@ -78,6 +78,18 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- Spring Security Test -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring Boot Starter OAuth2 Resource Server -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
 
 		<!-- jwt token -->
 		<dependency>
@@ -126,7 +138,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		
+
 		<!-- Springdoc OpenAPI for API documentation -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

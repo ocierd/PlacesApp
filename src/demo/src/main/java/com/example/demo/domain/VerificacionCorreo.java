@@ -28,7 +28,7 @@ public class VerificacionCorreo {
   private Long verificacionCorreoId;
 
   @Generated
-  @Column(name = "token", columnDefinition = "uniqueidentifier", insertable = false, updatable = false)
+  @Column(name = "token", columnDefinition = "uniqueidentifier", insertable = true, updatable = false)
   private UUID token;
 
   @Generated

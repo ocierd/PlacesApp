@@ -102,7 +102,7 @@ public class VerificacionTelefonoServiceImpl implements VerificacionTelefonoServ
                 .countByTelefonoId(telefonoId);
 
         // Revisa si ha rebasado la mayoría de intentos
-        if (cantidadCodigosEnviados >= MAX_ATTEMPTS) {
+        if (cantidadCodigosEnviados > MAX_ATTEMPTS) {
             throw new ValidacionException(
                     "Se ha alcanzado el límite de códigos de verificación enviados. Por favor, inténtalo más tarde.");
         }
