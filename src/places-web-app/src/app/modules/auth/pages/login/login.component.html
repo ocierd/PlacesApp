@@ -1,1 +1,19 @@
 <p>login works!</p>
+
+<form [formGroup]="loginForm">
+
+    <label for="username">Usuario: </label>
+    <input formControlName="username" />
+    <label> {{ usernameValid?"Usuario válido":"USUARIO INVÁLIDO" }}</label>
+    <br>
+    <br>
+
+    <label for="password">Password: </label>
+    <input formControlName="password" type="password">
+    <label> {{passwordValid? "Password válido":"PASSWORD INVÁLIDOD"}} </label>
+
+    <br><br>
+
+    <button (click)="login()" [disabled]="!loginForm.valid">Login</button>
+
+</form>
