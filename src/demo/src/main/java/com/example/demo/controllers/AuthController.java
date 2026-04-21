@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class AuthController {
      * @return Un TokenDto que contiene el token JWT generado.
      * @throws UnauthorizedException Si la autenticación falla.
      */
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public TokenDto login(@RequestBody LoginDataDto loginData) throws UnauthorizedException {
         var tokenData = authService.auth(loginData);
