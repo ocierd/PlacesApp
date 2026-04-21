@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth/auth-service';
+import { LoginData } from '@shared/models/login.model';
+import { firstValueFrom } from 'rxjs';
+import { log } from 'console';
 
 /**
  * Componente para login
@@ -16,6 +20,11 @@ export class LoginComponent {
    * Formulario login
    */
   loginForm: FormGroup;
+
+  /**
+   * Indica si se está haciendo "login"
+   */
+  cargando = signal(false);
 
   /**
    * Accede a propiedad valid de "username". Indica si el usuario es válido
@@ -43,7 +52,9 @@ export class LoginComponent {
    * Constructor de LoginComponent
    * @param fb Form builder
    */
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
       username: [null, Validators.required],
       password: [null, Validators.required]
@@ -52,9 +63,23 @@ export class LoginComponent {
   }
 
 
-  login() {
-    const datosLogin = this.loginForm.getRawValue();
-    console.log(datosLogin);
+  async login(): Promise<void> {
+    try {
+      this.cargando.set(true)
+      const datosLogin = this.loginForm.getRawValue() as LoginData;
+      console.log(datosLogin);
+      const loginProm = firstValueFrom(this.authService.auth(datosLogin));
+      const tokenData = await loginProm;
+      console.log(tokenData);
+      
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+    finally {
+      this.cargando.set(false);
+      console.log("SE cambio el valor CARGANDO");
+    }
+  
 
   }
 

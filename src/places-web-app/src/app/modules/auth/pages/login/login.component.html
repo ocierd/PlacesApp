@@ -14,6 +14,10 @@
 
     <br><br>
 
-    <button (click)="login()" [disabled]="!loginForm.valid">Login</button>
+    <button (click)="login()" [disabled]="!loginForm.valid || cargando()">Login</button>
+
+    @if (cargando()) {
+        <h3>Se está haciendo login</h3>
+    }
 
 </form>
