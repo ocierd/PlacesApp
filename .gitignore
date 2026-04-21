@@ -40,3 +40,5 @@ build/
 ## Logs
 logs/
 *.log
+src/demo/src/main/java/com/example/demo/repository/SucursalRepository.java
+.gitignore

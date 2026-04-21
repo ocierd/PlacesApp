@@ -225,7 +225,7 @@ public class VerificacionEmailServiceImpl implements VerificacionEmailService {
         throw new ValidacionException("Token inválido.");
       }
     } catch (Exception e) {
-      logger.error("Error al guardar confirmación el correo de verificación del token.", e);
+      logger.error("Error al guardar confirmación el correo de verificación del token.", e.getMessage());
       throw e;
     }
   }
