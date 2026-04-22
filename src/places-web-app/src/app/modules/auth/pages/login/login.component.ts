@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { AuthService } from '../../../../core/services/auth/auth-service';
 import { LoginData } from '@shared/models/login.model';
 import { firstValueFrom } from 'rxjs';
-import { log } from 'console';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Componente para login
@@ -71,15 +71,29 @@ export class LoginComponent {
       const loginProm = firstValueFrom(this.authService.auth(datosLogin));
       const tokenData = await loginProm;
       console.log(tokenData);
-      
+
     } catch (error) {
-      console.log("Error: ", error);
+      console.error("Error en login: ", error);
+      if (error instanceof HttpErrorResponse) {
+
+          if(error.status === 401){
+            alert("Usuario o contraseña incorrectos");
+            this.loginForm.get("password")?.reset();
+          }
+          else{
+            alert("Error: " + error.message);
+          }
+          
+      } else {
+
+        console.error("Error: ", error);
+      }
+
     }
     finally {
       this.cargando.set(false);
       console.log("SE cambio el valor CARGANDO");
     }
-  
 
   }
 
