@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from './directives/directives.module';
 
 
 const modulos = [
   CommonModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  DirectivesModule
 ];
 
 
