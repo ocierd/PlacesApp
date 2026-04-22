@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -65,6 +66,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<String> handleAuthException(UnauthorizedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    /**
+     * Maneja las excepciones de tipo AuthenticationException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error indicando que las credenciales proporcionadas son inválidas.
+     * @param ex La excepción de tipo AuthenticationException que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error indicando que las credenciales proporcionadas son inválidas
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
     }
 
 }
