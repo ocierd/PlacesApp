@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighlightDirective } from './highlight/highlight';
+import { UpperDirective } from './upper/upper.directive';
 
 const directives=[
-  HighlightDirective
+  HighlightDirective,
+  UpperDirective
 ];
 
 
