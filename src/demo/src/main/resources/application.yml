@@ -11,6 +11,7 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: update
+        dialect: org.hibernate.dialect.SQLServerDialect
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
@@ -27,6 +28,7 @@ spring:
 server:
   servlet:
     context-path: /api
+  port: ${SERVER_PORT}
 
 twilio:
   config:

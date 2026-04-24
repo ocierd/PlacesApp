@@ -4,6 +4,7 @@ import { AuthService } from '../../../../core/services/auth/auth-service';
 import { LoginData } from '@shared/models/login.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoggerService } from '@shared/services/logger/logger.service';
 
 /**
  * Componente para login
@@ -53,7 +54,8 @@ export class LoginComponent {
    * @param fb Form builder
    */
   constructor(private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private logger: LoggerService
   ) {
     this.loginForm = this.fb.group({
       username: [null, Validators.required],
@@ -67,32 +69,32 @@ export class LoginComponent {
     try {
       this.cargando.set(true)
       const datosLogin = this.loginForm.getRawValue() as LoginData;
-      console.log(datosLogin);
+      this.logger.log(datosLogin);
       const loginProm = firstValueFrom(this.authService.auth(datosLogin));
       const tokenData = await loginProm;
-      console.log(tokenData);
+      this.logger.log(tokenData);
 
     } catch (error) {
-      console.error("Error en login: ", error);
+      this.logger.error("Error en login: ", error);
       if (error instanceof HttpErrorResponse) {
 
-          if(error.status === 401){
-            alert("Usuario o contraseña incorrectos");
-            this.loginForm.get("password")?.reset();
-          }
-          else{
-            alert("Error: " + error.message);
-          }
-          
+        if (error.status === 401) {
+          alert("Usuario o contraseña incorrectos");
+          this.loginForm.get("password")?.reset();
+        }
+        else {
+          alert("Error: " + error.message);
+        }
+
       } else {
 
-        console.error("Error: ", error);
+        this.logger.error("Error: ", error);
       }
 
     }
     finally {
       this.cargando.set(false);
-      console.log("SE cambio el valor CARGANDO");
+      this.logger.log("SE cambio el valor CARGANDO");
     }
 
   }

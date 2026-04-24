@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Optional } from '@angular/core';
 import { AbstractControl, NgControl } from '@angular/forms';
+import { LoggerService } from '@shared/services/logger/logger.service';
 
 /**
  * Directiva utilizada para convertir a mayúsculas el texto ingresado.
@@ -28,7 +29,11 @@ export class UpperDirective {
    * Constructor de la directvica Upper
    * @param elementRef Wrapper del elemento nativo
    */
-  constructor(private elementRef: ElementRef, @Optional() private formControl: NgControl) {
+  constructor(
+    private elementRef: ElementRef,
+    @Optional() private formControl: NgControl,
+    private logger: LoggerService
+  ) {
     const esElementoPermitido = this.elementRef.nativeElement instanceof HTMLInputElement
       || this.elementRef.nativeElement instanceof HTMLTextAreaElement;
 
@@ -49,13 +54,13 @@ export class UpperDirective {
    * @param evento Evento que se dispara
    */
   cambiarAMayusculas(evento: Event) {
-    console.log("Tipo evento: ", evento.type);
+    this.logger.log("Tipo evento: ", evento.type);
     const valorElemento = this.elemento.value;
 
     if (typeof valorElemento === 'string') {
-      console.info('Valor original: ', valorElemento);
+      this.logger.log('Valor original: ', valorElemento);
       const valorMayusculas = valorElemento.toUpperCase();
-      console.info("Valor transformado: ", valorMayusculas);
+      this.logger.log("Valor transformado: ", valorMayusculas);
       this.cambiaraMayusculasElementoNativo(valorMayusculas);
       this.cambiarMayusculasControl(valorMayusculas);
     }
@@ -67,6 +72,7 @@ export class UpperDirective {
    * @param valorMayusculas Valor en mayúsculas
    */
   cambiaraMayusculasElementoNativo(valorMayusculas: string) {
+    this.logger.log("Cambiando valor del elemento nativo a mayúsculas: ", valorMayusculas);
     this.elemento.value = valorMayusculas;
   }
 
@@ -76,6 +82,7 @@ export class UpperDirective {
    */
   cambiarMayusculasControl(valorMayusculas: string) {
     if (this.control) {
+      this.logger.log("Cambiando valor del control a mayúsculas: ", valorMayusculas);
       this.control.setValue(valorMayusculas, { emitEvent: false });
     }
   }

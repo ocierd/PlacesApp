@@ -1,6 +1,7 @@
+import { environment } from "@envs/environment";
 import { BaseService } from "./base-service";
 
-const placesApi = "http://localhost:8080/api";
+const placesApi = environment.placesApi;
 
 /**
  * Clase base para servicios relacionados con "places". Extiende de BaseService y proporciona la URL base para los endpoints de "places".
