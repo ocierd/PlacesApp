@@ -1,5 +1,10 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Optional } from '@angular/core';
+import { AbstractControl, NgControl } from '@angular/forms';
 
+/**
+ * Directiva utilizada para convertir a minúsculas el texto ingresado.
+ * Es necesario que la directiva sea utilizada en "input" o "textarea"
+ */
 @Directive({
   selector: '[appLower]',
   standalone: false,
@@ -9,28 +14,72 @@ import { Directive, ElementRef } from '@angular/core';
 })
 export class LowerDirective {
 
-  private elementoNativo: HTMLInputElement | HTMLTextAreaElement;
 
-  constructor(private elementRef: ElementRef) {
-    const esValido = elementRef.nativeElement instanceof HTMLInputElement
-      || elementRef.nativeElement instanceof HTMLTextAreaElement;
+  /**
+   * Elemento nativo en donde se usa la directiva
+   */
+  private elemento: HTMLInputElement | HTMLTextAreaElement;
 
-    if (!esValido) {
-      throw new TypeError(`El elemento que usa la directiva no está permitido.
-          Solo se puede usar en Input o TextArea`);
+  /**
+   * Control en el que se usa la directiva
+   */
+  private control: AbstractControl | null = null;
+
+  /**
+   * Constructor de la directvica Upper
+   * @param elementRef Wrapper del elemento nativo
+   */
+  constructor(private elementRef: ElementRef, @Optional() private formControl: NgControl) {
+    const esElementoPermitido = this.elementRef.nativeElement instanceof HTMLInputElement
+      || this.elementRef.nativeElement instanceof HTMLTextAreaElement;
+
+    if (!esElementoPermitido) {
+      throw new TypeError('El elemento debe ser un Input o TextArea');
     }
-    this.elementoNativo = elementRef.nativeElement;
+
+    this.elemento = this.elementRef.nativeElement;
+
+    if (this.formControl && this.formControl.control) {
+      this.control = this.formControl.control;
+    }
+
   }
 
 
+  /**
+   * Intenta realizar el cambio a minúsculas del elemento nativo y del control
+   */
   aMinusculas() {
-    const valorInicial = this.elementoNativo.value;
-    if (typeof valorInicial === 'string') {
-      const valorMinusculas= valorInicial.toLowerCase();
-      this.elementoNativo.value = valorMinusculas;
+    const valorElemento = this.elemento.value;
+
+    if (typeof valorElemento === 'string') {
+      console.info('Valor original: ', valorElemento);
+      const valorMinusculas = valorElemento.toLowerCase();
+      console.info("Valor transformado: ", valorMinusculas);
+      this.cambiaraMinusculasElementoNativo(valorMinusculas);
+      this.cambiarMinusculasControl(valorMinusculas);
     }
 
   }
+
+  /**
+   * Cambia el valor del elemento nativo a minúsculas
+   * @param valorMayusculas Valor en minúsculas
+   */
+  cambiaraMinusculasElementoNativo(valorMayusculas: string) {
+    this.elemento.value = valorMayusculas;
+  }
+
+  /**
+   * Cambia el valor del control a minúsculas, siempre y cuando éste exista
+   * @param valorMayusculas Valor en minúsculas
+   */
+  cambiarMinusculasControl(valorMayusculas: string) {
+    if (this.control) {
+      this.control.setValue(valorMayusculas, { emitEvent: false });
+    }
+  }
+
 
 
 }
