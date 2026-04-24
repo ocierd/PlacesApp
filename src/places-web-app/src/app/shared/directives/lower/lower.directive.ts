@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Optional } from '@angular/core';
 import { AbstractControl, NgControl } from '@angular/forms';
+import { LoggerService } from '@shared/services/logger/logger.service';
 
 /**
  * Directiva utilizada para convertir a minúsculas el texto ingresado.
@@ -29,7 +30,8 @@ export class LowerDirective {
    * Constructor de la directvica Upper
    * @param elementRef Wrapper del elemento nativo
    */
-  constructor(private elementRef: ElementRef, @Optional() private formControl: NgControl) {
+  constructor(private elementRef: ElementRef, @Optional() private formControl: NgControl,
+    private logger: LoggerService) {
     const esElementoPermitido = this.elementRef.nativeElement instanceof HTMLInputElement
       || this.elementRef.nativeElement instanceof HTMLTextAreaElement;
 
@@ -53,9 +55,9 @@ export class LowerDirective {
     const valorElemento = this.elemento.value;
 
     if (typeof valorElemento === 'string') {
-      console.info('Valor original: ', valorElemento);
+      this.logger.info('Valor original: ', valorElemento);
       const valorMinusculas = valorElemento.toLowerCase();
-      console.info("Valor transformado: ", valorMinusculas);
+      this.logger.info("Valor transformado: ", valorMinusculas);
       this.cambiaraMinusculasElementoNativo(valorMinusculas);
       this.cambiarMinusculasControl(valorMinusculas);
     }

@@ -12,15 +12,11 @@ CREATE TABLE usuario (
     apellido_paterno VARCHAR(255) NOT NULL,
     apellido_materno VARCHAR(255) NULL,
     fecha_nacimiento date NOT NULL DEFAULT GETDATE(),
-    registrado_en smalldatetime NOT NULL DEFAULT GETDATE()
+    registrado_en smalldatetime NOT NULL DEFAULT GETDATE(),
+
+    -- Asegura que el nombre de usuario sea único en la tabla de usuarios
+    CONSTRAINT usuario_username_uq UNIQUE (username) 
 );
-
--- ALTER TABLE usuario
--- ADD CONSTRAINT UQ_email UNIQUE (email);
-
--- Asegura que el nombre de usuario sea único en la tabla de usuarios
-ALTER TABLE usuario
-ADD CONSTRAINT usuario_username_uq UNIQUE (username);
 
 CREATE TABLE dia (
     dia_id tinyint IDENTITY PRIMARY KEY NOT NULL,
