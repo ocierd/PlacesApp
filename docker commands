@@ -1,0 +1,19 @@
+docker build -t places-web:v1 .
+
+docker run -d --name places-web-contsiner -p 3000:4200 places-web
+docker run -d --name places-web-container-2 -p 4000:80 places-web:v1
+docker run -d --name places-web-container -p 4100:80 places-web:v2
+
+
+
+docker run -d --name places-web-container -p 5555:80 places-web:v1
+
+
+
+docker build -t places-back .
+docker run -d --name places-back-container -p 6666:8080 places-back
+
+
+docker pull mcr.microsoft.com/mssql/server:2025-latest
+
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Passw0rd" -e "MSSQL_PID=Evaluation" -p 1433:1433  --name sql2025 --hostname places_db_server --network places-network -d mcr.microsoft.com/mssql/server:2025-latest
