@@ -1,0 +1,48 @@
+services:
+  web-app:
+    image: places-web-app:latest
+    container_name: web-app
+    # env_file:
+    #   - ./config/.env.prod
+    build:
+      context: ./src/places-web-app
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - places-network
+
+  back-end:
+    image: places-back-end:latest
+    container_name: back-end
+    env_file:
+      - ./config/.env.pre
+    build:
+      context: ./src/demo
+      dockerfile: Dockerfile
+    ports:
+      - "6666:8080"
+    depends_on:
+      - db-server
+
+  db-server:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    hostname: places_db_server
+    container_name: db-server
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Passw0rd
+      - MSSQL_PID=Evaluation
+    ports:
+      - "1433:1433"
+    networks:
+      - places-network
+
+
+
+networks:
+  places-network:
+    driver: bridge
+
