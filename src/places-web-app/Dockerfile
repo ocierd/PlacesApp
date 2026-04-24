@@ -8,7 +8,8 @@ RUN npm install
 
 # Copy the rest of the source code and build
 COPY . .
-RUN npm run build --configuration=production
+RUN npm run build -- --configuration=$NODE_ENV 
+# --output-path=dist/places-web-app/browser
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine as stageee

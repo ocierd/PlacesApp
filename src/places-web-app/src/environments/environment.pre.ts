@@ -4,5 +4,5 @@
  */
 export const environment = {
     isProd: true,
-    placesApi: "http://back-end:8080/api"
+    placesApi: "http://192.168.0.23:9000/api"
 };
