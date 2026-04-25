@@ -19,7 +19,8 @@
       "@modules/*":["./src/app/modules/*"],
       "@layouts/*":["./src/app/layouts/*"],
       "@shared/*":["./src/app/shared/*"],
-      "@envs/*":["./src/environments/*"]
+      "@envs/*":["./src/environments/*"],
+      "@styles/*":["./src/styles/*"]
     }
   },
   "angularCompilerOptions": {

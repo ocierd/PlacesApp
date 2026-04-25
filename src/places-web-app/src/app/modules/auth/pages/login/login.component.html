@@ -1,23 +1,36 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" class="login">
 
-<form [formGroup]="loginForm">
+    <mat-form-field class="p-2 w-100">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username">
+    </mat-form-field>
 
-    <label for="username">Usuario: </label>
-    <input formControlName="username" />
-    <label> {{ usernameValid?"Usuario válido":"USUARIO INVÁLIDO" }}</label>
-    <br>
-    <br>
+    <mat-form-field class="p-2 w-100">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" />
+    </mat-form-field>
 
-    <label for="password">Password: </label>
-    <input formControlName="password" type="password">
-    <label> {{passwordValid? "Password válido":"PASSWORD INVÁLIDOD"}} </label>
 
-    <br><br>
+    <div class="p-2 w-100">
+        <button matButton="filled" (click)="login()" [disabled]="!loginForm.valid || cargando()">
+            @if (cargando()) {
 
-    <button (click)="login()" [disabled]="!loginForm.valid || cargando()">Login</button>
+            <app-spinner [diametro]="20"></app-spinner>
+            Cargando...
 
-    @if (cargando()) {
-        <h3>Se está haciendo login</h3>
-    }
+            }
+            @else{
+
+            <span>Iniciar sesión</span>
+
+            }
+
+
+        </button>
+    </div>
+
+
+
+
 
 </form>
