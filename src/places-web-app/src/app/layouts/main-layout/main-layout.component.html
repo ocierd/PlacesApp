@@ -1,5 +1,20 @@
-<p>main-layout works!</p>
-
 <section class="main-layout-container">
-    <router-outlet></router-outlet>
+
+    <!-- Barra de herramientas principal -->
+    <app-main-layout-toolbar [(opened)]="opened" class="layout-toolbar"></app-main-layout-toolbar>
+
+    <!-- Contenedor principal del layout, que incluye el menú lateral y el contenido principal -->
+    <mat-drawer-container [hasBackdrop]="hasBackdrop()" class="layout-container">
+        
+        <!-- Menú lateral de la aplicación -->
+        <mat-drawer [mode]="mode()" [opened]="opened()">
+            <!-- En este espacio se mostraría el menú lateral de la aplicación, con opciones de navegación y otras funcionalidades relacionadas con el layout. -->
+        </mat-drawer>
+
+        <!-- Contenido principal de la aplicación -->
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
+
 </section>

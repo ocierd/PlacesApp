@@ -1,3 +1,17 @@
-.main-layout-container{
-    border: 0.1em red solid;
+.main-layout-container {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    .layout-toolbar {
+        height: 1;
+    }
+
+    .layout-container {
+        flex-grow: 1;
+        background-color: #d3dee5;
+        border: 0.15em dashed rgb(0, 255, 38);
+    }
+
 }
