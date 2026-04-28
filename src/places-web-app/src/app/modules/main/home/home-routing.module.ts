@@ -6,11 +6,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main-home',
+    redirectTo: 'overview',
     pathMatch: 'full'
   },
   {
-    path: 'main-home',
+    path: 'overview',
     component: MainHomeComponent
   },
   {

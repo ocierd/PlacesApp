@@ -12,6 +12,18 @@
         flex-grow: 1;
         background-color: #d3dee5;
         border: 0.15em dashed rgb(0, 255, 38);
+
+        .layout-mat-drawer {
+            width: auto !important;
+        }
     }
 
+}
+
+.loading-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

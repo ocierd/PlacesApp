@@ -1,4 +1,5 @@
-import { Component, model, effect, input, InputSignal, output, ModelSignal } from '@angular/core';
+import { Component, model, ModelSignal, Signal, computed } from '@angular/core';
+import { MenuService } from '@services/menu/menu.service';
 import { MaterialModule } from '@shared/material/material-module';
 
 
@@ -27,5 +28,13 @@ export class MainLayoutToolbarComponent {
    */
   onClickMenu() {
     this.opened.set(!this.opened());
+  }
+
+  menuTreeLabels: Signal<string> = computed(()=>{
+    const menuTree = this.menuService.getMenuTree();
+    return menuTree().map(m => m.label).join(' > ');
+  });
+
+  constructor(private menuService:MenuService) {
   }
 }

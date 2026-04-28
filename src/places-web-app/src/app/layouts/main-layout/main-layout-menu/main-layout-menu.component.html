@@ -1,0 +1,31 @@
+<mat-nav-list>
+
+
+    <mat-accordion>
+        @for (m of menus(); track $index) {
+
+        @if (m.children && m.children.length > 0) {
+        <mat-expansion-panel [routerLink]="m.route">
+            <mat-expansion-panel-header>
+
+                <mat-panel-title>
+                    <mat-icon>{{m.icon}}</mat-icon>
+                    {{m.label}} </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <app-main-layout-menu [menus]="m.children"></app-main-layout-menu>
+
+        </mat-expansion-panel>
+        } @else {
+
+        <a mat-list-item [routerLink]="m.route" routerLinkActive="active-link" (click)="setSelectedMenuItem(m)">
+            <mat-icon>{{m.icon}}</mat-icon>
+            {{m.label}}
+        </a>
+
+        }
+
+        }
+    </mat-accordion>
+
+</mat-nav-list>
