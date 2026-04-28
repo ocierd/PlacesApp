@@ -1,17 +1,28 @@
-<form [formGroup]="loginForm" class="login">
+<mat-card class="login">
+    <mat-card-header class="d-flex justify-content-center">
+        <mat-card-title>Iniciar sesión</mat-card-title>
+        <mat-card-subtitle> &nbsp;</mat-card-subtitle>
+    </mat-card-header>
 
-    <mat-form-field class="p-2 w-100">
-        <mat-label>Usuario</mat-label>
-        <input matInput formControlName="username">
-    </mat-form-field>
+    <mat-card-content>
 
-    <mat-form-field class="p-2 w-100">
-        <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" />
-    </mat-form-field>
+        <form [formGroup]="loginForm"  class="login-controls">
+
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="username">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" type="password" />
+            </mat-form-field>
 
 
-    <div class="p-2 w-100">
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions >
         <button matButton="filled" (click)="login()" [disabled]="!loginForm.valid || cargando()">
             @if (cargando()) {
 
@@ -24,13 +35,7 @@
             <span>Iniciar sesión</span>
 
             }
-
-
         </button>
-    </div>
+    </mat-card-actions>
 
-
-
-
-
-</form>
+</mat-card>
