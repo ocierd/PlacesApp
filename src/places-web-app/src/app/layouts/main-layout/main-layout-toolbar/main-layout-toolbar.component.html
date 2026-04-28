@@ -7,8 +7,8 @@
     <span class="toolbar-spacer"></span>
     <small>{{menuTreeLabels()}}</small>
     <!-- Aquí puedes agregar otros elementos de la barra de herramientas, como botones de acción, iconos, etc. -->
-    <button matIconButton>
-        <mat-icon>favorite</mat-icon>
+    <button matIconButton (click)="changeTheme()">
+        <mat-icon>{{themeIcon()}}</mat-icon>
     </button>
     <button matIconButton (click)="closeSession()" matTooltip="Cerrar sesión">
         <mat-icon>close</mat-icon>

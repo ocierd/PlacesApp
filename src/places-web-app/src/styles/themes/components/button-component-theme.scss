@@ -1,0 +1,10 @@
+@use '@angular/material' as mat;
+// @use '@angular/material/button' as m2-button;
+// @use '@angular/material/button' as m3-button;
+// @use '@angular/material/button/button-theme' as token-utils;
+
+@mixin setup-button-theme($theme) {
+  @include mat.button-color($theme);
+  @include mat.button-typography($theme);
+  @include mat.button-density($theme);
+}

@@ -1,0 +1,151 @@
+@use "@angular/material" as mat;
+@use 'sass:map';
+
+// Note: Color palettes are generated from primary: #6BDB78, secondary: #334E44, tertiary: #4D7666, neutral: #24E0E0, neutral variant: #97C7C7, error: #F5311B
+
+$_palettes: (
+    primary: (0: #000000,
+        10: #001a0f,
+        20: #003318,
+        25: #003f1e,
+        30: #004b24,
+        35: #00572a,
+        40: #006631,
+        50: #008040,
+        60: #2ca559,
+        70: #4cbf72,
+        80: #6bda8a,
+        90: #90f5a4,
+        95: #baffb9,
+        98: #d5ffcf,
+        99: #e8ffe4,
+        100: #ffffff,
+    ),
+    secondary: (0: #000000,
+        10: #0d1f1b,
+        20: #24372f,
+        25: #2f443a,
+        30: #3a5046,
+        35: #465c52,
+        40: #52695e,
+        50: #6a8176,
+        60: #839a8f,
+        70: #9eb5a9,
+        80: #b9cfc3,
+        90: #d5ebde,
+        95: #e3f8ed,
+        98: #eefff5,
+        99: #f7fffa,
+        100: #ffffff,
+    ),
+    tertiary: (0: #000000,
+        10: #0e1b16,
+        20: #2a3d34,
+        25: #364940,
+        30: #42554b,
+        35: #4e6157,
+        40: #5a6d63,
+        50: #72867a,
+        60: #8ca092,
+        70: #a6bbab,
+        80: #c1d6c5,
+        90: #ddf2e1,
+        95: #ebffed,
+        98: #f2fff4,
+        99: #faf5f9,
+        100: #ffffff,
+    ),
+    neutral: (0: #000000,
+        10: #0e1515,
+        20: #242c2c,
+        25: #303838,
+        30: #3b4444,
+        35: #475050,
+        40: #535c5c,
+        50: #6b7373,
+        60: #848c8c,
+        70: #9fa7a7,
+        80: #bac2c2,
+        90: #d6dddd,
+        95: #e8efef,
+        98: #f3f8f8,
+        99: #fafcfc,
+        100: #ffffff,
+    ),
+    neutral-variant: (0: #000000,
+        10: #0f1919,
+        20: #263031,
+        25: #313c3d,
+        30: #3c4749,
+        35: #485355,
+        40: #545f61,
+        50: #6c7779,
+        60: #859091,
+        70: #9faaac,
+        80: #bac5c7,
+        90: #d6e1e3,
+        95: #e4f0f2,
+        98: #f3f9fa,
+        99: #fafcfd,
+        100: #ffffff,
+    ),
+    error: (0: #000000,
+        10: #2b0b05,
+        20: #531410,
+        25: #6f1a12,
+        30: #8c2117,
+        35: #a8271b,
+        40: #c5301f,
+        50: #f1603f,
+        60: #ff8962,
+        70: #ffb4a0,
+        80: #ffdbce,
+        90: #ffede9,
+        95: #fff8f7,
+        98: #fffdfc,
+        99: #fffbff,
+        100: #ffffff,
+    ),
+);
+
+
+$_rest: (
+    secondary: map.get($_palettes, secondary),
+    neutral: map.get($_palettes, neutral),
+    neutral-variant: map.get($_palettes, neutral-variant),
+    error: map.get($_palettes, error),
+);
+
+$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
+@function _high-contrast-value($light, $dark, $theme-type) {
+    @if ($theme-type ==light) {
+        @return $light;
+    }
+
+    @if ($theme-type ==dark) {
+        @return $dark;
+    }
+
+    @if ($theme-type ==color-scheme) {
+        @return light-dark(#{$light}, #{$dark});
+    }
+
+    @error 'Unknown theme-type #{$theme-type}. Expected light, dark, or color-scheme';
+}
+
+
+
+
+$places-dark-theme: mat.define-theme((color: (theme-type: dark,
+                primary: mat.$magenta-palette, // $primary-palette,
+                tertiary: mat.$violet-palette, // $tertiary-palette,
+            ),
+            typography: (
+                brand-family: "Monotype Corsiva",
+                plain-family: Roboto,
+            ),
+            density: (scale: 0,
+            ),
+        ));
