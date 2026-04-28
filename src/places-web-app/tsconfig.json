@@ -24,6 +24,7 @@
       "@services/*":["./src/app/core/services/*"],
       "@models/*":["./src/app/shared/models/*"],
       "@components/*":["./src/app/shared/components/*"],
+      "@data/*":["./src/app/shared/data/*"],
     }
   },
   "angularCompilerOptions": {
