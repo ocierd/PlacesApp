@@ -1,6 +1,9 @@
 import { Component, model, ModelSignal, Signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@services/auth/auth-service';
 import { MenuService } from '@services/menu/menu.service';
 import { MaterialModule } from '@shared/material/material-module';
+import { StorageService } from '@shared/services/storage/storage.service';
 
 
 /*
@@ -30,11 +33,26 @@ export class MainLayoutToolbarComponent {
     this.opened.set(!this.opened());
   }
 
-  menuTreeLabels: Signal<string> = computed(()=>{
+  menuTreeLabels: Signal<string> = computed(() => {
     const menuTree = this.menuService.getMenuTree();
     return menuTree().map(m => m.label).join(' > ');
   });
 
-  constructor(private menuService:MenuService) {
+  constructor(
+    private menuService: MenuService,
+    private router: Router,
+    private authService: AuthService,
+    private storageService: StorageService
+  ) {
+  }
+
+
+  /**
+   * Limpia todas las variables del almacenamiento local y redirige a "Auth" (login)
+   */
+  closeSession() {
+    this.authService.clearToken();
+    this.storageService.clear();
+    this.router.navigate(['auth']);
   }
 }

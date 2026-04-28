@@ -5,6 +5,7 @@ import { LoginData } from '@shared/models/login.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoggerService } from '@shared/services/logger/logger.service';
+import { Router } from '@angular/router';
 
 /**
  * Componente para login
@@ -55,7 +56,8 @@ export class LoginComponent {
    */
   constructor(private fb: FormBuilder,
     private authService: AuthService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private router:Router
   ) {
     this.loginForm = this.fb.group({
       username: [null, Validators.required],
@@ -73,7 +75,8 @@ export class LoginComponent {
       const loginProm = firstValueFrom(this.authService.auth(datosLogin));
       const tokenData = await loginProm;
       this.logger.log(tokenData);
-
+      this.authService.setToken(tokenData);
+      this.router.navigate(['main']);
     } catch (error) {
       this.logger.error("Error en login: ", error);
       if (error instanceof HttpErrorResponse) {
