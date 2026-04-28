@@ -4,28 +4,51 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use 'sass:map';
+@use '@styles/themes/places-light-theme.scss' as plight;
+@use '@styles/themes/places-dark-theme.scss' as pdark;
+@use '@styles/themes/auth-layout-theme.scss' as auth;
+@use '@styles/themes/components-theme.scss' as componentstheme;
 
 @import '@styles/bootstrap-grid.min.css';
 
+@include mat.core();
+
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
 }
+
+.auth-light-theme {
+  @include mat.theme(auth.$places-auth-light-theme);
+  @include mat.all-component-themes(auth.$places-auth-light-theme);
+
+  @include componentstheme.setup-components-theme(auth.$places-auth-light-theme);
+}
+
+// Define a class for each theme, and include the theme mixin to apply the theme styles to each class.
+// The light theme class is added to the "main-layout" element by default, but can be removed if you want to defer to the user's system setting, or to enable the dark theme by default.
+.places-light-theme {
+  @include mat.theme(plight.$places-light-theme);
+  @include mat.all-component-themes(plight.$places-light-theme);
+
+  @include componentstheme.setup-components-theme(plight.$places-light-theme);
+}
+
+
+// The dark theme class is added to the "main-layout" element when the user selects the dark theme in the UI, or if their system is set to dark mode (if the application is configured to use the system setting).
+.places-dark-theme {
+  @include mat.theme(pdark.$places-dark-theme);
+  @include mat.all-component-themes(pdark.$places-dark-theme);
+
+  @include componentstheme.setup-components-theme(pdark.$places-dark-theme);
+}
+
 
 body {
   // Default the application to a light color theme. This can be changed to
   // `dark` to enable the dark color theme, or to `light dark` to defer to the
   // user's system settings.
-  color-scheme: light;
+
 
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
@@ -38,4 +61,5 @@ body {
   margin: 0;
   height: 100%;
 }
+
 /* You can add global styles to this file, and also import other style files */

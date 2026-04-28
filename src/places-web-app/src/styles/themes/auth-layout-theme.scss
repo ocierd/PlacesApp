@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+$places-auth-light-theme: mat.define-theme((color: (
+        theme-type: light,
+        primary: mat.$magenta-palette, // $primary-palette,
+        tertiary: mat.$cyan-palette, // $tertiary-palette,
+      ),
+      typography: (
+        brand-family: Roboto,
+        plain-family: Roboto,
+    ),
+      density: (
+        scale: 0,
+      ),
+    ));

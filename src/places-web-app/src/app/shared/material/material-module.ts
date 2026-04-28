@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 const materialModules = [
@@ -29,6 +30,7 @@ const materialModules = [
   MatExpansionModule,
   MatTooltipModule,
   MatCardModule,
+  MatDividerModule,
 ];
 
 

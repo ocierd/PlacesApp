@@ -1,0 +1,6 @@
+@use '@angular/material' as mat;
+@import "./components/button-component-theme.scss";
+
+@mixin setup-components-theme($theme) {
+  @include setup-button-theme($theme);
+}

@@ -2,7 +2,9 @@ export const MENU_DATA: MenuItem[] = [
     {
         label: 'Home', icon: 'home', children: [
             { label: 'Overview', icon: 'workspaces', route: '/main/home/overview' },
-            { label: 'Dashboard', icon: 'dashboard', route: '/main/home/dashboard' }]
+            { label: 'Dashboard', icon: 'dashboard', route: '/main/home/dashboard' },
+            {label: 'Buttons', icon: 'gamepad_circle_down', route: '/main/home/buttons' },
+        ]
     },
     {
         label: 'Visitas', icon: 'visibility', route: '/main/visitas', children: [

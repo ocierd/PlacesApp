@@ -1,9 +1,10 @@
-import { Component, model, ModelSignal, Signal, computed } from '@angular/core';
+import { Component, model, ModelSignal, Signal, computed, effect, inject, DOCUMENT } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth-service';
 import { MenuService } from '@services/menu/menu.service';
 import { MaterialModule } from '@shared/material/material-module';
 import { StorageService } from '@shared/services/storage/storage.service';
+import { ThemeService } from '@shared/services/theme/theme.service';
 
 
 /*
@@ -21,6 +22,8 @@ import { StorageService } from '@shared/services/storage/storage.service';
 })
 export class MainLayoutToolbarComponent {
 
+  private readonly document: Document = inject(DOCUMENT);
+
   /**
    * Señal de entrada que indica si el menú lateral está abierto o cerrado
    */
@@ -33,6 +36,13 @@ export class MainLayoutToolbarComponent {
     this.opened.set(!this.opened());
   }
 
+  currentTheme: Signal<'places-light-theme' | 'places-dark-theme'>;
+
+  themeIcon = computed(() => {
+    return this.currentTheme() === 'places-light-theme' ? 'dark_mode' : 'light_mode';
+  });
+
+
   menuTreeLabels: Signal<string> = computed(() => {
     const menuTree = this.menuService.getMenuTree();
     return menuTree().map(m => m.label).join(' > ');
@@ -42,8 +52,21 @@ export class MainLayoutToolbarComponent {
     private menuService: MenuService,
     private router: Router,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private themeService: ThemeService
   ) {
+    this.currentTheme = this.themeService.getCurrentTheme();
+
+    effect(() => {
+      const theme = this.currentTheme();
+      this.document.body.className = theme; // Cambia la clase del body para aplicar el tema
+    });
+  }
+
+
+  changeTheme() {
+    const newTheme = this.currentTheme() === 'places-light-theme' ? 'places-dark-theme' : 'places-light-theme';
+    this.themeService.setTheme(newTheme);
   }
 
 
