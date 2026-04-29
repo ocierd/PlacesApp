@@ -11,18 +11,4 @@ import { firstValueFrom } from 'rxjs';
 })
 export class MainHomeComponent {
 
-  paises: WritableSignal<Pais[]> = signal<Pais[]>([]);
-
-
-  constructor(private paisesService: PaisesService) {
-this.initPaises();
-  }
-
-
-  async initPaises():Promise<void>{
-    const paises = await firstValueFrom(this.paisesService.getPaises());
-    this.paises.set(paises);
-  }
-
-
 }

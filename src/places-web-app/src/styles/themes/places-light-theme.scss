@@ -201,10 +201,12 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
 
 
 
+
+
 $places-light-theme: mat.define-theme((color: (
         theme-type: light,
-        primary: $primary-palette,
-        tertiary: $tertiary-palette,
+        primary: mat.$azure-palette,// $primary-palette,
+        tertiary: mat.$cyan-palette, // $tertiary-palette,
       ),
       typography: (
         brand-family: Roboto,

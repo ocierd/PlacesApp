@@ -1,19 +1,37 @@
 import { isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
 
+  /**
+   * Inyecta el servicio de Logger para registrar advertencias cuando se intenta acceder a sessionStorage en un entorno no compatible.
+   */
+  private logger: LoggerService = inject(LoggerService);
 
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  }
+
+  /**
+   * Proporciona acceso a sessionStorage si se está ejecutando en un entorno de navegador, o a un almacenamiento simulado en otros entornos.
+   * Esto permite que el servicio funcione sin errores en entornos como SSR, donde sessionStorage no está disponible.
+   * @returns Un objeto Storage que representa sessionStorage o un almacenamiento simulado.
+   * @remarks En un entorno de navegador, se devuelve sessionStorage. En otros entornos, se devuelve un objeto simulado que implementa la interfaz Storage, con métodos getItem y setItem que permiten almacenar y recuperar datos en memoria.
+   */
   get storage(): Storage {
     if (isPlatformBrowser(this.platformId)) {
       return sessionStorage;
     }
+
+    this.logger.warn('No se puede acceder a sessionStorage en un entorno que no es el navegador. Se está utilizando un almacenamiento simulado.');
+
     return {
-      getItem: (key: string) =>{
-        if(key === 'authToken') {
+      getItem: (key: string) => {
+        if (key === 'authToken') {
           return "{\"expiresIn\":3600,\"refreshToken\":\"eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6W10sImp0aSI6IjEiLCJzdWIiOiJmcmljYXJkbyIsImlhdCI6MTc3NzQyOTcwMiwiZXhwIjoxNzc3NDMzNzAyfQ.Q1zTRD0-QorJ5JHNoa1rDeSUgke0nXD_OGW5-chrPIiMAWtBAYHfkw5JluJwvgq_\",\"refreshTokenExpiresIn\":4000,\"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6W10sImp0aSI6IjEiLCJzdWIiOiJmcmljYXJkbyIsImlhdCI6MTc3NzQyOTcwMiwiZXhwIjoxNzc3NDMzMzAyfQ.Be-1zcWweK_vZf1SOEvIKrosxpQChdOw4tHjCGUCVi-xNogFMg9QV_3QnC490Wpb\"}";
         }
         return null;
@@ -22,20 +40,9 @@ export class StorageService {
 
       }
     } as Storage;
-    // throw new Error("No existe documento para inyectar el sessionStorage");
-
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: Object) {
 
-    // if (this.document.defaultView?.sessionStorage) {
-    //   this.storage = this.document.defaultView?.sessionStorage;
-    // } else {
-    //   throw new Error("No existe documento para inyectar el sessionStorage");
-    // }
-
-
-  }
   /**
    * Almacena un valor en el almacenamiento local.
    * @param key Clave bajo la cual se almacenará el valor.
