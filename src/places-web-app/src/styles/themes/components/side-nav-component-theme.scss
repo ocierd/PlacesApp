@@ -1,0 +1,12 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin side-nav-component-theme($theme) {
+    $primay-pallette: map.get($theme, primary);
+    $primary-container-color: map.get($theme, primary-container);
+    $on-primary-color: map.get($theme, on-primary);
+    
+    @include mat.sidenav-overrides((content-background-color: $primary-container-color,
+            container-text-color: $on-primary-color,
+        ));
+}

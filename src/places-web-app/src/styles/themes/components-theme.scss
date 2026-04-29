@@ -1,6 +1,8 @@
 @use '@angular/material' as mat;
 @import "./components/button-component-theme.scss";
+@import "./components/side-nav-component-theme.scss";
 
 @mixin setup-components-theme($theme) {
   @include setup-button-theme($theme);
+  @include side-nav-component-theme($theme);
 }
