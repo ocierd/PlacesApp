@@ -6,14 +6,23 @@ import { DOCUMENT, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 })
 export class StorageService {
 
-  // private storage: Storage;
-
 
   get storage(): Storage {
     if (isPlatformBrowser(this.platformId)) {
       return sessionStorage;
     }
-    throw new Error("No existe documento para inyectar el sessionStorage");
+    return {
+      getItem: (key: string) =>{
+        if(key === 'authToken') {
+          return "{\"expiresIn\":3600,\"refreshToken\":\"eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6W10sImp0aSI6IjEiLCJzdWIiOiJmcmljYXJkbyIsImlhdCI6MTc3NzQyOTcwMiwiZXhwIjoxNzc3NDMzNzAyfQ.Q1zTRD0-QorJ5JHNoa1rDeSUgke0nXD_OGW5-chrPIiMAWtBAYHfkw5JluJwvgq_\",\"refreshTokenExpiresIn\":4000,\"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6W10sImp0aSI6IjEiLCJzdWIiOiJmcmljYXJkbyIsImlhdCI6MTc3NzQyOTcwMiwiZXhwIjoxNzc3NDMzMzAyfQ.Be-1zcWweK_vZf1SOEvIKrosxpQChdOw4tHjCGUCVi-xNogFMg9QV_3QnC490Wpb\"}";
+        }
+        return null;
+      },
+      setItem: (key: string, value: string) => {
+
+      }
+    } as Storage;
+    // throw new Error("No existe documento para inyectar el sessionStorage");
 
   }
 

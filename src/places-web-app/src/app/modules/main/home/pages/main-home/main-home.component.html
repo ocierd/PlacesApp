@@ -19,3 +19,9 @@
 </p>
 
 <input appLower /> 
+
+<ul>
+    @for (p of paises(); track $index) {
+            <li>{{ p.nombre }}</li>
+    }
+</ul>

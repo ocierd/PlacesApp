@@ -52,7 +52,10 @@ export class BaseService {
      * @returns  URL completa para el endpoint específico del servicio.
      */
     private getUrl(endpoint: string): string {
-        return `${this.baseUrl}/${endpoint}`;
+        if(typeof endpoint === 'string' && endpoint.trim() !== '') {
+            return `${this.baseUrl}/${endpoint}`;
+        }
+        return `${this.baseUrl}`;
     }
 
 
