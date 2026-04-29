@@ -1,25 +1,27 @@
 import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
 
 
+type PlacesThemeType = 'places-light-theme' | 'places-dark-theme';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
 
-  private themes: string[] = ['places-light-theme', 'places-dark-theme'];
-  private currentTheme: WritableSignal<'places-light-theme' | 'places-dark-theme'> = signal('places-light-theme');
+  private themes: PlacesThemeType[] = ['places-light-theme', 'places-dark-theme'];
+  private currentTheme: WritableSignal<PlacesThemeType> = signal('places-light-theme');
 
-  getCurrentTheme(): Signal<'places-light-theme' | 'places-dark-theme'> {
+  getCurrentTheme(): Signal<PlacesThemeType> {
     return this.currentTheme.asReadonly();
   }
 
   constructor() {}
 
-  setTheme(theme: 'places-light-theme' | 'places-dark-theme'): void {
+  setTheme(theme: PlacesThemeType): void {
     this.currentTheme.set(theme);
   }
 
-  getThemes(): string[] {
+  getThemes(): PlacesThemeType[] {
     return this.themes;
   }
 

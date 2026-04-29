@@ -2,14 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './generic/spinner/spinner.component';
 import { MaterialModule } from '@shared/material/material-module';
-import { DirectivesModule } from "@shared/directives/directives.module";
+import { DirectivesModule } from '@shared/directives/directives.module';
+import { ErrorMessageComponent } from './generic/error-message/error-message.component';
+
+
+/**
+ * Lista de componentes compartidos
+ */
+const components = [SpinnerComponent, ErrorMessageComponent];
 
 /**
  * Módulo para componentes compartidos
  */
 @NgModule({
-  declarations: [SpinnerComponent],
+  declarations: [...components],
   imports: [CommonModule, MaterialModule, DirectivesModule],
-  exports: [SpinnerComponent]
+  exports: [...components],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
