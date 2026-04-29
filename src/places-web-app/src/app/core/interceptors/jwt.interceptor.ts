@@ -12,9 +12,16 @@ import { AuthService } from '@services/auth/auth-service';
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const tokenData = authService.getToken();
-  const newReq = req.clone();
-  if(tokenData){
-    newReq.headers.append('Authorization', `Bearer ${tokenData.token}`);
+
+  if (tokenData) {
+    console.log("Añadiendo token a la petición:", tokenData.token);
+    const newReq = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${tokenData.token}`)
+    })
+    return next(newReq);
   }
-  return next(newReq);
+  else {
+    console.warn("No se encontró token de autenticación, enviando petición sin token");
+  }
+  return next(req);
 };
