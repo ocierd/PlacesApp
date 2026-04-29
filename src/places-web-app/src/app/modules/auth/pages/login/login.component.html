@@ -11,11 +11,17 @@
             <mat-form-field>
                 <mat-label>Usuario</mat-label>
                 <input matInput formControlName="username">
+                <mat-error>
+                    <app-error-message [control]="usernameControl"></app-error-message>
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Contraseña</mat-label>
                 <input matInput formControlName="password" type="password" />
+                <mat-error>
+                    <app-error-message [control]="passwordControl"></app-error-message>
+                </mat-error>
             </mat-form-field>
 
 
