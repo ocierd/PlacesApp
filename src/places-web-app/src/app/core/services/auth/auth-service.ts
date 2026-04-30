@@ -29,6 +29,17 @@ export class AuthService extends PlacesBaseService {
     return this.post<TokenData>('login', data);
   }
 
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    if (!token) {
+      return false;
+    }
+    return true;
+    // const now = Date.now();
+    // const expiresAt = token.expiresIn * 1000 + now; // Convertir a milisegundos
+    // return now < expiresAt;
+  }
+
 
   /**
    * Almacena el token de autenticación en el almacenamiento local utilizando el servicio StorageService.
