@@ -2,9 +2,7 @@ export const MENU_DATA: MenuItem[] = [
     {
         label: 'Home', icon: 'home', children: [
             { label: 'Overview', icon: 'workspaces', route: '/main/home/overview' },
-            { label: 'Dashboard', icon: 'dashboard', route: '/main/home/dashboard' },
-            { label: 'Buttons', icon: 'gamepad_circle_down', route: '/main/home/buttons' },
-            { label: 'Autocomplete', icon: 'credit_card', route: '/main/home/autocomplete' },
+            { label: 'Dashboard', icon: 'dashboard', route: '/main/home/dashboard' }
         ]
     },
     {
@@ -16,6 +14,12 @@ export const MENU_DATA: MenuItem[] = [
                 ]
             },
 
+        ]
+    },
+    {
+        label: 'Developer', icon: 'code', children: [
+            { label: 'Autocomplete', icon: 'credit_card', route: '/main/developer/autocomplete' },
+            { label: 'Buttons', icon: 'gamepad_circle_down', route: '/main/developer/buttons' }
         ]
     },
     {

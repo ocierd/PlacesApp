@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'visitas',
     loadChildren: () => import('@modules/main/visitas/visitas.module').then(m => m.VisitasModule)
+  },
+  {
+    path: 'developer',
+    loadChildren: () => import('@modules/main/developer/developer.module').then(m => m.DeveloperModule)
   }
 ];
 
