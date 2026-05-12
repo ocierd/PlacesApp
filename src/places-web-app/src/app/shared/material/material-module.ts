@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 const materialModules = [
@@ -33,6 +34,7 @@ const materialModules = [
   MatCardModule,
   MatDividerModule,
   MatAutocompleteModule,
+  MatStepperModule,
 ];
 
 
