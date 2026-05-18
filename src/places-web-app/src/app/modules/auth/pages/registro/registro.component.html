@@ -1,118 +1,164 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Registro de Usuario</mat-card-title>
+    <mat-card-title>Registro de usuario</mat-card-title>
   </mat-card-header>
   <mat-card-content>
 
-    <mat-stepper [linear]="false" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Datos personales</ng-template>
-          <br>
-          <mat-form-field>
-            <mat-label>nombre</mat-label>
-            <input matInput formControlName="nombre" />
-            <mat-error>
-              <app-error-message [control]="nombreControl" />
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Primer Apellido</mat-label>
-            <input matInput formControlName="apellidoPaterno" />
-            <mat-error>
-              <app-error-message [control]="apellidoPaternoControl" />
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Segundo Apellido</mat-label>
-            <input matInput formControlName="apellidoMaterno" />
-            <mat-error>
-              <app-error-message [control]="apellidoMaternoControl" />
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput formControlName="fechaNacimiento" type="date" />
-            <mat-error>
-              <app-error-message [control]="fechaNacimientoControl" />
-            </mat-error>
-          </mat-form-field>
+    <mat-stepper [linear]="true" #registroStepper labelPosition="end" headerPosition="bottom" >
 
-          <mat-form-field class="example-full-width">
-            <mat-label>País</mat-label>
-            <input type="text" placeholder="Pick one" aria-label="País" matInput [formControl]="myControl"
-              [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              @for (p of filtrados(); track p.paisId) {
-              <mat-option [value]="p">{{p.nombre}}</mat-option>
-              }
-            </mat-autocomplete>
-          </mat-form-field>
+
+      <!-- Sección de "Datos personales" -->
+      <mat-step [stepControl]="datosPersonalesForm" color="accent">
+        <form [formGroup]="datosPersonalesForm">
+          <ng-template matStepLabel>Datos personales</ng-template>
+
+          <section class="row">
+
+            <!-- Campo Nombre -->
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" />
+              <mat-error>
+                <app-error-message [control]="nombreControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Campo de primer apellido -->
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Primer apellido</mat-label>
+              <input matInput formControlName="apellidoPaterno" />
+              <mat-error>
+                <app-error-message [control]="apellidoPaternoControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Campo de segundo apellido -->
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Segundo apellido</mat-label>
+              <input matInput formControlName="apellidoMaterno" />
+              <mat-error>
+                <app-error-message [control]="apellidoMaternoControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Fecha de nacimiento -->
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput formControlName="fechaNacimiento" type="date" />
+              <mat-error>
+                <app-error-message [control]="fechaNacimientoControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Campo País -->
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>País</mat-label>
+              <input type="text" placeholder="Selecciona uno" matInput formControlName="pais" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPais">
+                @for (p of filtrados(); track p) {
+                <mat-option [value]="p">{{p.nombre}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+
+          </section>
+
           <div>
-            <button matButton matStepperNext>Next</button>
+            <button matButton matStepperNext>Siguiente</button>
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
+
+
+      <!-- Paso de datos de contacto -->
+      <mat-step [stepControl]="datosContactoForm">
+        <form [formGroup]="datosContactoForm">
           <ng-template matStepLabel>Datos de contacto</ng-template>
-          <br>
-          <mat-form-field>
-            <mat-label>email</mat-label>
-            <input matInput formControlName="email" />
-            <mat-error>
-              <app-error-message [control]="emailControl" />
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Teléfono</mat-label>
-            <input matInput formControlName="telefono" />
-            <mat-error>
-              <app-error-message [control]="telefonoControl"></app-error-message>
-            </mat-error>
-          </mat-form-field>
+
+          <section class="row">
+
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Correo electrónico</mat-label>
+              <input matInput formControlName="email" />
+              <mat-error>
+                <app-error-message [control]="emailControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="telefono" />
+              <mat-error>
+                <app-error-message [control]="telefonoControl"></app-error-message>
+              </mat-error>
+            </mat-form-field>
+
+          </section>
+
+
           <div>
-            <button matButton matStepperPrevious>Back</button>
-            <button matButton matStepperNext>Next</button>
+            <button matButton matStepperPrevious>Atrás</button>
+            <button matButton matStepperNext>Siguiente</button>
           </div>
         </form>
       </mat-step>
+
+
+      <!-- Paso de credenciales -->
       <mat-step [stepControl]="credencialesFormGroup">
         <form [formGroup]="credencialesFormGroup">
           <ng-template matStepLabel>Credenciales</ng-template>
-          <br>
-          <mat-form-field>
-            <mat-label>Usuario</mat-label>
-            <input matInput formControlName="username" />
-            <mat-error>
-              <app-error-message [control]="usernameControl" />
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" type="password" />
-            <mat-error>
-              <app-error-message [control]="passwordControl"></app-error-message>
-            </mat-error>
-          </mat-form-field>
+
+          <section class="row">
+
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Usuario</mat-label>
+              <input matInput formControlName="username" />
+              <mat-error>
+                <app-error-message [control]="usernameControl" />
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+              <mat-label>Contraseña</mat-label>
+              <input matInput formControlName="password" type="password" />
+              <mat-error>
+                <app-error-message [control]="passwordControl"></app-error-message>
+              </mat-error>
+            </mat-form-field>
+
+          </section>
+
+
           <div>
-            <button matButton matStepperPrevious>Back</button>
-            <button matButton matStepperNext>Next</button>
+            <button matButton matStepperPrevious>Atrás</button>
+            <button matButton matStepperNext>Siguiente</button>
           </div>
         </form>
       </mat-step>
+
+
+      <!-- Paso final -->
       <mat-step>
         <ng-template matStepLabel>Finalizado</ng-template>
-        <br>
-        You are now done.
+        Da click en "Finalizar" para terminar el registro
         <div>
-          <button matButton matStepperPrevious>Back</button>
-          <button matButton (click)="stepper.reset()">Reset</button>
+          <button matButton matStepperPrevious>Atrás</button>
+          <button matButton (click)="registroStepper.reset()">Reiniciar</button>
         </div>
       </mat-step>
+
+
     </mat-stepper>
   </mat-card-content>
 
 </mat-card>
 <br>
-<a [routerLink]="['../login']">ir al login</a>
+
+<div class="d-flex justify-content-end">
+
+    <!-- enlace login -->
+    <a matButton="elevated" (click)="goToLogin()">ir al Login</a>
+    <!-- <a [routerLink]="['../login']">ir al login</a> -->
+
+</div>
