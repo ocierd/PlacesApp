@@ -1,0 +1,24 @@
+<form [formGroup]="datosContactoForm">
+    <ng-template matStepLabel>Datos de contacto</ng-template>
+
+    <section class="row">
+
+        <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error>
+                <app-error-message [control]="emailControl" />
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" />
+            <mat-error>
+                <app-error-message [control]="telefonoControl"></app-error-message>
+            </mat-error>
+        </mat-form-field>
+
+    </section>
+
+</form>
