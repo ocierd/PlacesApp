@@ -1,10 +1,10 @@
-import { Component, inject, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaisesService } from '@services/paises/paises.service';
 import { Pais } from '@shared/models/pais.model';
 import { LoggerService } from '@shared/services/logger/logger.service';
-import { firstValueFrom, map, Observable, startWith, switchMap } from 'rxjs';
+import { debounceTime, firstValueFrom, map, Observable, startWith, tap } from 'rxjs';
 
 /**
  * Paso para el registro de los datos personales
@@ -17,9 +17,8 @@ import { firstValueFrom, map, Observable, startWith, switchMap } from 'rxjs';
 })
 export class DatosPersonalesRegistroStepComponent {
   private _formBuilder = inject(FormBuilder);
-  paises: WritableSignal<Pais[]> = signal([] as Pais[]);
-  paises$: Observable<Pais[]>;
-  filtrados: Signal<Pais[] | undefined>;
+
+  protected filtrados: WritableSignal<Pais[]> = signal([] as Pais[]);
 
   public datosPersonalesForm: FormGroup = this._formBuilder.group({
     nombre: [null, [Validators.required]],
@@ -40,18 +39,13 @@ export class DatosPersonalesRegistroStepComponent {
   constructor(private paisesService: PaisesService,
     private logger: LoggerService
   ) {
+    this.paisControl
+      .valueChanges.pipe(
+        startWith(''),
+        debounceTime(300),
+        tap(value => this.filtrarPaises(value)))
+      .subscribe();
 
-    this.paises$ = this.paisesService.getPaises();
-
-    this.filtrados = toSignal(this.paises$
-      .pipe(switchMap(paises => this.paisControl
-        .valueChanges.pipe(
-          startWith(''),
-          map(value => this.filtrarPaises(value))
-        ))
-      ));
-
-    this.initPaises();
   }
 
 
@@ -61,34 +55,17 @@ export class DatosPersonalesRegistroStepComponent {
  * @param value Valor ingresado en el campo de selección (puede ser una cadena o un objeto Pais)
  * @returns Lista de países filtrados según el valor ingresado
  */
-  filtrarPaises(value: string | Pais): Pais[] {
+  async filtrarPaises(value: string | Pais): Promise<void> {
+    this.logger.info("Se está filtrando la lista de países con el valor:", value);
     if (value && typeof value === 'object' && 'nombre' in value) {
-      return [value];
+      return;
     }
     const filterValue = value.toLowerCase();
-    if (!filterValue) {
-      const filtrados = this.paises().filter(p => p.paisId < 10); // Devuelve todos los países si el valor de búsqueda está vacío
-      return filtrados;
-    }
-    return this.paises().filter(pais => pais.nombre.toLowerCase().includes(filterValue));
+    const paises = await firstValueFrom(this.paisesService.buscarPaises(filterValue));
+    this.filtrados.set(paises);
   }
 
-  /**
-   * Inicializa la lista de países obteniéndolos del servicio PaisesService. 
-   * Maneja errores y registra el proceso de carga en el LoggerService.
-   */
-  async initPaises(): Promise<void> {
-    try {
-      const p = await firstValueFrom(this.paises$);
-      this.paises.set(p);
-    } catch (error) {
-      this.logger.error('Error al cargar los países:', error);
-      alert('No se pudieron cargar los países. Por favor, inténtalo de nuevo más tarde.');
-    }
-    finally {
-      this.logger.info('Proceso de carga de países finalizado');
-    }
-  }
+
 
   /**
    * Función para mostrar el nombre del país en el campo de selección.
@@ -96,7 +73,10 @@ export class DatosPersonalesRegistroStepComponent {
    * @returns Nombre a mostrar
    */
   displayPais(pais: Pais | null): string {
-    return pais ? pais.nombre : '';
+    if (pais && typeof pais === 'object' && 'nombre' in pais) {
+      return `${pais.codigo} - ${pais.nombre}`;
+    }
+    return '';
   }
 
 }
