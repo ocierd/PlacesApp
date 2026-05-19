@@ -24,4 +24,14 @@ export class PaisesService extends PlacesBaseService {
     return this.get<Pais[]>('');
   }
 
+  /**
+   * Método para buscar países por nombre. Realiza una solicitud HTTP GET al endpoint "buscar" de la API, agregando el parámetro de consulta "nombre" con el valor del criterio de búsqueda proporcionado.
+   * @param criterio Criterio de búsqueda para filtrar los países por nombre. Se utiliza para construir la URL de la solicitud HTTP GET al endpoint "buscar" de la API, agregando el parámetro de consulta "nombre" con el valor del criterio proporcionado.
+   * @returns Observable con la lista de países que coinciden con el criterio de búsqueda. El método utiliza el método genérico `get` proporcionado por la clase base `PlacesBaseService` para realizar la solicitud HTTP GET al endpoint correspondiente, pasando la URL construida con el criterio de búsqueda.
+   */
+  buscarPaises(criterio: string): Observable<Pais[]> {
+    const url = `buscar?nombre=${criterio}`;
+    return this.get<Pais[]>(url);
+  }
+
 }
