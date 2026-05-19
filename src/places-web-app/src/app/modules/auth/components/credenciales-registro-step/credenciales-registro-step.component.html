@@ -1,0 +1,24 @@
+<form [formGroup]="credencialesFormGroup">
+    <ng-template matStepLabel>Credenciales</ng-template>
+
+    <section class="row">
+
+        <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" />
+            <mat-error>
+                <app-error-message [control]="usernameControl" />
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" type="password" />
+            <mat-error>
+                <app-error-message [control]="passwordControl"></app-error-message>
+            </mat-error>
+        </mat-form-field>
+
+    </section>
+
+</form>
