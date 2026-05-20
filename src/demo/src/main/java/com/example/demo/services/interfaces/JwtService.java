@@ -3,6 +3,7 @@ package com.example.demo.services.interfaces;
 import java.util.Map;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.exceptions.UnauthorizedException;
 
 /**
  * Interfaz que define los métodos para generar y validar tokens JWT en la
@@ -41,7 +42,7 @@ public interface JwtService {
      * @param token El token JWT a validar.
      * @return true si el token ha expirado, false de lo contrario.
      */
-    boolean isTokenExpired(String token);
+    boolean isTokenExpired(String token) throws UnauthorizedException;
 
     /**
      * Obtiene el nombre de usuario del token JWT proporcionado.
@@ -49,6 +50,6 @@ public interface JwtService {
      * @param token El token JWT del cual se extraerá el nombre de usuario.
      * @return El nombre de usuario contenido en el token.
      */
-    String getUserName(String token);
+    String getUserName(String token)  throws UnauthorizedException;
 
 }
