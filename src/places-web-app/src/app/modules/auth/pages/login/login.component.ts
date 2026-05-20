@@ -7,6 +7,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { LoggerService } from '@shared/services/logger/logger.service';
 import { Router } from '@angular/router';
 import { ValidationsService } from '@shared/services/validations/validations.service';
+import { DialogService } from '@shared/services/dialog/dialog.service';
+import { ModulosDialogComponent } from '@modules/auth/components/modulos-dialog/modulos-dialog.component';
+import { ModulosService } from '@services/modulos/modulos.service';
+import { ModuloDto } from '@shared/models/modulo.model';
 
 /**
  * Componente para login
@@ -68,7 +72,9 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private logger: LoggerService,
-    private router: Router
+    private router: Router,
+    private dialogService: DialogService,
+    private modulosService: ModulosService,
   ) {
     this.loginForm = this.fb.group({
       username: [null, [Validators.required, ValidationsService.validateUsername]],
@@ -94,6 +100,11 @@ export class LoginComponent {
   }
 
 
+  /**
+   * Realiza el proceso de login utilizando los datos ingresados en el formulario.
+   * Si el login es exitoso, se obtiene un token de autenticación que se almacena utilizando el servicio de autenticación. 
+   * Luego, se muestra una selección de módulos disponibles para el usuario. Si ocurre un error durante el proceso de login, se maneja el error mostrando mensajes adecuados al usuario.
+   */
   async login(): Promise<void> {
     try {
 
@@ -104,7 +115,8 @@ export class LoginComponent {
       const tokenData = await loginProm;
       this.logger.log(tokenData);
       this.authService.setToken(tokenData);
-      this.router.navigate(['main']);
+      // this.router.navigate(['main']);
+      await this.displayModulesSelection();
     } catch (error) {
       this.logger.error("Error en login: ", error);
       if (error instanceof HttpErrorResponse) {
@@ -127,6 +139,45 @@ export class LoginComponent {
       this.cargando.set(false);
     }
 
+  }
+
+  /**
+   * Muestra un diálogo para seleccionar el módulo al que se desea acceder después de un login exitoso.
+   * Si el usuario tiene acceso a un solo módulo, se redirige automáticamente a ese módulo sin mostrar el diálogo. 
+   * Si el usuario tiene acceso a múltiples módulos, se muestra un diálogo con la lista de módulos disponibles para que el usuario seleccione uno. 
+   * Después de que el usuario selecciona un módulo, se redirige a la ruta correspondiente al módulo seleccionado. Si no se selecciona ningún módulo, se muestra una alerta indicando que no se seleccionó ningún módulo.
+   */
+  async displayModulesSelection(): Promise<void> {
+    const modulos = await firstValueFrom(this.modulosService.getModulosPorUsuario());
+    
+    if (modulos.length === 0) {
+      this.logger.warn('No hay módulos disponibles para el usuario.');
+      this.modulosService.setSelectedModulo(null);
+      alert("No hay módulos disponibles para el usuario.");
+      this.authService.clearToken();
+      return;
+    }
+    if (modulos.length === 1) {
+      const onlyModulo = modulos[0];
+      this.logger.info('Redirigiendo al único módulo disponible:', onlyModulo);
+      this.modulosService.setSelectedModulo(onlyModulo);
+      this.router.navigate([onlyModulo.ruta]);
+      return;
+    }
+
+    const config = { data: modulos, width: '800px', height: '800px', disableClose: true, autoFocus: true, hasBackdrop: true };
+    const openedObs = this.dialogService.openDialog<ModulosDialogComponent, ModuloDto[], ModuloDto | null>(ModulosDialogComponent, config);
+    const selected = await firstValueFrom(openedObs.afterClosed());
+    if (selected) {
+      this.logger.info('Módulo seleccionado:', selected);
+      this.modulosService.setSelectedModulo(selected);
+      this.router.navigate([selected.ruta]);
+    } else {
+      this.logger.warn('No se seleccionó ningún módulo.');
+      this.modulosService.setSelectedModulo(null);
+      this.authService.clearToken();
+      alert("No se seleccionó ningún módulo.");
+    }
   }
 
 }

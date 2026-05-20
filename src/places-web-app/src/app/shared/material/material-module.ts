@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 const materialModules = [
@@ -35,6 +36,7 @@ const materialModules = [
   MatDividerModule,
   MatAutocompleteModule,
   MatStepperModule,
+  MatDialogModule,
 ];
 
 

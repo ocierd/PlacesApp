@@ -4,10 +4,12 @@ import { MaterialModule } from '@shared/material/material-module';
 import { MainLayoutToolbarComponent } from "./main-layout-toolbar/main-layout-toolbar.component";
 import { MainLayoutMenuComponent } from './main-layout-menu/main-layout-menu.component';
 import { MenuService } from '@services/menu/menu.service';
-import { firstValueFrom } from 'rxjs';
+import { finalize, firstValueFrom } from 'rxjs';
 import { LoggerService } from '@shared/services/logger/logger.service';
 import { ComponentsModule } from '@shared/components/components-module';
 import { NavigationEnd, Router } from '@angular/router';
+import { ModulosService } from '@services/modulos/modulos.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 
@@ -17,7 +19,7 @@ import { NavigationEnd, Router } from '@angular/router';
  */
 @Component({
   selector: 'app-main-layout',
-  imports: [AuthRoutingModule, MaterialModule, MainLayoutToolbarComponent, 
+  imports: [AuthRoutingModule, MaterialModule, MainLayoutToolbarComponent,
     MainLayoutMenuComponent, ComponentsModule],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
@@ -63,24 +65,30 @@ export class MainLayoutComponent implements OnInit {
    * Cadena de texto que representa la ruta completa del menú seleccionado, construida a partir de las etiquetas de los elementos del menú en el árbol de menú. 
    * Se utiliza para mostrar la ruta completa del menú seleccionado en la interfaz de usuario.
    */
-  readonly menuTreeLabels: Signal<string> = computed(() => this.menuTree().map(m => m.label).join(' > '));
+  readonly menuTreeLabels: Signal<string> = computed(() => this.menuTree().map(m => m.nombre).join(' > '));
 
   constructor(
     private menuService: MenuService,
     private logger: LoggerService,
-    private router: Router
+    private router: Router,
+    private modulosService: ModulosService
   ) {
 
     this.menuTree = this.menuService.getMenuTree();
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const route = event.urlAfterRedirects;
-        this.menuService.setSelectedMenuItemByRoute(route);
-        this.logger.info('Navigation ended:', route);
-        // this.updateMenu();
-      }
-    });
+    this.router.events
+      .pipe(
+        takeUntilDestroyed(),
+        finalize(() => this.logger.info('MainLayoutComponent destroyed, unsubscribed from router events'))
+      )
+      .subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          const route = event.urlAfterRedirects;
+          this.menuService.setSelectedMenuItemByRoute(route);
+          this.logger.info('Navigation ended:', route);
+          // this.updateMenu();
+        }
+      });
   }
 
 
@@ -97,8 +105,10 @@ export class MainLayoutComponent implements OnInit {
    */
   private async updateMenu(): Promise<void> {
     try {
+      const selectedModulo = this.modulosService.getSelectedModulo()();
+      const moduloId = selectedModulo?.moduloId ?? null;
       this.isLoadingMenu.set(true);
-      const menuItems = await firstValueFrom(this.menuService.getMenuItems());
+      const menuItems = await firstValueFrom(this.menuService.getMenuUsuarioPorModulo(moduloId));
       this.menu.set(menuItems);
     } catch (error) {
       this.logger.error('Error al cargar el menú:', error);

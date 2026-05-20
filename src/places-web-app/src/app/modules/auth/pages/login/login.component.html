@@ -30,15 +30,6 @@
     <mat-card-actions>
         <div class="d-flex flex-column">
 
-            <!-- <button matButton="filled" (click)="login()" [disabled]="!loginForm.valid || cargando()">
-                @if (cargando()) {
-                <app-spinner [diametro]="20"></app-spinner>
-                Cargando...
-                }
-                @else{
-                <span>Iniciar sesión</span>
-                }
-            </button> -->
 
             <app-spinner-button [texto]="'Iniciar sesión'" [cargando]="cargando()" [deshabilitado]="!loginForm.valid"
                 (clic)="login()">
@@ -49,7 +40,6 @@
             <!-- enlace registro -->
             <a matButton="outlined" [routerLink]="['../registro']">Registro</a>
             <br>
-
 
 
         </div>

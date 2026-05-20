@@ -1,28 +1,36 @@
+export const DEVELOPER_MENU_DATA: MenuItem[] = [
+    {
+        menuId: Number.MAX_SAFE_INTEGER, nombre: 'Developer', icono: 'code', hijos: [
+            { menuId: Number.MAX_SAFE_INTEGER - 1, nombre: 'Autocomplete', icono: 'credit_card', ruta: '/main/developer/autocomplete', padreMenuId: Number.MAX_SAFE_INTEGER },
+            { menuId: Number.MAX_SAFE_INTEGER - 2, nombre: 'Buttons', icono: 'gamepad_circle_down', ruta: '/main/developer/buttons', padreMenuId: Number.MAX_SAFE_INTEGER }
+        ]
+    }
+];
+
 export const MENU_DATA: MenuItem[] = [
     {
-        label: 'Home', icon: 'home', children: [
-            { label: 'Overview', icon: 'workspaces', route: '/main/home/overview' },
-            { label: 'Dashboard', icon: 'dashboard', route: '/main/home/dashboard' }
+        menuId: 1,
+        nombre: 'Home', icono: 'home', hijos: [
+            { menuId: 2, nombre: 'Overview', icono: 'workspaces', ruta: '/main/home/overview' ,padreMenuId: 1},
+            { menuId: 3, nombre: 'Dashboard', icono: 'dashboard', ruta: '/main/home/dashboard', padreMenuId: 1 }
         ]
     },
     {
-        label: 'Visitas', icon: 'visibility', route: '/main/visitas', children: [
+        menuId: 4, nombre: 'Visitas', icono: 'visibility', ruta: '/main/visitas', hijos: [
             {
-                label: 'Visitas padre', icon: 'visibility_off', route: '/main/visitas', children: [
-                    { label: 'Visitas Pendientes', icon: 'pending_actions', route: '/main/visitas/lista-visitas' },
-                    { label: 'Visitas Completadas', icon: 'check_circle', route: '/main/visitas/completadas' },
-                ]
+                menuId: 5, nombre: 'Visitas padre', icono: 'visibility_off', ruta: '/main/visitas', hijos: [
+                    { menuId: 6, nombre: 'Visitas Pendientes', icono: 'pending_actions', ruta: '/main/visitas/lista-visitas', padreMenuId: 5 },
+                    { menuId: 7, nombre: 'Visitas Completadas', icono: 'check_circle', ruta: '/main/visitas/completadas', padreMenuId: 5 },
+                ],
+                padreMenuId: 4
             },
 
         ]
     },
     {
-        label: 'Developer', icon: 'code', children: [
-            { label: 'Autocomplete', icon: 'credit_card', route: '/main/developer/autocomplete' },
-            { label: 'Buttons', icon: 'gamepad_circle_down', route: '/main/developer/buttons' }
-        ]
+        ...DEVELOPER_MENU_DATA[0]
     },
     {
-        label: 'Configuración', icon: 'settings'
+        menuId: 11, nombre: 'Configuración', icono: 'settings'
     }
 ];

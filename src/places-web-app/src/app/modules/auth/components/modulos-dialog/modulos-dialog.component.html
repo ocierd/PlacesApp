@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Selecciona un módulo</h2>
+<mat-dialog-content>
+    @for (m of modulos; track $index) {
+
+    <mat-card class="mb-3">
+        <mat-card-header>
+            <mat-card-title>{{m.nombre}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            {{m.descripcion}}
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="selectModulo(m)">Seleccionar</button>
+        </mat-card-actions>
+    </mat-card>
+    }
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+    <button matButton="outlined" mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
