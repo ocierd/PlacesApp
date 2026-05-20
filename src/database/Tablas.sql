@@ -176,3 +176,60 @@ CREATE TABLE verificacion_correo(
     CONSTRAINT verificacion_correo_correo_fk FOREIGN KEY (correo_id) REFERENCES correo(correo_id),
     CONSTRAINT verificacion_correo_token_unique UNIQUE(token)
 );
+
+
+
+-- Tabla para almacenar los módulos del sistema
+CREATE TABLE modulo (
+    modulo_id TINYINT IDENTITY NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(1000) NULL,
+    ruta VARCHAR(255) NULL,
+    CONSTRAINT modulo_pk PRIMARY KEY(modulo_id)
+);
+
+
+
+-- Tabla de roles de usuario
+CREATE TABLE rol (
+    rol_id TINYINT IDENTITY NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    CONSTRAINT rol_pk PRIMARY KEY(rol_id)
+);
+
+
+-- Tabla de asignación de roles a usuarios
+CREATE TABLE usuario_rol (
+    usuario_rol_id bigint IDENTITY NOT NULL,
+    usuario_id bigint NOT NULL,
+    rol_id TINYINT NOT NULL,
+    CONSTRAINT usuario_rol_pk PRIMARY KEY(usuario_rol_id),
+    CONSTRAINT usuario_rol_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
+    CONSTRAINT usuario_rol_rol_fk FOREIGN KEY (rol_id) REFERENCES rol(rol_id),
+    CONSTRAINT usuario_rol_usuario_rol_uq UNIQUE (usuario_id, rol_id)
+);
+
+
+-- Tabla de menús (opciones de navegación)
+CREATE TABLE menu (
+    menu_id INT IDENTITY NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    ruta VARCHAR(255) NOT NULL,
+    icono VARCHAR(100) NULL,
+    padre_menu_id INT NULL,
+    modulo_id TINYINT NULL,
+    CONSTRAINT menu_padre_fk FOREIGN KEY (padre_menu_id) REFERENCES menu(menu_id),
+    CONSTRAINT menu_modulo_fk FOREIGN KEY (modulo_id) REFERENCES modulo(modulo_id),
+    CONSTRAINT menu_pk PRIMARY KEY(menu_id)
+);
+
+-- Tabla de asignación de menús a roles
+CREATE TABLE rol_menu (
+    rol_menu_id bigint IDENTITY NOT NULL,
+    rol_id TINYINT NOT NULL,
+    menu_id INT NOT NULL,
+    CONSTRAINT rol_menu_pk PRIMARY KEY(rol_menu_id),
+    CONSTRAINT rol_menu_rol_fk FOREIGN KEY (rol_id) REFERENCES rol(rol_id),
+    CONSTRAINT rol_menu_menu_fk FOREIGN KEY (menu_id) REFERENCES menu(menu_id),
+    CONSTRAINT rol_menu_rol_menu_uq UNIQUE (rol_id, menu_id)
+);
