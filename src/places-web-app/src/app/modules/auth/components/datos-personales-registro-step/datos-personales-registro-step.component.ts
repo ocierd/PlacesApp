@@ -1,5 +1,5 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaisesService } from '@services/paises/paises.service';
 import { Pais } from '@shared/models/pais.model';
@@ -43,7 +43,9 @@ export class DatosPersonalesRegistroStepComponent {
       .valueChanges.pipe(
         startWith(''),
         debounceTime(300),
-        tap(value => this.filtrarPaises(value)))
+        tap(value => this.filtrarPaises(value)),
+        takeUntilDestroyed()
+      )
       .subscribe();
 
   }

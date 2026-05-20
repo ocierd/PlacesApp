@@ -45,7 +45,7 @@ export class MainLayoutToolbarComponent {
 
   menuTreeLabels: Signal<string> = computed(() => {
     const menuTree = this.menuService.getMenuTree();
-    return menuTree().map(m => m.label).join(' > ');
+    return menuTree().map(m => m.nombre).join(' > ');
   });
 
   constructor(
