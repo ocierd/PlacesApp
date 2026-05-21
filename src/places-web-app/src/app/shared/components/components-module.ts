@@ -5,11 +5,16 @@ import { MaterialModule } from '@shared/material/material-module';
 import { DirectivesModule } from '@shared/directives/directives.module';
 import { ErrorMessageComponent } from './generic/error-message/error-message.component';
 import { SpinnerButtonComponent } from './generic/spinner-button/spinner-button.component';
+import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 
 /**
  * Lista de componentes compartidos
  */
-const components = [SpinnerComponent, ErrorMessageComponent, SpinnerButtonComponent];
+const components = [
+  SpinnerComponent,
+  ErrorMessageComponent,
+  SpinnerButtonComponent,
+  AlertDialogComponent];
 
 /**
  * Módulo para componentes compartidos

@@ -1,0 +1,15 @@
+<div mat-dialog-title class="d-flex align-items-center justify-content-start">
+    <mat-icon class="me-2">{{alertIcon}}</mat-icon>
+    <h4>{{data.title ?? "Mensaje"}}</h4>
+</div>
+
+
+<mat-dialog-content>
+    {{data.message}}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button matButton="outlined" (click)="closeDialog(false)">{{data.cancelButtonText || 'Cerrar'}}</button>
+    @if (data.confirmButtonText) {
+    <button matButton="outlined" (click)="closeDialog(true)">{{data.confirmButtonText || 'Aceptar'}}</button>
+    }
+</mat-dialog-actions>

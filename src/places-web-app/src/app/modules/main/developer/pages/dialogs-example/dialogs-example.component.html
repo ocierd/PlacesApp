@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Ejemplos de alerta
+        </mat-card-title>
+        <mat-card-subtitle>
+            Ejemplos de uso del servicio de alertas para mostrar diferentes tipos de alertas.
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+
+        <div class="d-flex justify-content-between p-2 flex-wrap">
+
+            <button matButton="elevated" (click)="openConfirmDialog()">Abrir confirm</button>
+
+            <button matButton="outlined" color="warn" (click)="openAlertDialog('warning')">Abrir alerta Warning</button>
+            
+            <button matButton="outlined" (click)="openAlertDialog('info')">Abrir alerta Info</button>
+
+            <button matButton="outlined" color="primary" (click)="openAlertDialog('success')">Abrir alerta Success</button>
+
+            <button matButton="outlined" color="accent" (click)="openAlertDialog('error')">Abrir alerta Error</button>
+
+
+        </div>
+
+    </mat-card-content>
+
+
+    
+</mat-card>
