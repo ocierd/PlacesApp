@@ -20,6 +20,7 @@ import { Pais } from '@shared/models/pais.model';
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss',
 
+
 })
 export class RegistroComponent {
 

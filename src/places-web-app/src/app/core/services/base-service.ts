@@ -53,6 +53,9 @@ export class BaseService {
      */
     private getUrl(endpoint: string): string {
         if(typeof endpoint === 'string' && endpoint.trim() !== '') {
+            if(endpoint.startsWith('/')) {
+                return `${this.baseUrl}${endpoint}`;
+            }
             return `${this.baseUrl}/${endpoint}`;
         }
         return `${this.baseUrl}`;

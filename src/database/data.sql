@@ -120,3 +120,71 @@ INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (5, 'Pago móvil');
 INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (6, 'Cheque');
 INSERT INTO tipo_pago (tipo_pago_id, nombre) VALUES (7, 'Vales de despensa');
 SET IDENTITY_INSERT tipo_pago OFF;
+
+
+-- Datos de catálogo para la tabla "modulo"
+SET IDENTITY_INSERT modulo ON;
+INSERT INTO modulo (modulo_id, nombre, descripcion, ruta) VALUES
+(1, 'Principal', 'Módulo principal del sistema', '/main'),
+(2, 'Administrador', 'Gestión de administración', '/admin'),
+(3, 'Usuario administrador', 'Gestión de usuarios administradores', '/user-admin');
+SET IDENTITY_INSERT modulo OFF;
+
+
+
+-- Datos de catálogo para la tabla menu
+SET IDENTITY_INSERT menu ON;
+INSERT INTO menu (menu_id, nombre, ruta, icono, padre_menu_id, modulo_id) VALUES
+(1,'Inicio', '/home', 'home', NULL, 1),
+(2,'Overview','/overview','workspaces',1, NULL),
+(3,'Dashboard','/dashboard','dashboard',1, NULL),
+(4,'Visitas','/visitas','visibility',NULL, 1),
+(5,'Pendientes','/lista-visitas','pending_actions',4, NULL),
+(6,'Completadas','/completadas','check_circle',4, NULL),
+
+(7,'Gestión de Usuarios','/gestion-usuarios','manage_accounts',NULL, 2),
+(8,'Usuarios','/usuarios','demography',7, NULL),
+(9,'Editar usuario','/editar-usuario','user_attributes',7, NULL),
+
+(10,'Gestión de módulos','/gestion-modulos','bookmark_stacks',NULL, 2),
+(11,'Gestión de menús','/gestion-menus','menu',NULL, 2),
+(12,'Roles y Permisos','/roles-permisos','security',NULL, 2),
+(13,'Configuración del Sistema','/configuracion-sistema','settings',NULL, 2);
+SET IDENTITY_INSERT menu OFF;
+
+
+-- Datos de catálogo para la tabla rol
+SET IDENTITY_INSERT rol ON;
+INSERT INTO rol (rol_id, nombre) VALUES
+(1,'Administrador'),
+(2,'Usuario Administrativo'),
+(3,'Usuario Regular'),
+(4,'Invitado');
+SET IDENTITY_INSERT rol OFF;
+
+
+-- Datos de catálogo para la tabla rol_menu
+SET IDENTITY_INSERT rol_menu ON;
+INSERT INTO rol_menu (rol_menu_id, rol_id, menu_id) VALUES
+(1, 1, 1), -- Administrador tiene acceso a Inicio
+(2, 1, 2), -- Administrador tiene acceso a Overview
+(3, 1, 3), -- Administrador tiene acceso a Dashboard
+(4, 1, 4), -- Administrador tiene acceso a Visitas
+(5, 1, 5), -- Administrador tiene acceso a Pendientes
+(6, 1, 6), -- Administrador tiene acceso a Completadas
+(7, 2, 1), -- Usuario Administrativo tiene acceso a Inicio
+(8, 2, 2), -- Usuario Administrativo tiene acceso a Overview
+(9, 2, 3), -- Usuario Administrativo tiene acceso a Dashboard
+(10, 2, 4), -- Usuario Administrativo tiene acceso a Visitas
+(11, 2, 5), -- Usuario Administrativo tiene acceso a Pendientes
+(12, 3, 1), -- Usuario Regular tiene acceso a Inicio
+(13, 3, 4), -- Usuario Regular tiene acceso a Visitas
+(14, 3, 5), -- Usuario Regular tiene acceso a Pendientes
+(15, 3, 6), -- Usuario Regular tiene acceso a Completadas
+(16, 4, 1), -- Invitado tiene acceso a Inicio
+
+(17, 1, 7), -- Administrador tiene acceso a Gestión de Usuarios
+(18, 1, 8), -- Administrador tiene acceso a Usuarios
+(19, 1, 9); -- Administrador tiene acceso a Editar usuario
+SET IDENTITY_INSERT rol_menu OFF;
+

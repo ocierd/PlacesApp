@@ -23,7 +23,9 @@ export class MainLayoutMenuComponent {
    */
   menus: InputSignal<MenuItem[]> = input([] as MenuItem[]);
 
-
+  /**
+   * Estado del panel de expansión del menú, utilizado para controlar la apertura y cierre de los submenús en el menú lateral.
+   */
   readonly panelOpenState = signal(false);
 
   constructor(
@@ -32,7 +34,10 @@ export class MainLayoutMenuComponent {
 
   }
 
-
+  /**
+  * Método para seleccionar un elemento del menú, que actualiza el estado del menú seleccionado en el servicio de menú y registra la selección en el logger.
+  * @param menuItem El elemento del menú que ha sido seleccionado por el usuario.
+  */
   setSelectedMenuItem(menuItem: MenuItem | null): void {
     this.menuService.setSelectedMenuItem(menuItem);
     this.logger.log('Menu item selected:', menuItem);

@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.exceptions.UnauthorizedException;
 import com.example.demo.services.interfaces.JwtService;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -29,6 +33,8 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${places_app.jwt.secret}")
     private String SECRET_KEY;
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
     /**
      * Genera un token JWT con los claims adicionales, el nombre de usuario y el
@@ -79,7 +85,7 @@ public class JwtServiceImpl implements JwtService {
      * @return El nombre de usuario contenido en el token.
      */
     @Override
-    public String getUserName(String token) {
+    public String getUserName(String token) throws UnauthorizedException {
         Claims claims = extractAllClaims(token);
         return claims.getSubject();
     }
@@ -91,20 +97,25 @@ public class JwtServiceImpl implements JwtService {
      * @return true si el token ha expirado, false de lo contrario.
      */
     @Override
-    public boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) throws UnauthorizedException {
         Claims claims = extractAllClaims(token);
         Date expiration = claims.getExpiration();
         return expiration.before(new Date());
     }
 
-    private Claims extractAllClaims(String token) {
-        // Extract claims after signature verification
-        return Jwts
-                .parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+    private Claims extractAllClaims(String token) throws UnauthorizedException {
+        try {
+            // Extract claims after signature verification
+            return Jwts
+                    .parser()
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            logger.warn("Token expired: {}", e.getMessage());
+            throw new UnauthorizedException("Token expired");
+        }
     }
 
     private SecretKey getSignInKey() {
