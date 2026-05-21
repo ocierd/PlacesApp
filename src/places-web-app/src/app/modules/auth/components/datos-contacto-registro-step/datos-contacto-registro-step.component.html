@@ -10,6 +10,16 @@
                 <app-error-message [control]="emailControl" />
             </mat-error>
         </mat-form-field>
+        <!-- Campo País -->
+        <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <mat-label>País</mat-label>
+            <input type="text" placeholder="Selecciona uno" matInput formControlName="pais" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPais">
+                @for (p of filtrados(); track p) {
+                <mat-option [value]="p">{{p.nombre}}</mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
 
         <mat-form-field class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
             <mat-label>Teléfono</mat-label>

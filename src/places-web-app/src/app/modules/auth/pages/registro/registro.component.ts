@@ -3,6 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatosPersonalesRegistroStepComponent } from '@modules/auth/components/datos-personales-registro-step/datos-personales-registro-step.component';
 import { DatosContactoRegistroStepComponent } from '@modules/auth/components/datos-contacto-registro-step/datos-contacto-registro-step.component';
 import { CredencialesRegistroStepComponent } from '@modules/auth/components/credenciales-registro-step/credenciales-registro-step.component';
+import { Usuario, UsuarioRegistroDto } from '@shared/models/usuario.model';
+import { LoggerService } from '@shared/services/logger/logger.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UsuarioService } from '@services/usuario/usuario.service';
+import { firstValueFrom } from 'rxjs';
+import { Pais } from '@shared/models/pais.model';
 
 
 /**
@@ -16,7 +22,7 @@ import { CredencialesRegistroStepComponent } from '@modules/auth/components/cred
 
 })
 export class RegistroComponent {
-  
+
 
   @ViewChild('datosPersonalesStep')
   datosPersonalesStep!: DatosPersonalesRegistroStepComponent
@@ -31,7 +37,9 @@ export class RegistroComponent {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private logger: LoggerService,
+    private usuarioService: UsuarioService
   ) { }
 
   /**
@@ -49,6 +57,50 @@ export class RegistroComponent {
     }
 
     this.router.navigate(['../login'], { relativeTo: this.route });
+  }
+
+
+
+  async crearUsuario(): Promise<void> {
+    try {
+      const datosContacto:{
+        telefono:string,
+        email:string,
+        pais:Pais
+      }=this.datosContactoStep.datosContactoForm.getRawValue();
+
+      const nuevoRegistro = {
+        ...this.credencialesStep.credencialesFormGroup.getRawValue(),
+        ...datosContacto,
+        ...this.datosPersonalesStep.datosPersonalesForm.getRawValue(),
+        paisId:datosContacto.pais.paisId
+      } as UsuarioRegistroDto
+
+      console.log(nuevoRegistro)
+
+      const usuario = await firstValueFrom(
+        this.usuarioService.crearUsuario(nuevoRegistro)
+      );
+
+      console.log("Usuario creado:", usuario);
+
+    } catch (error) {
+
+      this.logger.error("Error en registro:", error);
+
+      if (error instanceof HttpErrorResponse) {
+
+        alert("Error: " + error.message);
+
+      } else {
+
+        this.logger.error("Error desconocido:", error);
+
+      }
+
+    } finally {
+
+    }
   }
 }
 
