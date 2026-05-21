@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
 
-    <mat-stepper [linear]="true" #registroStepper labelPosition="end" headerPosition="bottom">
+    <mat-stepper [linear]="true" #registroStepper labelPosition="end" headerPosition="top">
 
 
       <!-- Sección de "Datos personales" -->
@@ -18,7 +18,7 @@
 
 
       <!-- Paso de datos de contacto -->
-      <mat-step [stepControl]="datosContactoStep.datosContactoForm">
+      <mat-step [stepControl]="datosContactoStep.datosContactoForm" color="accent" label="Datos de contacto">
         <app-datos-contacto-registro-step #datosContactoStep></app-datos-contacto-registro-step>
 
         <div>
@@ -29,7 +29,7 @@
 
 
       <!-- Paso de credenciales -->
-      <mat-step [stepControl]="credencialesStep.credencialesFormGroup">
+      <mat-step [stepControl]="credencialesStep.credencialesFormGroup" color="accent" label="Credenciales">
         <app-credenciales-registro-step #credencialesStep />
 
         <div>
@@ -46,6 +46,8 @@
         <div>
           <button matButton matStepperPrevious>Atrás</button>
           <button matButton (click)="registroStepper.reset()">Reiniciar</button>
+          <button matButton (click)="crearUsuario()" >Finalizar</button>
+
         </div>
       </mat-step>
 
