@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatosPersonalesRegistroStepComponent } from '@modules/auth/components/datos-personales-registro-step/datos-personales-registro-step.component';
 import { DatosContactoRegistroStepComponent } from '@modules/auth/components/datos-contacto-registro-step/datos-contacto-registro-step.component';
@@ -9,6 +9,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UsuarioService } from '@services/usuario/usuario.service';
 import { firstValueFrom } from 'rxjs';
 import { Pais } from '@shared/models/pais.model';
+import { AlertType } from '@shared/models/ui/alert.model';
+import { AlertsService } from '@shared/services/alerts/alerts.service';
+import { ValidacionError } from '@shared/models/errors.model';
+import { ErrorsUtils } from '@shared/utils/errors-utils';
+import { environment } from '@envs/environment';
 
 
 /**
@@ -22,7 +27,7 @@ import { Pais } from '@shared/models/pais.model';
 
 
 })
-export class RegistroComponent {
+export class RegistroComponent implements AfterViewInit, OnInit {
 
 
   @ViewChild('datosPersonalesStep')
@@ -40,7 +45,8 @@ export class RegistroComponent {
     private router: Router,
     private route: ActivatedRoute,
     private logger: LoggerService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private alertService: AlertsService
   ) { }
 
   /**
@@ -60,47 +66,69 @@ export class RegistroComponent {
     this.router.navigate(['../login'], { relativeTo: this.route });
   }
 
-
-
+  ngOnInit(): void {
+    this.logger.info("en ONINIT: ",this.datosContactoStep);
+  }
+/**
+ * Se utiliza para realizar pruebas y no se tenga que estar capturando la información.
+ * Se llama una vez que los componentes internos han sido inicializados. 
+*/
+  ngAfterViewInit(): void {
+    this.logger.info("en ngAfterViewInit: ",this.datosContactoStep);
+    if(!environment.isProd){
+      this.datosPersonalesStep.datosPersonalesForm.patchValue({
+        nombre:'Fernando',
+        apellidoPaterno:'Ricardo'
+      });
+      this.datosContactoStep.datosContactoForm.patchValue({
+        telefono:'5541943983',
+        email:'ocierd@msn.com'
+      });
+    }
+    
+  }
+/**
+ * Obtención de datos para la creación del usuario. 
+ * Los datos se obtinen desde los formularios de los componentes de las pasos (stepper)
+ */
   async crearUsuario(): Promise<void> {
     try {
-      const datosContacto:{
-        telefono:string,
-        email:string,
-        pais:Pais
-      }=this.datosContactoStep.datosContactoForm.getRawValue();
+      const datosContacto: {
+        telefono: string,
+        email: string,
+        pais: Pais
+      } = this.datosContactoStep.datosContactoForm.getRawValue();
+
+      const credencialesData: {
+        username: string, password: string
+      } = this.credencialesStep.credencialesFormGroup.getRawValue();
+
+      const datosPersonales: {
+        nombre: string, apellidoPaterno: string, apellidoMaterno: string, fechaNacimiento: string
+      } = this.datosPersonalesStep.datosPersonalesForm.getRawValue();
 
       const nuevoRegistro = {
-        ...this.credencialesStep.credencialesFormGroup.getRawValue(),
+        ...credencialesData,
         ...datosContacto,
-        ...this.datosPersonalesStep.datosPersonalesForm.getRawValue(),
-        paisId:datosContacto.pais.paisId
-      } as UsuarioRegistroDto
+        ...datosPersonales,
+        paisId: datosContacto.pais.paisId
+      } as UsuarioRegistroDto;
 
-      console.log(nuevoRegistro)
-
-      const usuario = await firstValueFrom(
+       await firstValueFrom(
         this.usuarioService.crearUsuario(nuevoRegistro)
       );
 
-      console.log("Usuario creado:", usuario);
-
+      this.alertService.sendSuccessAlert('El registro fue generado correctamente.');
+      this.router.navigate(['../login'], { relativeTo: this.route });
     } catch (error) {
 
-      this.logger.error("Error en registro:", error);
+      this.logger.error("Ocurrió un error", error);
+      const errorMsg = ErrorsUtils.getValidacionError(error);
+      this.alertService.sendErrorAlert(errorMsg);
 
-      if (error instanceof HttpErrorResponse) {
-
-        alert("Error: " + error.message);
-
-      } else {
-
-        this.logger.error("Error desconocido:", error);
-
-      }
-
-    } finally {
-
+    } 
+    finally {
+      
     }
   }
 }
