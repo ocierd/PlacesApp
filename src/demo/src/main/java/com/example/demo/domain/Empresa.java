@@ -38,4 +38,13 @@ public class Empresa {
     @JoinColumn(name = "categoria_id", insertable = false, updatable = false)
     private Categoria categoria;
 
+    @Column(name = "usuario_id")
+    private Long usuarioId;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    private Usuario usuario;
+
+    @Column(name = "activo", insertable = false)
+    private Boolean activo;
 }

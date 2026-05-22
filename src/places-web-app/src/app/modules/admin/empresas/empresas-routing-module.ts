@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistroComponent } from '@modules/admin/empresas/pages/registro/registro.component';
+import { CatalogoComponent } from '@modules/admin/empresas/pages/catalogo/catalogo.component';
 
 const routes: Routes = [
   {
@@ -9,8 +10,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'registro',
+    path: 'registro/:id',
     component: RegistroComponent
+  },
+  {
+    path: 'catalogo',
+    component: CatalogoComponent
   }
 ];
 
