@@ -20,7 +20,7 @@ export class DatosPersonalesRegistroStepComponent {
   public datosPersonalesForm: FormGroup = this._formBuilder.group({
     nombre: [null, [Validators.required]],
     apellidoPaterno: [null, [Validators.required]],
-    apellidoMaterno: [null, [Validators.required]],
+    apellidoMaterno: [null],
     fechaNacimiento: [null, [Validators.required]]
   });
 

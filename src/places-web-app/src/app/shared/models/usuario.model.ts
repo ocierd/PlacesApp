@@ -16,7 +16,7 @@ export interface UsuarioRegistroDto {
 
       apellidoMaterno: string;
 
-      fechaNacimiento: Date;
+      fechaNacimiento: Date | string;
 
 
 }
