@@ -99,6 +99,6 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
             "FROM sucursal s \r\n" + //
             "INNER JOIN empresa e on e.empresa_id = s.empresa_id \r\n" + //
             "INNER JOIN categoria c on c.categoria_id = e.categoria_id \r\n" + //
-            "WHERE s.nombre + e.nombre + c.nombre LIKE %:criteria% ", nativeQuery = true)
+            "WHERE s.nombre || e.nombre || c.nombre LIKE '%' || :criteria || '%'", nativeQuery = true)
     List<SucursalSummary> findSucursalesByCriteria(@Param("criteria") @Nullable String criteria);
 }
