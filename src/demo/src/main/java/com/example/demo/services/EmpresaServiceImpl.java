@@ -3,8 +3,10 @@ package com.example.demo.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Empresa;
+import com.example.demo.domain.projections.EmpresaDto;
 import com.example.demo.repository.EmpresaRepository;
 import com.example.demo.services.interfaces.EmpresaService;
 
@@ -29,6 +31,12 @@ public class EmpresaServiceImpl implements EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
+    @Override
+    public Empresa getEmpresaById(Integer Id) {
+        Empresa empresa = empresaRepository.findById(Id).orElse(null);
+        return empresa;
+    }
+
     /**
      * Obtiene una lista de todas las empresas disponibles.
      * @return Lista de todas las empresas
@@ -37,6 +45,12 @@ public class EmpresaServiceImpl implements EmpresaService {
     public List<Empresa> getAllEmpresas() {
         List<Empresa> empresas = empresaRepository.findAll();
         return empresas;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<EmpresaDto> buscarEmpresas(String nombre, short categoriaId) {
+        return empresaRepository.findByCriteria(nombre, categoriaId);
     }
 
     /**

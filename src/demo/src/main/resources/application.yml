@@ -9,7 +9,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        "[format_sql]": true
         ddl-auto: update
         dialect: org.hibernate.dialect.SQLServerDialect
   mail:
@@ -17,11 +17,10 @@ spring:
     port: ${MAIL_PORT}
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-    smtp:
-      auth: true
     properties:
       mail:
         smtp:
+          auth: true
           ssl:
             enable: true
 

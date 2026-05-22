@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Horario;
 import com.example.demo.domain.Sucursal;
+import com.example.demo.domain.Usuario;
 import com.example.demo.domain.dto.SucursalCriteriaDto;
 import com.example.demo.domain.dto.SucursalDto;
 import com.example.demo.domain.exceptions.NoEncontradoException;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.PutMapping;
  */
 @RestController
 @RequestMapping("/sucursales")
-public class SucursalController {
+public class SucursalController extends BaseController {
 
     /**
      * SucursalService es un servicio que proporciona la lógica de negocio para
@@ -55,6 +56,8 @@ public class SucursalController {
      */
     @PostMapping
     public Sucursal crearSucursal(@RequestBody Sucursal sucursal) {
+        Usuario usuario = this.getCurrentUser();
+        sucursal.setUsuario(usuario);
         return sucursalService.crearSucursal(sucursal);
     }
 
