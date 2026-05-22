@@ -6,7 +6,7 @@
 
     <mat-card-content>
 
-        <form [formGroup]="loginForm"  class="login-controls">
+        <form [formGroup]="loginForm" class="login-controls">
 
             <mat-form-field>
                 <mat-label>Usuario</mat-label>
@@ -24,24 +24,28 @@
                 </mat-error>
             </mat-form-field>
 
-
         </form>
     </mat-card-content>
 
-    <mat-card-actions >
-        <button matButton="filled" (click)="login()" [disabled]="!loginForm.valid || cargando()">
-            @if (cargando()) {
+    <mat-card-actions>
+        <div class="d-flex flex-column">
 
-            <app-spinner [diametro]="20"></app-spinner>
-            Cargando...
 
-            }
-            @else{
+            <app-spinner-button [texto]="'Iniciar sesión'" [cargando]="cargando()" [deshabilitado]="!loginForm.valid"
+                (clic)="login()">
 
-            <span>Iniciar sesión</span>
+            </app-spinner-button>
+            <br>
+            
+            <!-- enlace registro -->
+            <a matButton="outlined" [routerLink]="['../registro']">Registro</a>
+            <br>
 
-            }
-        </button>
+
+        </div>
+
+
+
     </mat-card-actions>
 
 </mat-card>

@@ -9,7 +9,7 @@ const isProd = environment.isProd;
 @Injectable({
   providedIn: 'root'
 })
-export class LoggerService {
+export class  LoggerService {
 
   consola: Console = console;
 

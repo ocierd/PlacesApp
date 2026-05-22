@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.demo.domain.Usuario;
+import com.example.demo.domain.exceptions.UnauthorizedException;
 import com.example.demo.services.interfaces.JwtService;
 
 import jakarta.servlet.FilterChain;
@@ -44,7 +45,13 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        processToken(request);
+        try {
+            processToken(request);
+        } catch (UnauthorizedException e) {
+            logger.warn("Unauthorized access: {}", e.getMessage());
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: " + e.getMessage());
+            return;
+        }
 
         logger.debug("Processing complete. Return back control to framework");
 
@@ -60,7 +67,7 @@ public class JwtFilter extends OncePerRequestFilter {
      * @param request La solicitud HTTP entrante que contiene el encabezado de
      *                autorización.
      */
-    private void processToken(HttpServletRequest request) {
+    private void processToken(HttpServletRequest request) throws UnauthorizedException {
         String authHeader = request.getHeader("Authorization");
 
         logger.info("Authorization Header: {}", authHeader);

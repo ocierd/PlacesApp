@@ -1,1 +1,66 @@
-<p>registro works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Registro de usuario</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-stepper [linear]="true" #registroStepper labelPosition="end" headerPosition="top">
+
+
+      <!-- Sección de "Datos personales" -->
+      <mat-step [stepControl]="datosPersonalesStep.datosPersonalesForm" color="accent" label="Datos personales">
+        <app-datos-personales-registro-step #datosPersonalesStep />
+
+        <div>
+          <button matButton matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+
+
+      <!-- Paso de datos de contacto -->
+      <mat-step [stepControl]="datosContactoStep.datosContactoForm" color="accent" label="Datos de contacto">
+        <app-datos-contacto-registro-step #datosContactoStep></app-datos-contacto-registro-step>
+
+        <div>
+          <button matButton matStepperPrevious>Atrás</button>
+          <button matButton matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+
+
+      <!-- Paso de credenciales -->
+      <mat-step [stepControl]="credencialesStep.credencialesFormGroup" color="accent" label="Credenciales">
+        <app-credenciales-registro-step #credencialesStep />
+
+        <div>
+          <button matButton matStepperPrevious>Atrás</button>
+          <button matButton matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+
+
+      <!-- Paso final -->
+      <mat-step>
+        <ng-template matStepLabel>Finalizado</ng-template>
+        Da click en "Finalizar" para terminar el registro
+        <div>
+          <button matButton matStepperPrevious>Atrás</button>
+          <button matButton (click)="registroStepper.reset()">Reiniciar</button>
+          <button matButton (click)="crearUsuario()" >Finalizar</button>
+
+        </div>
+      </mat-step>
+
+
+    </mat-stepper>
+  </mat-card-content>
+
+</mat-card>
+<br>
+
+<div class="d-flex justify-content-end">
+
+  <!-- enlace login -->
+  <a matButton="elevated" (click)="goToLogin()">ir al Login</a>
+
+</div>

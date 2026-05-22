@@ -16,6 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTableModule } from '@angular/material/table';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 const materialModules = [
   MatSlideToggleModule,
@@ -34,6 +37,8 @@ const materialModules = [
   MatDividerModule,
   MatAutocompleteModule,
   MatTableModule
+  MatStepperModule,
+  MatDialogModule,
 ];
 
 

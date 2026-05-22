@@ -1,0 +1,8 @@
+<button matButton="filled" (click)="onclick($event)" [disabled]="cargando() || deshabilitado()" class="spinner-button">
+
+    @if (cargando()) {
+    <mat-spinner [diameter]="15" class="me-2"></mat-spinner>
+    }
+
+    <span>{{texto()}}</span>
+</button>

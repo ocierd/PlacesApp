@@ -4,12 +4,17 @@ import { SpinnerComponent } from './generic/spinner/spinner.component';
 import { MaterialModule } from '@shared/material/material-module';
 import { DirectivesModule } from '@shared/directives/directives.module';
 import { ErrorMessageComponent } from './generic/error-message/error-message.component';
-
+import { SpinnerButtonComponent } from './generic/spinner-button/spinner-button.component';
+import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 
 /**
  * Lista de componentes compartidos
  */
-const components = [SpinnerComponent, ErrorMessageComponent];
+const components = [
+  SpinnerComponent,
+  ErrorMessageComponent,
+  SpinnerButtonComponent,
+  AlertDialogComponent];
 
 /**
  * Módulo para componentes compartidos
@@ -19,4 +24,4 @@ const components = [SpinnerComponent, ErrorMessageComponent];
   imports: [CommonModule, MaterialModule, DirectivesModule],
   exports: [...components],
 })
-export class ComponentsModule {}
+export class ComponentsModule { }
