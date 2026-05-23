@@ -24,7 +24,7 @@ services:
     env_file:
       - ./config/.env.pre
     build:
-      context: ./src/demo
+      context: ./src/api
       dockerfile: Dockerfile
     ports:
       - "9000:8080"

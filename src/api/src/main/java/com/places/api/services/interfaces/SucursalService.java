@@ -1,0 +1,83 @@
+package com.places.api.services.interfaces;
+
+import java.util.List;
+
+import com.places.api.domain.Horario;
+import com.places.api.domain.Sucursal;
+import com.places.api.domain.dto.SucursalCriteriaDto;
+import com.places.api.domain.dto.SucursalDto;
+import com.places.api.domain.exceptions.NoEncontradoException;
+import com.places.api.domain.exceptions.ValidacionException;
+import com.places.api.domain.projections.SucursalSummary;
+
+/**
+ * SucursalService es una interfaz que define los métodos de negocio
+ * relacionados con las sucursales.
+ * Proporciona operaciones para manejar las sucursales en la aplicación.
+ */
+public interface SucursalService {
+
+    /**
+     * Crea una nueva sucursal en la base de datos. Recibe un objeto Sucursal con
+     * los datos de la sucursal a crear y devuelve la sucursal creada.
+     * 
+     * @param sucursal El objeto Sucursal que se desea crear
+     * @return La sucursal creada
+     */
+    Sucursal crearSucursal(Sucursal sucursal);
+
+    Sucursal agregarHorario(Long sucursalId, Horario horario)
+            throws ValidacionException, NoEncontradoException;
+
+    /**
+     * Agrega un tipo de pago a una sucursal existente. Recibe el ID de la sucursal
+     * a la que se desea agregar el tipo de pago y el objeto TipoPago que se desea
+     * agregar. Devuelve la sucursal actualizada con el nuevo tipo de pago agregado.
+     * 
+     * @param sucursalId El ID de la sucursal a la que se desea agregar el tipo de
+     *                   pago
+     * @param tipoPagoId El ID del tipo de pago que se desea agregar a la sucursal
+     * @return La sucursal actualizada con el nuevo tipo de pago agregado
+     * @throws NoEncontradoException Si la sucursal no se encuentra en la base de
+     *                               datos
+     */
+    Sucursal agregarTipoPago(Long sucursalId, Short tipoPagoId) throws NoEncontradoException;
+
+    /**
+     * Crea una nueva sucursal en la base de datos a partir de un objeto
+     * SucursalDto. Recibe un objeto SucursalDto con los datos de la sucursal a
+     * crear y devuelve la sucursal creada. Este método es útil para recibir datos
+     * de la sucursal desde el cliente en formato DTO (Data Transfer Object) y luego
+     * convertirlo a una entidad Sucursal para guardarlo en la base de datos.
+     * 
+     * @param sucursal El objeto SucursalDto que se desea crear
+     * @return La sucursal creada
+     */
+    Sucursal crearSucursal(SucursalDto sucursal);
+
+    /**
+     * Obtiene una lista de todas las sucursales disponibles.
+     * 
+     * @return Lista de todas las sucursales
+     */
+    List<Sucursal> getAllSucursales();
+
+    List<SucursalSummary> getByCriteria(SucursalCriteriaDto sucursalRequest);
+
+    /**
+     * Obtiene la entidad por medio del identificador. Regresa NULL en caso de no
+     * existir
+     */
+    Sucursal getById(Long sucursalId) throws NoEncontradoException;
+
+    /**
+     * Elimina una sucursal de la base de datos por su ID. Recibe el ID de la
+     * sucursal a eliminar y elimina la sucursal correspondiente de la base de
+     * datos.
+     * 
+     * @param sucursalId El ID de la sucursal a eliminar
+     */
+    void eliminarSucursal(Long sucursalId);
+
+    void eliminarTipoPago(Long sucursalId, Long sucursalTipoPagoId);
+}

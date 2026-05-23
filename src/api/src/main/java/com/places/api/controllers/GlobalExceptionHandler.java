@@ -1,0 +1,82 @@
+package com.places.api.controllers;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.places.api.domain.dto.ValidacionErrorResponse;
+import com.places.api.domain.exceptions.NoEncontradoException;
+import com.places.api.domain.exceptions.UnauthorizedException;
+import com.places.api.domain.exceptions.ValidacionException;
+
+
+/**
+ * GlobalExceptionHandler es un controlador de asesoramiento global que maneja
+ * las excepciones no controladas en la aplicación.
+ * Proporciona una forma centralizada de manejar las excepciones y devolver
+ * respuestas adecuadas al cliente en caso de errores. Al
+ * utilizar @RestControllerAdvice,
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    /**
+     * Maneja las excepciones de tipo ValidacionException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error y los detalles de
+     * las validaciones que fallaron.
+     * 
+     * @param ex La excepción de validación que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error y los detalles de las
+     *         validaciones que fallaron
+     */
+    @ExceptionHandler(ValidacionException.class)
+    public ResponseEntity<ValidacionErrorResponse> handleValidacionException(ValidacionException ex) {
+        var errorResp = new ValidacionErrorResponse();
+        errorResp.setError(ex.getMessage());
+        errorResp.setErrores(ex.getErrores());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResp);
+    }
+
+    /**
+     * Maneja las excepciones de tipo NoEncontradoException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error indicando que el
+     * recurso no fue encontrado.
+     * 
+     * @param ex La excepción de tipo NoEncontradoException que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error indicando que el recurso
+     *         no fue encontrado
+     */
+    @ExceptionHandler(NoEncontradoException.class)
+    public ResponseEntity<String> handleNoEncontradoException(NoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+
+    /**
+     * Maneja las excepciones de tipo UnauthorizedException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error indicando que la
+     * autenticación ha fallado o que el usuario no tiene los permisos necesarios para acceder al recurso.
+     * @param ex La excepción de tipo UnauthorizedException que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error indicando que la
+     *         autenticación ha fallado o que el usuario no tiene los permisos necesarios para acceder al recurso
+     */
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> handleAuthException(UnauthorizedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    /**
+     * Maneja las excepciones de tipo AuthenticationException que se lanzan en la
+     * aplicación. Devuelve una respuesta con el mensaje de error indicando que las credenciales proporcionadas son inválidas.
+     * @param ex La excepción de tipo AuthenticationException que se ha lanzado
+     * @return Una respuesta HTTP con el mensaje de error indicando que las credenciales proporcionadas son inválidas
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+    }
+
+}

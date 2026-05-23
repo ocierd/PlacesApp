@@ -1,0 +1,114 @@
+package com.places.api.domain;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Sucursal es una entidad que representa una sucursal de una empresa en la
+ * aplicación. Contiene información sobre la sucursal, como su ID, nombre, fecha
+ * de creación, empresa a la que pertenece y su ubicación.
+ * La clase está anotada con @Entity para indicar que es una entidad de JPA y se
+ * mapea a la tabla "sucursal" en la base
+ */
+@Entity
+@Table(name = "sucursal")
+@Getter
+@Setter
+public class Sucursal {
+
+    /**
+     * Identificador único de la sucursal
+     * Es un campo generado automáticamente por la base de datos y se mapea a la
+     * columna "sucursal_id" en la tabla "sucursal".
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sucursal_id")
+    private Long sucursalId;
+
+    /**
+     * Nombre de la sucursal. Es un campo obligatorio que almacena el nombre de la
+     * sucursal. Se mapea a la columna "nombre" en la tabla "sucursal".
+     */
+    @Column(name = "nombre")
+    private String nombre;
+
+    /**
+     * Fecha de creación de la sucursal. Es un campo que almacena la fecha en que se
+     * creó la sucursal. Se mapea a la columna "creado_en" en la tabla "sucursal".
+     * Este campo es de solo lectura y se establece automáticamente al crear una
+     * nueva sucursal, por lo que no se puede insertar ni actualizar manualmente.
+     */
+    @Column(name = "creado_en", insertable = false, updatable = false)
+    private Date creadoEn;
+
+    /**
+     * Identificador de la empresa a la que pertenece la sucursal. Es un campo que
+     * almacena el ID de la empresa a la que está asociada la sucursal. Se mapea a
+     * la columna "empresa_id" en la tabla "sucursal". Este campo es de solo lectura
+     * y se establece automáticamente al asociar una sucursal con una empresa, por
+     * lo que no se puede insertar ni actualizar manualmente.
+     */
+    @Column(name = "empresa_id")
+    private Integer empresaId;
+
+    /**
+     * Relación ManyToOne con la entidad Empresa. Indica que una sucursal pertenece
+     * a una empresa. Se mapea a través de la columna "empresa_id" en la tabla
+     * "sucursal". Esta relación es de solo lectura y se establece automáticamente
+     * al asociar una sucursal con una empresa, por lo que no se puede insertar ni
+     * actualizar manualmente.
+     */
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", insertable = false, updatable = false)
+    private Empresa empresa;
+
+    // @Column(name = "ubicacion_id")
+    // private Long ubicacionId;
+
+    /**
+     * Relación OneToOne con la entidad Ubicacion. Indica que una sucursal tiene una
+     * ubicación asociada. Se mapea a través de la columna "ubicacion_id" en la
+     * tabla "sucursal". Esta relación permite insertar una nueva ubicación al crear
+     * una
+     * sucursal, pero no permite actualizar la ubicación existente.
+     */
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ubicacion_id", nullable = true, insertable = true, updatable = false)
+    private Ubicacion ubicacion;
+
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
+    @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
+    private List<Horario> horarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // ESTO EVITA LA RECURSIÓN INFINITA (Lado directo)
+    private List<SucursalTipoPago> sucursalTiposPago = new ArrayList<>();
+
+    @Column(name = "usuario_id")
+    private Long usuarioId;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    private Usuario usuario;
+
+    @Column(name = "activo", insertable = false)
+    private Boolean activo;
+}
