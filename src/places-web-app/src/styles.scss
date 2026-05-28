@@ -9,6 +9,7 @@
 @use '@styles/themes/places-dark-theme.scss' as pdark;
 @use '@styles/themes/auth-layout-theme.scss' as auth;
 @use '@styles/themes/components-theme.scss' as componentstheme;
+@use '@styles/global.scss'; // Estilos globales de la aplicación
 
 @import '@styles/bootstrap-grid.min.css';
 

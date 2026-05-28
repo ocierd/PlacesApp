@@ -1,0 +1,13 @@
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+@media (max-width: 600px) {
+    .search-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

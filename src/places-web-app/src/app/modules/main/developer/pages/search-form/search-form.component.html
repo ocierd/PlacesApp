@@ -1,0 +1,139 @@
+<!-- Primer formulario de búsqueda -->
+<mat-card class="my-2">
+
+    <mat-card-header class="search-header">
+
+        <mat-card-title>Formulario de búsqueda</mat-card-title>
+
+        <form class="search-form">
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput placeholder="Escribe para buscar..." [formControl]="searchControl1">
+                <button mat-icon-button matSuffix>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button matIconButton matTooltip="Agregar" aria-label="Example icon button with a add icon">
+                <mat-icon>add</mat-icon>
+            </button>
+
+            <button matIconButton matTooltip="Buscar" aria-label="Example icon button with a search icon">
+                <mat-icon>search</mat-icon>
+            </button>
+
+        </form>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <table mat-table [dataSource]="filteredResults1()">
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <!-- Icon Column -->
+            <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef> Icon </th>
+                <td mat-cell *matCellDef="let element"> {{element.icon}} </td>
+                <!-- <td mat-cell *matCellDef="let element"> 
+                    <mat-icon>{{element.icon}}</mat-icon>
+                     </td> -->
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </mat-card-content>
+
+
+</mat-card>
+
+
+
+<!-- Segundo formulario de búsqueda con opciones de exportación -->
+<mat-card class="my-2">
+
+    <mat-card-header class="search-header">
+
+        <mat-card-title>Formulario de búsqueda - 2</mat-card-title>
+
+        <form class="search-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Filstrar</mat-label>
+                <input matInput placeholder="Escribe para buscar..." [formControl]="searchControl2">
+                <button mat-icon-button matSuffix>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button matIconButton matTooltip="Descargar página actual">
+                <mat-icon>arrow_downward</mat-icon>
+            </button>
+
+            <button matIconButton matTooltip="Descargar todos los resultados">
+                <mat-icon>download_2</mat-icon>
+            </button>
+
+        </form>
+    </mat-card-header>
+
+
+    <mat-card-content>
+
+        <table mat-table [dataSource]="filteredResults2()">
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <!-- Icon Column -->
+            <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef> Icon </th>
+                <td mat-cell *matCellDef="let element"> {{element.icon}} </td>
+                <!-- <td mat-cell *matCellDef="let element"> 
+                    <mat-icon>{{element.icon}}</mat-icon>
+                     </td> -->
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+    </mat-card-content>
+
+
+
+</mat-card>

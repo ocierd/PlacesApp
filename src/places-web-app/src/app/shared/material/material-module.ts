@@ -18,6 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 const materialModules = [
@@ -36,9 +37,10 @@ const materialModules = [
   MatCardModule,
   MatDividerModule,
   MatAutocompleteModule,
-  MatTableModule
+  MatTableModule,
   MatStepperModule,
   MatDialogModule,
+  MatPaginatorModule,
 ];
 
 

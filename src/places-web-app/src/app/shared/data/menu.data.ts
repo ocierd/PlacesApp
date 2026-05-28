@@ -4,6 +4,8 @@ export const DEVELOPER_MENU_DATA: MenuItem[] = [
             { menuId: Number.MAX_SAFE_INTEGER - 1, nombre: 'Autocomplete', icono: 'credit_card', ruta: '/main/developer/autocomplete', padreMenuId: Number.MAX_SAFE_INTEGER },
             { menuId: Number.MAX_SAFE_INTEGER - 2, nombre: 'Buttons', icono: 'gamepad_circle_down', ruta: '/main/developer/buttons', padreMenuId: Number.MAX_SAFE_INTEGER },
             { menuId: Number.MAX_SAFE_INTEGER - 3, nombre: 'Dialogs', icono: 'dialog', ruta: '/main/developer/dialogs', padreMenuId: Number.MAX_SAFE_INTEGER },
+            { menuId: Number.MAX_SAFE_INTEGER - 4, nombre: 'Search Form', icono: 'search', ruta: '/main/developer/search-form', padreMenuId: Number.MAX_SAFE_INTEGER },
+            { menuId: Number.MAX_SAFE_INTEGER - 5, nombre: 'Table', icono: 'table_chart', ruta: '/main/developer/table-example', padreMenuId: Number.MAX_SAFE_INTEGER },
         ]
     }
 ];
